@@ -103,6 +103,21 @@
             background: #f0b060;
             color: #0b0a09;
         }
+        .menu-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #3a2a1a;
+            color: #5a4a3a;
+        }
+        .menu-btn.locked:hover {
+            background: transparent;
+            color: #5a4a3a;
+            box-shadow: none;
+        }
+        .menu-btn .lock-icon {
+            font-size: 12px;
+            margin-left: 6px;
+        }
         #difficultyRow {
             display: flex;
             gap: 4px;
@@ -132,6 +147,12 @@
             100% {
                 opacity: 0;
             }
+        }
+        #unlockInfo {
+            color: #7a5a3a;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-top: 2px;
         }
 
         /* ---- UNIFIED SHOP ---- */
@@ -480,6 +501,24 @@
         #crosshair.hit::after {
             background: #ff4444;
         }
+        #crosshair.headshot::before,
+        #crosshair.headshot::after {
+            background: #ff8800;
+            box-shadow: 0 0 20px #ff8800;
+        }
+        #crosshair.hit-marker {
+            animation: hitPulse 0.15s ease-out;
+        }
+        @keyframes hitPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
 
         #topLeftPanel {
             position: absolute;
@@ -563,11 +602,24 @@
             font-size: 12px;
             letter-spacing: 2px;
             color: #7a5a3a;
-            max-width: 260px;
+            max-width: 280px;
             line-height: 1.8;
         }
         #objective .val {
             color: #6f6;
+        }
+        #objective .boss-objective {
+            color: #ff4444;
+            animation: pulse-boss 1s infinite;
+        }
+        @keyframes pulse-boss {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
 
         #minimapWrap {
@@ -676,6 +728,90 @@
         #statPointsDisplay .val {
             color: #f0b060;
             font-weight: bold;
+        }
+        #weaponNameDisplay {
+            position: absolute;
+            top: 52px;
+            left: 280px;
+            font-size: 11px;
+            color: #f0b060;
+            letter-spacing: 2px;
+        }
+        #killFeed {
+            position: absolute;
+            top: 120px;
+            right: 30px;
+            text-align: right;
+            font-size: 12px;
+            color: #ff4444;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        #killFeed .kill-entry {
+            animation: fadeOut 2.5s forwards;
+            opacity: 0;
+            margin-bottom: 4px;
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            10% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+        #damageOverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 45;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.1s;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(255, 0, 0, 0.3) 100%);
+        }
+        #bossAbilityDisplay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff8800;
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px #ff8800;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border: 2px solid #ff8800;
+        }
+        #weaponLevelDisplay {
+            position: absolute;
+            bottom: 58px;
+            left: 280px;
+            font-size: 9px;
+            color: #7a5a3a;
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+        #weaponLevelDisplay .val {
+            color: #f0b060;
+        }
+        #screenShake {
+            position: fixed;
+            inset: 0;
+            z-index: 35;
+            pointer-events: none;
+            display: none;
         }
 
         /* ---- OVERLAYS ---- */
@@ -805,6 +941,7 @@
 
     <canvas id="gameCanvas"></canvas>
     <div id="crt"></div>
+    <div id="screenShake"></div>
 
     <!-- MAIN MENU -->
     <div id="mainMenu">
@@ -826,6 +963,7 @@
                 <button class="menu-btn small" data-diff="impossible">IMPOSSIBLE</button>
                 <button class="menu-btn small" data-diff="hell">HELL</button>
             </div>
+            <div id="unlockInfo">🔒 Complete 10 levels on MEDIUM to unlock HARD</div>
         </div>
         <div class="blink">CLICK TO LOCK — ESC TO RELEASE</div>
     </div>
@@ -853,8 +991,12 @@
             <div><span class="stat-label">BOSSES DEFEATED</span> <span class="stat-value gold" id="statBosses">0</span></div>
             <div><span class="stat-label">TOTAL MONEY EARNED</span> <span class="stat-value green" id="statMoney">0</span></div>
             <div><span class="stat-label">GAMES PLAYED</span> <span class="stat-value blue" id="statGames">0</span></div>
-            <div><span class="stat-label">CURRENT WEAPON</span> <span class="stat-value gold" id="statWeapon">PISTOL</span></div>
+            <div><span class="stat-label">CURRENT WEAPON</span> <span class="stat-value gold" id="statWeapon">COMBAT KNIFE</span></div>
             <div><span class="stat-label">DIFFICULTY</span> <span class="stat-value gold" id="statDifficulty">MEDIUM</span></div>
+            <div><span class="stat-label">HEADSHOTS</span> <span class="stat-value red" id="statHeadshots">0</span></div>
+            <div><span class="stat-label">BOSS ABILITIES DODGED</span> <span class="stat-value blue" id="statDodges">0</span></div>
+            <div><span class="stat-label">HIGHEST LEVEL CLEARED</span> <span class="stat-value gold" id="statHighestLevel">0</span></div>
+            <div><span class="stat-label">WEAPONS MASTERED</span> <span class="stat-value gold" id="statMastered">0</span></div>
         </div>
         <button id="statsClose">CLOSE</button>
     </div>
@@ -877,19 +1019,22 @@
             <b>CONTROLS</b><br>
             <span class="key">W A S D</span> — Move<br>
             <span class="key">MOUSE</span> — Look<br>
-            <span class="key">LEFT CLICK</span> — Fire<br>
+            <span class="key">LEFT CLICK</span> — Attack<br>
+            <span class="key">RIGHT CLICK</span> — Heavy Melee<br>
             <span class="key">R</span> — Toggle Flashlight<br>
-            <span class="key">F</span> — Flare (scare enemies)<br>
+            <span class="key">F</span> — Flare<br>
             <span class="key">SHIFT</span> — Sprint<br>
             <span class="key">SPACE</span> — Jump<br>
+            <span class="key">C</span> — Crouch<br>
+            <span class="key">Q</span> — Weapon Inspect<br>
             <span class="key">ESC / P</span> — Pause<br><br>
-            <b>GAME RULES</b><br>
-            • <b style="color:#6f6;">$25</b> per kill<br>
-            • <b style="color:#6f6;">$100</b> per level clear<br>
-            • <b style="color:#ff4444;">BOSS</b> every 5 levels<br>
-            • Sanity drains in darkness<br>
-            • Find the green exit to advance<br>
-            • <b style="color:#f0b060;">Stat Points</b> from kills (1%), bosses (100%), level clear (50%)
+            <b>DIFFICULTY BOSS RATES</b><br>
+            • <b style="color:#6f6;">EASY</b> — Boss every 10 levels<br>
+            • <b style="color:#88aaff;">MEDIUM</b> — Boss every 7 levels<br>
+            • <b style="color:#ff8844;">HARD</b> — Boss every 5 levels<br>
+            • <b style="color:#ff4444;">EXTREME</b> — Boss every 3 levels<br>
+            • <b style="color:#ff00ff;">IMPOSSIBLE</b> — Boss every level<br>
+            • <b style="color:#ff0000;">HELL</b> — All enemies are BOSSES with abilities!
         </div>
         <button id="settingsClose">CLOSE</button>
     </div>
@@ -910,6 +1055,7 @@
         <div id="moneyDisplay">💰 <span class="val" id="moneyVal">0</span></div>
         <div id="shieldDisplay">🛡 SHIELD: <span class="val" id="shieldVal">0</span></div>
         <div id="statPointsDisplay">⭐ <span class="val" id="statPointsVal">0</span></div>
+        <div id="weaponNameDisplay">🔪 <span class="val" id="weaponNameVal">COMBAT KNIFE</span></div>
 
         <div id="sanityWrap">
             <div>SANITY <span id="sanityVal" class="val">100%</span></div>
@@ -930,6 +1076,7 @@
             <div class="val" id="ammoVal">READY</div>
             WEAPON
         </div>
+        <div id="weaponLevelDisplay">LEVEL <span class="val" id="weaponLevelVal">1</span></div>
 
         <div id="minimapWrap"><canvas id="minimap"></canvas></div>
 
@@ -937,7 +1084,11 @@
         <div id="heartbeat">💓 💓 💓</div>
         <div id="jumpCooldown">JUMP READY</div>
         <div id="bossIndicator">⚠ BOSS APPROACHING ⚠</div>
+        <div id="bossAbilityDisplay"></div>
+        <div id="killFeed"></div>
     </div>
+
+    <div id="damageOverlay"></div>
 
     <!-- SAVE NOTIFICATION -->
     <div id="saveNotify">💾 GAME SAVED</div>
@@ -966,6 +1117,196 @@
         (function() {
             "use strict";
 
+            // ---- DIFFICULTY UNLOCK SYSTEM ----
+            const DIFFICULTY_UNLOCKS = {
+                easy: { require: null, label: 'EASY' },
+                medium: { require: null, label: 'MEDIUM' },
+                hard: { require: 'medium', requireLevel: 10, label: 'HARD' },
+                extreme: { require: 'hard', requireLevel: 10, label: 'EXTREME' },
+                impossible: { require: 'extreme', requireLevel: 10, label: 'IMPOSSIBLE' },
+                hell: { require: 'impossible', requireLevel: 10, label: 'HELL' },
+            };
+
+            let unlockedDifficulties = ['easy', 'medium'];
+            let highestLevelCleared = 0;
+
+            function checkDifficultyUnlocks() {
+                const order = ['easy', 'medium', 'hard', 'extreme', 'impossible', 'hell'];
+                for (let i = 0; i < order.length; i++) {
+                    const diff = order[i];
+                    const unlockInfo = DIFFICULTY_UNLOCKS[diff];
+                    if (unlockInfo.require && unlockInfo.requireLevel) {
+                        if (unlockedDifficulties.includes(unlockInfo.require) && highestLevelCleared >= unlockInfo
+                            .requireLevel) {
+                            if (!unlockedDifficulties.includes(diff)) {
+                                unlockedDifficulties.push(diff);
+                                unlockedDifficulties.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+                            }
+                        }
+                    }
+                }
+                updateDifficultyButtons();
+                updateUnlockInfo();
+            }
+
+            function updateDifficultyButtons() {
+                document.querySelectorAll('#difficultyRow .menu-btn').forEach(btn => {
+                    const diff = btn.dataset.diff;
+                    const isUnlocked = unlockedDifficulties.includes(diff);
+                    btn.classList.toggle('locked', !isUnlocked);
+                    if (isUnlocked) {
+                        btn.innerHTML = DIFFICULTY_UNLOCKS[diff].label;
+                    } else {
+                        const unlockInfo = DIFFICULTY_UNLOCKS[diff];
+                        const required = unlockInfo.require ? unlockInfo.require.toUpperCase() : '';
+                        const level = unlockInfo.requireLevel || 0;
+                        btn.innerHTML = `${DIFFICULTY_UNLOCKS[diff].label} 🔒`;
+                    }
+                    if (currentDifficulty === diff && !isUnlocked) {
+                        currentDifficulty = 'medium';
+                        diffConfig = DIFFICULTIES.medium;
+                        document.querySelectorAll('#difficultyRow .menu-btn').forEach(b => {
+                            b.classList.toggle('active-mode', b.dataset.diff === currentDifficulty);
+                        });
+                    }
+                });
+            }
+
+            function updateUnlockInfo() {
+                const info = document.getElementById('unlockInfo');
+                const order = ['easy', 'medium', 'hard', 'extreme', 'impossible', 'hell'];
+                let nextDiff = null;
+                for (const diff of order) {
+                    if (!unlockedDifficulties.includes(diff)) {
+                        nextDiff = diff;
+                        break;
+                    }
+                }
+                if (nextDiff) {
+                    const unlockInfo = DIFFICULTY_UNLOCKS[nextDiff];
+                    const required = unlockInfo.require ? unlockInfo.require.toUpperCase() : '';
+                    const level = unlockInfo.requireLevel || 0;
+                    info.textContent = `🔒 Complete ${level} levels on ${required} to unlock ${unlockInfo.label}`;
+                } else {
+                    info.textContent = '✅ All difficulties unlocked!';
+                }
+            }
+
+            // ---- DIFFICULTIES ----
+            const DIFFICULTIES = {
+                easy: {
+                    label: 'EASY',
+                    enemyCount: 3,
+                    enemySpeed: 1.0,
+                    damagePerSec: 6,
+                    sanityDrain: 0.6,
+                    scoreMult: 0.8,
+                    moneyMult: 0.8,
+                    health: 130,
+                    bossHealthMult: 0.8,
+                    bossDamageMult: 0.6,
+                    bossInterval: 10,
+                    healthScaling: 0.15,
+                    enemyScaling: 0.3,
+                    hellMode: false,
+                    allBoss: false,
+                    bossAbilities: false,
+                },
+                medium: {
+                    label: 'MEDIUM',
+                    enemyCount: 5,
+                    enemySpeed: 1.4,
+                    damagePerSec: 12,
+                    sanityDrain: 1.5,
+                    scoreMult: 1.0,
+                    moneyMult: 1.0,
+                    health: 100,
+                    bossHealthMult: 1.2,
+                    bossDamageMult: 0.9,
+                    bossInterval: 7,
+                    healthScaling: 0.35,
+                    enemyScaling: 0.8,
+                    hellMode: false,
+                    allBoss: false,
+                    bossAbilities: false,
+                },
+                hard: {
+                    label: 'HARD',
+                    enemyCount: 8,
+                    enemySpeed: 1.8,
+                    damagePerSec: 20,
+                    sanityDrain: 2.5,
+                    scoreMult: 1.3,
+                    moneyMult: 1.3,
+                    health: 80,
+                    bossHealthMult: 1.8,
+                    bossDamageMult: 1.2,
+                    bossInterval: 5,
+                    healthScaling: 0.55,
+                    enemyScaling: 1.3,
+                    hellMode: false,
+                    allBoss: false,
+                    bossAbilities: false,
+                },
+                extreme: {
+                    label: 'EXTREME',
+                    enemyCount: 11,
+                    enemySpeed: 2.2,
+                    damagePerSec: 28,
+                    sanityDrain: 3.5,
+                    scoreMult: 1.7,
+                    moneyMult: 1.7,
+                    health: 65,
+                    bossHealthMult: 2.5,
+                    bossDamageMult: 1.6,
+                    bossInterval: 3,
+                    healthScaling: 0.75,
+                    enemyScaling: 1.8,
+                    hellMode: false,
+                    allBoss: false,
+                    bossAbilities: false,
+                },
+                impossible: {
+                    label: 'IMPOSSIBLE',
+                    enemyCount: 14,
+                    enemySpeed: 2.6,
+                    damagePerSec: 35,
+                    sanityDrain: 4.5,
+                    scoreMult: 2.2,
+                    moneyMult: 2.2,
+                    health: 50,
+                    bossHealthMult: 3.5,
+                    bossDamageMult: 2.0,
+                    bossInterval: 1,
+                    healthScaling: 1.0,
+                    enemyScaling: 2.2,
+                    hellMode: false,
+                    allBoss: false,
+                    bossAbilities: true,
+                },
+                hell: {
+                    label: 'HELL',
+                    enemyCount: 6,
+                    enemySpeed: 2.8,
+                    damagePerSec: 40,
+                    sanityDrain: 6.0,
+                    scoreMult: 3.0,
+                    moneyMult: 3.0,
+                    health: 35,
+                    bossHealthMult: 4.0,
+                    bossDamageMult: 2.5,
+                    bossInterval: 1,
+                    healthScaling: 1.5,
+                    enemyScaling: 0,
+                    hellMode: true,
+                    allBoss: true,
+                    bossAbilities: true,
+                },
+            };
+
+            let currentDifficulty = 'medium';
+            let diffConfig = DIFFICULTIES.medium;
+
             // ---- AUDIO ----
             const AudioSys = (function() {
                 let ctx = null;
@@ -991,6 +1332,7 @@
                 return {
                     shoot() { beep(180, 0.08, 'square', 0.10, 70); },
                     hit() { beep(660, 0.07, 'square', 0.12, 400); },
+                    headshot() { beep(880, 0.1, 'sine', 0.15, 1200); },
                     hurt() { beep(100, 0.3, 'sawtooth', 0.15, 50); },
                     clear() { beep(440, 0.15, 'sine', 0.12, 880);
                         setTimeout(() => beep(660, 0.2, 'sine', 0.12, 1200), 150); },
@@ -1000,59 +1342,81 @@
                     jump() { beep(120, 0.05, 'sine', 0.04, 200); },
                     boss() { beep(150, 0.5, 'sawtooth', 0.2, 60);
                         setTimeout(() => beep(200, 0.4, 'sawtooth', 0.15, 100), 300); },
+                    knife() { beep(300, 0.05, 'sawtooth', 0.08, 100); },
+                    heavyKnife() { beep(250, 0.1, 'sawtooth', 0.12, 80); },
+                    bossAbility() { beep(400, 0.3, 'sine', 0.15, 800); },
+                    dodge() { beep(500, 0.05, 'sine', 0.08, 1000); },
+                    levelUp() { beep(500, 0.1, 'sine', 0.12, 800);
+                        setTimeout(() => beep(700, 0.15, 'sine', 0.12, 1000), 150); },
                 };
             })();
 
-            // ---- DIFFICULTY ----
-            const DIFFICULTIES = {
-                easy: { enemyCount: 3, enemySpeed: 1.2, damagePerSec: 8, sanityDrain: 0.8, scoreMult: 0.8, moneyMult: 0.8,
-                    health: 120, bossHealthMult: 1.0, bossDamageMult: 0.7 },
-                medium: { enemyCount: 5, enemySpeed: 1.6, damagePerSec: 15, sanityDrain: 1.8, scoreMult: 1.0,
-                    moneyMult: 1.0, health: 100, bossHealthMult: 1.5, bossDamageMult: 1.0 },
-                hard: { enemyCount: 8, enemySpeed: 2.0, damagePerSec: 22, sanityDrain: 2.8, scoreMult: 1.3,
-                    moneyMult: 1.3, health: 85, bossHealthMult: 2.0, bossDamageMult: 1.3 },
-                extreme: { enemyCount: 11, enemySpeed: 2.4, damagePerSec: 30, sanityDrain: 3.8, scoreMult: 1.7,
-                    moneyMult: 1.7, health: 70, bossHealthMult: 2.8, bossDamageMult: 1.7 },
-                impossible: { enemyCount: 14, enemySpeed: 2.8, damagePerSec: 38, sanityDrain: 5.0, scoreMult: 2.2,
-                    moneyMult: 2.2, health: 55, bossHealthMult: 3.5, bossDamageMult: 2.2 },
-                hell: { enemyCount: 18, enemySpeed: 3.2, damagePerSec: 48, sanityDrain: 6.5, scoreMult: 3.0,
-                    moneyMult: 3.0, health: 40, bossHealthMult: 4.5, bossDamageMult: 3.0 },
-            };
-            let currentDifficulty = 'medium';
-            let diffConfig = DIFFICULTIES.medium;
-
             // ---- WEAPONS ----
             const WEAPONS = [
-                { id: 'pistol', name: 'PISTOL', damage: 25, fireRate: 0.28, range: 30, price: 0, owned: true,
-                equipped: true },
-                { id: 'smg', name: 'SMG', damage: 20, fireRate: 0.10, range: 25, price: 300, owned: false,
-                equipped: false },
-                { id: 'shotgun', name: 'SHOTGUN', damage: 55, fireRate: 0.45, range: 18, price: 450, owned: false,
-                    equipped: false },
-                { id: 'rifle', name: 'RIFLE', damage: 42, fireRate: 0.16, range: 45, price: 600, owned: false,
-                    equipped: false },
-                { id: 'sniper', name: 'SNIPER', damage: 95, fireRate: 0.7, range: 60, price: 800, owned: false,
-                    equipped: false },
-                { id: 'rpg', name: 'RPG', damage: 150, fireRate: 1.2, range: 35, price: 1200, owned: false,
-                    equipped: false },
-                { id: 'minigun', name: 'MINIGUN', damage: 18, fireRate: 0.05, range: 22, price: 1000, owned: false,
-                    equipped: false },
-                { id: 'laser', name: 'LASER', damage: 60, fireRate: 0.12, range: 50, price: 750, owned: false,
-                    equipped: false },
-                { id: 'revolver', name: 'REVOLVER', damage: 80, fireRate: 0.5, range: 40, price: 650, owned: false,
-                    equipped: false },
-                { id: 'ak47', name: 'AK-47', damage: 45, fireRate: 0.12, range: 40, price: 900, owned: false,
-                    equipped: false },
-                { id: 'deagle', name: 'DEAGLE', damage: 85, fireRate: 0.4, range: 38, price: 700, owned: false,
-                    equipped: false },
-                { id: 'flamethrower', name: 'FLAMETHROWER', damage: 35, fireRate: 0.08, range: 15, price: 1100,
-                    owned: false, equipped: false },
-                { id: 'railgun', name: 'RAILGUN', damage: 200, fireRate: 1.0, range: 70, price: 2000, owned: false,
-                    equipped: false },
+                { id: 'knife', name: 'COMBAT KNIFE', damage: 30, fireRate: 0.35, range: 1.8, price: 0, owned: true,
+                    equipped: true, spread: 0, ammo: 0, maxAmmo: 0, reloadTime: 0, auto: false, desc: 'Melee weapon',
+                    color: '#888888', isMelee: true, xp: 0, level: 1, mastered: false },
+                { id: 'm9', name: 'M9 PISTOL', damage: 25, fireRate: 0.28, range: 30, price: 200, owned: false,
+                    equipped: false, spread: 0.02, ammo: 15, maxAmmo: 15, reloadTime: 1.2, auto: false,
+                    desc: 'Standard sidearm', color: '#f0b060', isMelee: false, xp: 0, level: 1, mastered: false },
+                { id: 'mp5', name: 'MP5 SMG', damage: 18, fireRate: 0.08, range: 25, price: 400, owned: false,
+                    equipped: false, spread: 0.06, ammo: 30, maxAmmo: 30, reloadTime: 1.5, auto: true,
+                    desc: 'High rate of fire', color: '#88aaff', isMelee: false, xp: 0, level: 1, mastered: false },
+                { id: 'm870', name: 'M870 SHOTGUN', damage: 12, fireRate: 0.45, range: 15, price: 550, owned: false,
+                    equipped: false, spread: 0.15, ammo: 6, maxAmmo: 6, reloadTime: 2.0, auto: false,
+                    desc: 'Devastating close range', color: '#ff8844', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'm4a1', name: 'M4A1 CARBINE', damage: 35, fireRate: 0.14, range: 45, price: 700, owned: false,
+                    equipped: false, spread: 0.03, ammo: 30, maxAmmo: 30, reloadTime: 1.8, auto: true,
+                    desc: 'Versatile combat rifle', color: '#44ff88', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'm24', name: 'M24 SNIPER', damage: 120, fireRate: 0.9, range: 80, price: 900, owned: false,
+                    equipped: false, spread: 0.005, ammo: 5, maxAmmo: 5, reloadTime: 2.5, auto: false,
+                    desc: 'Long range precision', color: '#ff44ff', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'rpg7', name: 'RPG-7', damage: 200, fireRate: 1.5, range: 40, price: 1300, owned: false,
+                    equipped: false, spread: 0.1, ammo: 1, maxAmmo: 1, reloadTime: 3.0, auto: false,
+                    desc: 'Explosive devastation', color: '#ff4444', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'm134', name: 'M134 MINIGUN', damage: 10, fireRate: 0.04, range: 22, price: 1100, owned: false,
+                    equipped: false, spread: 0.1, ammo: 100, maxAmmo: 100, reloadTime: 3.5, auto: true,
+                    desc: 'Unleash a storm of lead', color: '#ff8800', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'phaser', name: 'PHASER RIFLE', damage: 45, fireRate: 0.10, range: 55, price: 850, owned: false,
+                    equipped: false, spread: 0.01, ammo: 20, maxAmmo: 20, reloadTime: 1.6, auto: true,
+                    desc: 'Precise energy weapon', color: '#44ffff', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'python', name: 'PYTHON REVOLVER', damage: 80, fireRate: 0.5, range: 40, price: 750, owned: false,
+                    equipped: false, spread: 0.015, ammo: 6, maxAmmo: 6, reloadTime: 2.2, auto: false,
+                    desc: 'Powerful hand cannon', color: '#ffaa44', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'ak47', name: 'AK-47', damage: 40, fireRate: 0.12, range: 42, price: 1000, owned: false,
+                    equipped: false, spread: 0.05, ammo: 30, maxAmmo: 30, reloadTime: 1.6, auto: true,
+                    desc: 'Iconic assault rifle', color: '#aa8844', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'deagle', name: 'DEAGLE .50', damage: 90, fireRate: 0.4, range: 38, price: 800, owned: false,
+                    equipped: false, spread: 0.02, ammo: 7, maxAmmo: 7, reloadTime: 1.8, auto: false,
+                    desc: 'High-caliber pistol', color: '#ffcc44', isMelee: false, xp: 0, level: 1,
+                mastered: false },
+                { id: 'flamer', name: 'FLAMETHROWER', damage: 25, fireRate: 0.06, range: 12, price: 1200,
+                    owned: false, equipped: false, spread: 0.2, ammo: 50, maxAmmo: 50, reloadTime: 2.8,
+                    auto: true, desc: 'Burn everything', color: '#ff4400', isMelee: false, xp: 0, level: 1,
+                    mastered: false },
+                { id: 'railgun', name: 'RAILGUN', damage: 250, fireRate: 1.2, range: 100, price: 2200, owned: false,
+                    equipped: false, spread: 0.001, ammo: 3, maxAmmo: 3, reloadTime: 3.5, auto: false,
+                    desc: 'Penetrating power', color: '#00ffff', isMelee: false, xp: 0, level: 1, mastered: false },
             ];
+
             let currentWeapon = WEAPONS[0];
             let money = 0;
             let statPoints = 0;
+            let currentAmmo = 0;
+            let isReloading = false;
+            let reloadTimer = 0;
+            let headshots = 0;
+            let dodges = 0;
+            let screenShakeIntensity = 0;
+            let weaponMastered = 0;
 
             // ---- STATS SYSTEM ----
             const PLAYER_STATS = {
@@ -1061,8 +1425,9 @@
                 defense: { level: 0, cost: 2, max: 20, label: '🛡️ DEFENSE', bonus: 2 },
                 speed: { level: 0, cost: 2, max: 20, label: '💨 SPEED', bonus: 0.05 },
                 luck: { level: 0, cost: 3, max: 15, label: '🍀 LUCK', bonus: 0.01 },
+                ammo: { level: 0, cost: 2, max: 15, label: '📦 AMMO', bonus: 2 },
             };
-            let playerStatLevels = { health: 0, damage: 0, defense: 0, speed: 0, luck: 0 };
+            let playerStatLevels = { health: 0, damage: 0, defense: 0, speed: 0, luck: 0, ammo: 0 };
 
             function getStatBonus(stat) {
                 return PLAYER_STATS[stat].bonus * playerStatLevels[stat];
@@ -1088,6 +1453,15 @@
                 return getStatBonus('luck');
             }
 
+            function getAmmoBonus() {
+                return getStatBonus('ammo');
+            }
+
+            function getMaxAmmoForWeapon(weapon) {
+                if (weapon.isMelee) return 0;
+                return weapon.maxAmmo + Math.floor(getAmmoBonus() / 2);
+            }
+
             // ---- TOOLS ----
             const TOOLS = [
                 { id: 'map_reveal', name: 'MAP REVEAL', price: 150, desc: 'Reveals minimap for 10s', owned: false },
@@ -1095,6 +1469,7 @@
                 { id: 'sanity_boost', name: 'SANITY BOOST', price: 120, desc: 'Restore 40 Sanity', owned: false },
                 { id: 'speed_boost', name: 'SPEED BOOST', price: 200, desc: '+50% speed for 8s', owned: false },
                 { id: 'shield', name: 'SHIELD', price: 250, desc: 'Absorb 50 damage', owned: false },
+                { id: 'xp_boost', name: 'XP BOOST', price: 300, desc: 'Double weapon XP for 10 kills', owned: false },
             ];
             let tools = JSON.parse(JSON.stringify(TOOLS));
 
@@ -1106,6 +1481,9 @@
                 bossesDefeated: 0,
                 totalMoney: 0,
                 gamesPlayed: 0,
+                headshots: 0,
+                dodges: 0,
+                mastered: 0,
             };
 
             function updateStatsUI() {
@@ -1116,7 +1494,41 @@
                 document.getElementById('statMoney').textContent = stats.totalMoney;
                 document.getElementById('statGames').textContent = stats.gamesPlayed;
                 document.getElementById('statWeapon').textContent = currentWeapon.name;
-                document.getElementById('statDifficulty').textContent = currentDifficulty.toUpperCase();
+                document.getElementById('statDifficulty').textContent = diffConfig.label;
+                document.getElementById('statHeadshots').textContent = stats.headshots;
+                document.getElementById('statDodges').textContent = stats.dodges;
+                document.getElementById('statHighestLevel').textContent = stats.highestLevel;
+                document.getElementById('statMastered').textContent = stats.mastered;
+                document.getElementById('weaponNameVal').textContent = currentWeapon.name;
+                document.getElementById('weaponLevelVal').textContent = currentWeapon.level;
+                highestLevelCleared = stats.highestLevel;
+                checkDifficultyUnlocks();
+            }
+
+            function getWeaponXpToLevel(level) {
+                return level * 50;
+            }
+
+            function addWeaponXP(xp) {
+                const weapon = currentWeapon;
+                if (!weapon || weapon.isMelee) return;
+                const xpBoost = tools.find(t => t.id === 'xp_boost' && t.owned) ? 2 : 1;
+                weapon.xp += xp * xpBoost;
+                const needed = getWeaponXpToLevel(weapon.level);
+                while (weapon.xp >= needed && weapon.level < 10) {
+                    weapon.xp -= needed;
+                    weapon.level++;
+                    AudioSys.levelUp();
+                    showMessage(`⭐ ${weapon.name} reached level ${weapon.level}!`);
+                    if (weapon.level === 10 && !weapon.mastered) {
+                        weapon.mastered = true;
+                        weaponMastered++;
+                        stats.mastered++;
+                        showMessage(`🏆 ${weapon.name} MASTERED!`);
+                    }
+                }
+                document.getElementById('weaponLevelVal').textContent = weapon.level;
+                updateStatsUI();
             }
 
             // ---- SAVE SYSTEM ----
@@ -1129,13 +1541,20 @@
                         health: health,
                         sanity: sanity,
                         difficulty: currentDifficulty,
-                        weapons: WEAPONS.map(w => ({ id: w.id, owned: w.owned, equipped: w.equipped })),
+                        weapons: WEAPONS.map(w => ({ id: w.id, owned: w.owned, equipped: w.equipped, xp: w.xp,
+                            level: w.level, mastered: w.mastered })),
                         weaponIndex: WEAPONS.indexOf(currentWeapon),
                         tools: tools.map(t => ({ id: t.id, owned: t.owned })),
                         shield: shieldAmount,
                         stats: stats,
                         statPoints: statPoints,
                         playerStats: playerStatLevels,
+                        ammo: currentAmmo,
+                        headshots: headshots,
+                        dodges: dodges,
+                        unlockedDifficulties: unlockedDifficulties,
+                        highestLevelCleared: highestLevelCleared,
+                        weaponMastered: weaponMastered,
                         timestamp: Date.now()
                     };
                     localStorage.setItem('bunker9_save', JSON.stringify(saveData));
@@ -1164,6 +1583,16 @@
                 sanity = data.sanity || 100;
                 shieldAmount = data.shield || 0;
                 statPoints = data.statPoints || 0;
+                currentAmmo = data.ammo || 0;
+                headshots = data.headshots || 0;
+                dodges = data.dodges || 0;
+                weaponMastered = data.weaponMastered || 0;
+                if (data.unlockedDifficulties) {
+                    unlockedDifficulties = data.unlockedDifficulties;
+                }
+                if (data.highestLevelCleared) {
+                    highestLevelCleared = data.highestLevelCleared;
+                }
                 if (data.playerStats) {
                     playerStatLevels = data.playerStats;
                 }
@@ -1173,15 +1602,17 @@
                 if (data.difficulty && DIFFICULTIES[data.difficulty]) {
                     currentDifficulty = data.difficulty;
                     diffConfig = DIFFICULTIES[currentDifficulty];
-                    document.querySelectorAll('#difficultyRow .menu-btn').forEach(b => {
-                        b.classList.toggle('active-mode', b.dataset.diff === currentDifficulty);
-                    });
                 }
                 if (data.weapons) {
                     data.weapons.forEach(saveW => {
                         const w = WEAPONS.find(w => w.id === saveW.id);
-                        if (w) { w.owned = saveW.owned;
-                            w.equipped = saveW.equipped; }
+                        if (w) {
+                            w.owned = saveW.owned;
+                            w.equipped = saveW.equipped;
+                            w.xp = saveW.xp || 0;
+                            w.level = saveW.level || 1;
+                            w.mastered = saveW.mastered || false;
+                        }
                     });
                     if (data.weaponIndex !== undefined && data.weaponIndex >= 0 && data.weaponIndex < WEAPONS.length) {
                         const w = WEAPONS[data.weaponIndex];
@@ -1209,13 +1640,463 @@
                 document.getElementById('shieldVal').textContent = Math.round(shieldAmount);
                 document.getElementById('shieldDisplay').style.opacity = shieldAmount > 0 ? 1 : 0;
                 document.getElementById('statPointsVal').textContent = statPoints;
+                document.getElementById('weaponNameVal').textContent = currentWeapon.name;
+                document.getElementById('weaponLevelVal').textContent = currentWeapon.level;
+                document.getElementById('statHeadshots').textContent = headshots;
+                document.getElementById('statDodges').textContent = dodges;
+                document.getElementById('statMastered').textContent = weaponMastered;
                 renderHealthBar();
                 updateStatsUI();
+                updateAmmoDisplay();
+                updateDifficultyButtons();
+                updateUnlockInfo();
                 return true;
             }
 
-            // ---- MAZE GEN ----
+            function updateAmmoDisplay() {
+                if (currentWeapon.isMelee) {
+                    document.getElementById('ammoVal').textContent = '—';
+                    return;
+                }
+                const maxAmmo = getMaxAmmoForWeapon(currentWeapon);
+                document.getElementById('ammoVal').textContent = isReloading ? 'RELOADING' : `${Math.floor(currentAmmo)}/${maxAmmo}`;
+            }
+
+            // ---- SCREEN SHAKE ----
+            function applyScreenShake(intensity) {
+                screenShakeIntensity = intensity;
+                const shake = document.getElementById('screenShake');
+                shake.style.display = 'block';
+                const maxOffset = intensity * 12;
+                const x = (Math.random() - 0.5) * maxOffset * 2;
+                const y = (Math.random() - 0.5) * maxOffset * 2;
+                canvas.style.transform = `translate(${x}px, ${y}px)`;
+                setTimeout(() => {
+                    canvas.style.transform = '';
+                    shake.style.display = 'none';
+                }, 100);
+            }
+
+            // ---- BOSS ABILITIES ----
+            const BOSS_ABILITIES = {
+                PULL: {
+                    name: 'PULL',
+                    duration: 0.5,
+                    cooldown: 5,
+                    color: '#ff44ff',
+                    execute: function(boss, player) {
+                        const dir = new THREE.Vector3().subVectors(boss.position, player.position).normalize();
+                        const distance = 3;
+                        const targetPos = player.position.clone().add(dir.multiplyScalar(distance));
+                        player.position.copy(targetPos);
+                        AudioSys.bossAbility();
+                        showBossAbility('🌀 PULL!');
+                        applyScreenShake(0.5);
+                        return true;
+                    }
+                },
+                SUMMON: {
+                    name: 'SUMMON',
+                    duration: 1.0,
+                    cooldown: 8,
+                    color: '#44ff44',
+                    execute: function(boss, player, scene, enemies) {
+                        const count = 2 + Math.floor(Math.random() * 2);
+                        for (let i = 0; i < count; i++) {
+                            const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
+                            const dist = 3 + Math.random() * 2;
+                            const pos = boss.position.clone().add(new THREE.Vector3(
+                                Math.cos(angle) * dist,
+                                0.9,
+                                Math.sin(angle) * dist
+                            ));
+                            const miniMat = new THREE.MeshStandardMaterial({
+                                color: 0x662222,
+                                emissive: 0xff3333,
+                                emissiveIntensity: 0.3
+                            });
+                            const mini = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.8, 0.5), miniMat);
+                            mini.position.copy(pos);
+                            mini.userData.isEnemy = true;
+                            mini.userData.isBoss = false;
+                            mini.userData.type = 'summoned';
+                            mini.userData.cell = { i: Math.floor(pos.x / CELL), j: Math.floor(pos.z / CELL) };
+                            mini.userData.path = null;
+                            mini.userData.repathTimer = 0.2;
+                            mini.userData.speed = diffConfig.enemySpeed * 1.5;
+                            mini.userData.maxHp = 20 + level * 2;
+                            mini.userData.hp = mini.userData.maxHp;
+                            mini.userData.scareTimer = 0;
+                            mini.userData.height = 0.8;
+                            mini.userData.attackRange = 1.2;
+                            mini.userData.attackCooldown = 0.8;
+                            mini.userData.attackTimer = 0;
+                            mini.userData.damageMult = 0.6;
+                            mini.castShadow = true;
+                            mini.receiveShadow = true;
+                            scene.add(mini);
+                            enemies.push(mini);
+                        }
+                        AudioSys.bossAbility();
+                        showBossAbility('👾 SUMMON!');
+                        return true;
+                    }
+                },
+                TELEPORT: {
+                    name: 'TELEPORT',
+                    duration: 0.3,
+                    cooldown: 6,
+                    color: '#44ffff',
+                    execute: function(boss, player, scene) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = 4 + Math.random() * 3;
+                        const newPos = player.position.clone().add(new THREE.Vector3(
+                            Math.cos(angle) * dist,
+                            boss.position.y,
+                            Math.sin(angle) * dist
+                        ));
+                        const cellI = Math.floor(newPos.x / CELL);
+                        const cellJ = Math.floor(newPos.z / CELL);
+                        if (cellI >= 0 && cellI < cols && cellJ >= 0 && cellJ < rows) {
+                            boss.position.copy(newPos);
+                            AudioSys.bossAbility();
+                            showBossAbility('🌀 TELEPORT!');
+                            applyScreenShake(0.3);
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                SHOCKWAVE: {
+                    name: 'SHOCKWAVE',
+                    duration: 0.8,
+                    cooldown: 7,
+                    color: '#ff8800',
+                    execute: function(boss, player, scene) {
+                        const dist = boss.position.distanceTo(player.position);
+                        if (dist < 5) {
+                            const damage = 15 * diffConfig.bossDamageMult;
+                            let dmg = damage;
+                            if (shieldAmount > 0) {
+                                const absorbed = Math.min(shieldAmount, dmg);
+                                shieldAmount -= absorbed;
+                                dmg -= absorbed;
+                                if (shieldAmount <= 0) shieldAmount = 0;
+                                document.getElementById('shieldVal').textContent = Math.round(shieldAmount);
+                                document.getElementById('shieldDisplay').style.opacity = shieldAmount > 0 ? 1 :
+                                    0;
+                            }
+                            health -= dmg;
+                            hitFlashTimer = 0.3;
+                            damageOverlay.style.opacity = Math.min(0.5, dmg / 50);
+                            setTimeout(() => { damageOverlay.style.opacity = 0; }, 300);
+                            AudioSys.hurt();
+                            applyScreenShake(0.8);
+                            const dir = new THREE.Vector3().subVectors(player.position, boss.position).normalize();
+                            player.position.add(dir.multiplyScalar(2));
+                            showBossAbility('💥 SHOCKWAVE!');
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                cooldowns: {
+                    PULL: 0,
+                    SUMMON: 0,
+                    TELEPORT: 0,
+                    SHOCKWAVE: 0,
+                }
+            };
+
+            let bossAbilityCooldowns = {};
+
+            function getBossAbilityCooldowns() {
+                return {
+                    PULL: 0,
+                    SUMMON: 0,
+                    TELEPORT: 0,
+                    SHOCKWAVE: 0,
+                };
+            }
+
+            function showBossAbility(text) {
+                const display = document.getElementById('bossAbilityDisplay');
+                display.textContent = text;
+                display.style.opacity = 1;
+                setTimeout(() => { display.style.opacity = 0; }, 1500);
+            }
+
+            // ---- TEXTURE GENERATORS ----
             const CELL = 6;
+
+            function createTexture(width, height, color, pattern) {
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = color;
+                ctx.fillRect(0, 0, width, height);
+                if (pattern) pattern(ctx, width, height);
+                const texture = new THREE.CanvasTexture(canvas);
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(2, 2);
+                texture.anisotropy = 4;
+                return texture;
+            }
+
+            function createMonsterTexture(type) {
+                const colors = {
+                    grunt: { base: '#441111', emissive: '200,40,40', detail: '#661122' },
+                    fast: { base: '#112244', emissive: '70,140,255', detail: '#223366' },
+                    tank: { base: '#333311', emissive: '140,180,70', detail: '#444422' },
+                    brute: { base: '#441111', emissive: '200,70,70', detail: '#552222' },
+                    spitter: { base: '#113311', emissive: '70,255,70', detail: '#224422' },
+                    summoned: { base: '#442222', emissive: '255,50,50', detail: '#552222' },
+                };
+                const c = colors[type] || colors.grunt;
+                return createTexture(256, 256, c.base, (ctx, w, h) => {
+                    for (let i = 0; i < 500; i++) {
+                        ctx.fillStyle = `rgba(0,0,0,${Math.random()*0.1})`;
+                        ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1 + Math.random() *
+                        2);
+                    }
+                    for (let i = 0; i < 25; i++) {
+                        ctx.strokeStyle = `rgba(${c.emissive},${0.15 + Math.random()*0.25})`;
+                        ctx.lineWidth = 0.5 + Math.random() * 2;
+                        ctx.beginPath();
+                        let x = Math.random() * w,
+                            y = Math.random() * h;
+                        ctx.moveTo(x, y);
+                        for (let j = 0; j < 8; j++) {
+                            x += (Math.random() - 0.5) * 40;
+                            y += (Math.random() - 0.5) * 40;
+                            ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                    }
+                    for (let i = 0; i < 40; i++) {
+                        ctx.strokeStyle = `rgba(80,40,40,${0.1 + Math.random()*0.15})`;
+                        ctx.lineWidth = 0.5 + Math.random() * 1.5;
+                        ctx.beginPath();
+                        const x = Math.random() * w,
+                            y = Math.random() * h;
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + (Math.random() - 0.5) * 50, y + (Math.random() - 0.5) * 50);
+                        ctx.stroke();
+                    }
+                    for (let i = 0; i < 12; i++) {
+                        const rad = 3 + Math.random() * 8;
+                        const grad = ctx.createRadialGradient(
+                            Math.random() * w, Math.random() * h, 0,
+                            Math.random() * w, Math.random() * h, rad
+                        );
+                        grad.addColorStop(0, `rgba(${c.emissive},${0.4 + Math.random()*0.4})`);
+                        grad.addColorStop(0.5, `rgba(${c.emissive},${0.2 + Math.random()*0.2})`);
+                        grad.addColorStop(1, `rgba(${c.emissive},0)`);
+                        ctx.fillStyle = grad;
+                        ctx.beginPath();
+                        ctx.arc(Math.random() * w, Math.random() * h, rad, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    for (let i = 0; i < 8; i++) {
+                        ctx.strokeStyle = `rgba(60,40,40,${0.2 + Math.random()*0.2})`;
+                        ctx.lineWidth = 1 + Math.random() * 2;
+                        ctx.beginPath();
+                        const x = Math.random() * w,
+                            y = Math.random() * h;
+                        ctx.moveTo(x, y);
+                        ctx.quadraticCurveTo(x + (Math.random() - 0.5) * 30, y + (Math.random() - 0.5) * 30,
+                            x + (Math.random() - 0.5) * 40, y + (Math.random() - 0.5) * 40);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            function createBossTexture() {
+                return createTexture(512, 512, '#331111', (ctx, w, h) => {
+                    for (let i = 0; i < 30; i++) {
+                        ctx.strokeStyle = `rgba(200,50,50,${0.2 + Math.random()*0.3})`;
+                        ctx.lineWidth = 1 + Math.random() * 3;
+                        ctx.beginPath();
+                        let x = Math.random() * w,
+                            y = Math.random() * h;
+                        ctx.moveTo(x, y);
+                        for (let j = 0; j < 6; j++) {
+                            x += (Math.random() - 0.5) * 50;
+                            y += (Math.random() - 0.5) * 50;
+                            ctx.lineTo(x, y);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                    const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ'];
+                    for (let i = 0; i < 16; i++) {
+                        ctx.fillStyle = `rgba(255,50,50,${0.2 + Math.random()*0.4})`;
+                        ctx.font = `${30 + Math.random()*40}px serif`;
+                        ctx.fillText(runes[i % runes.length], Math.random() * w, Math.random() * h);
+                    }
+                    const grad = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 3);
+                    grad.addColorStop(0, 'rgba(255,100,50,0.4)');
+                    grad.addColorStop(0.5, 'rgba(200,50,50,0.2)');
+                    grad.addColorStop(1, 'rgba(200,50,50,0)');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, w, h);
+                });
+            }
+
+            function createWallTexture() {
+                return createTexture(512, 512, '#2a2520', (ctx, w, h) => {
+                    const brickH = 40,
+                        brickW = 80;
+                    for (let row = 0; row < h / brickH + 1; row++) {
+                        const offset = row % 2 === 0 ? 0 : brickW / 2;
+                        for (let col = -1; col < w / brickW + 2; col++) {
+                            const x = col * brickW + offset;
+                            const y = row * brickH;
+                            const shade = 25 + Math.random() * 35;
+                            ctx.fillStyle = `rgb(${shade+20},${shade+15},${shade+10})`;
+                            ctx.fillRect(x, y, brickW - 2, brickH - 2);
+                            ctx.fillStyle = `rgba(20,18,15,0.3)`;
+                            ctx.fillRect(x + brickW - 2, y, 2, brickH - 2);
+                            ctx.fillRect(x, y + brickH - 2, brickW - 2, 2);
+                            for (let i = 0; i < 4; i++) {
+                                ctx.fillStyle = `rgba(0,0,0,${Math.random()*0.05})`;
+                                ctx.fillRect(x + Math.random() * brickW, y + Math.random() * brickH, 5 + Math
+                                    .random() * 10, 2 + Math.random() * 4);
+                            }
+                        }
+                    }
+                    for (let i = 0; i < 80; i++) {
+                        ctx.fillStyle = `rgba(0,0,0,${Math.random()*0.08})`;
+                        ctx.beginPath();
+                        ctx.arc(Math.random() * w, Math.random() * h, 5 + Math.random() * 20, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+            }
+
+            function createFloorTexture() {
+                return createTexture(512, 512, '#1a1715', (ctx, w, h) => {
+                    for (let i = 0; i < 300; i++) {
+                        ctx.fillStyle = `rgba(30,27,25,${Math.random()*0.15})`;
+                        ctx.fillRect(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 2 + Math.random() *
+                        6);
+                    }
+                    for (let i = 0; i < 20; i++) {
+                        ctx.strokeStyle = `rgba(10,10,10,${0.1 + Math.random()*0.15})`;
+                        ctx.lineWidth = 0.5 + Math.random();
+                        ctx.beginPath();
+                        let x = Math.random() * w,
+                            y = Math.random() * h;
+                        ctx.moveTo(x, y);
+                        for (let j = 0; j < 5; j++) {
+                            x += (Math.random() - 0.5) * 60;
+                            y += (Math.random() - 0.5) * 60;
+                            ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                    }
+                    for (let i = 0; i < 50; i++) {
+                        ctx.fillStyle = `rgba(40,35,30,${Math.random()*0.1})`;
+                        ctx.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 3, 1 + Math.random() *
+                        3);
+                    }
+                });
+            }
+
+            function createMetalTexture() {
+                return createTexture(256, 256, '#3a3a3a', (ctx, w, h) => {
+                    for (let i = 0; i < 300; i++) {
+                        ctx.strokeStyle = `rgba(80,80,80,${Math.random()*0.08})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random() * w, 0);
+                        ctx.lineTo(Math.random() * w, h);
+                        ctx.stroke();
+                    }
+                    for (let i = 0; i < 40; i++) {
+                        ctx.strokeStyle = `rgba(100,100,100,${Math.random()*0.12})`;
+                        ctx.lineWidth = 0.5 + Math.random();
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random() * w, Math.random() * h);
+                        ctx.lineTo(Math.random() * w, Math.random() * h);
+                        ctx.stroke();
+                    }
+                    for (let i = 0; i < 15; i++) {
+                        ctx.fillStyle = `rgba(20,20,20,${Math.random()*0.1})`;
+                        ctx.beginPath();
+                        ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+            }
+
+            function createGunTexture() {
+                return createTexture(256, 256, '#2a2218', (ctx, w, h) => {
+                    for (let i = 0; i < 400; i++) {
+                        ctx.fillStyle = `rgba(60,55,50,${Math.random()*0.08})`;
+                        ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1);
+                    }
+                    for (let i = 0; i < 30; i++) {
+                        ctx.strokeStyle = `rgba(80,70,60,${0.1 + Math.random()*0.12})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random() * w, Math.random() * h);
+                        ctx.lineTo(Math.random() * w, Math.random() * h);
+                        ctx.stroke();
+                    }
+                    ctx.strokeStyle = 'rgba(50,45,40,0.2)';
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i < 6; i++) {
+                        const x = i * 42;
+                        ctx.beginPath();
+                        ctx.moveTo(x, 0);
+                        ctx.lineTo(x, h);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            function createKnifeTexture() {
+                return createTexture(128, 128, '#2a2a2a', (ctx, w, h) => {
+                    const grad = ctx.createLinearGradient(0, 0, w, 0);
+                    grad.addColorStop(0, '#4a4a4a');
+                    grad.addColorStop(0.5, '#6a6a6a');
+                    grad.addColorStop(1, '#3a3a3a');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, w, h);
+                    ctx.strokeStyle = 'rgba(200,200,200,0.3)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(0, h / 2);
+                    ctx.lineTo(w, h / 2);
+                    ctx.stroke();
+                    for (let i = 0; i < 10; i++) {
+                        ctx.strokeStyle = `rgba(100,100,100,${0.1 + Math.random()*0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(Math.random() * w, Math.random() * h);
+                        ctx.lineTo(Math.random() * w, Math.random() * h);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            // ---- ENEMY TYPES ----
+            const enemyTypes = [
+                { id: 'grunt', name: 'Grunt', size: 0.7, height: 1.8, speedMult: 1.0, hpMult: 1.0, damageMult: 1.0,
+                    attackRange: 1.3, attackCooldown: 1.0 },
+                { id: 'fast', name: 'Runner', size: 0.6, height: 1.6, speedMult: 1.6, hpMult: 0.7, damageMult: 0.8,
+                    attackRange: 1.5, attackCooldown: 0.7 },
+                { id: 'tank', name: 'Tank', size: 0.9, height: 2.0, speedMult: 0.7, hpMult: 2.5, damageMult: 1.3,
+                    attackRange: 1.5, attackCooldown: 1.5 },
+                { id: 'brute', name: 'Brute', size: 1.0, height: 2.2, speedMult: 0.8, hpMult: 3.0, damageMult: 1.5,
+                    attackRange: 1.8, attackCooldown: 1.8 },
+                { id: 'spitter', name: 'Spitter', size: 0.6, height: 1.5, speedMult: 1.2, hpMult: 0.8, damageMult: 1.2,
+                    attackRange: 3.0, attackCooldown: 0.9 },
+            ];
+
+            // ---- GAME STATE ----
             let cols, rows, grid, wallSegs, exitCell;
             let scene, camera, renderer, clock;
             let flashlight, flashlightOn = true;
@@ -1224,6 +2105,7 @@
             let obstacles = [];
             let bossEnemy = null;
             let isBossLevel = false;
+            let isHellMode = false;
             let score = 0,
                 level = 1,
                 health = 100,
@@ -1256,8 +2138,14 @@
             let levelClearedForStat = false;
             const GRAVITY = -18;
             const JUMP_SPEED = 7.5;
+            let meleeCooldown = 0;
+            let playerHealth = 100;
+            let isCrouching = false;
+            let weaponInspectTimer = 0;
+            let isInspecting = false;
 
             const canvas = document.getElementById('gameCanvas');
+            const damageOverlay = document.getElementById('damageOverlay');
 
             function initRenderer() {
                 renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -1270,167 +2158,35 @@
                 renderer.toneMappingExposure = 1.2;
             }
 
-            // ---- TEXTURE GENERATORS ----
-            function createTexture(width, height, color, pattern) {
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = color;
-                ctx.fillRect(0, 0, width, height);
-                if (pattern) pattern(ctx, width, height);
-                const texture = new THREE.CanvasTexture(canvas);
-                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-                texture.repeat.set(2, 2);
-                return texture;
+            function getEnemyHealthScaling(sector) {
+                const baseHealth = 1 + Math.floor(sector * diffConfig.healthScaling);
+                const randomVariance = 0.5 + Math.random() * 1.5;
+                return Math.round(baseHealth * randomVariance);
             }
 
-            function createWallTexture() {
-                return createTexture(256, 256, '#3a3530', (ctx, w, h) => {
-                    for (let i = 0; i < 40; i++) {
-                        ctx.fillStyle = `rgba(80,70,60,${0.1 + Math.random()*0.15})`;
-                        const x = Math.random() * w,
-                            y = Math.random() * h;
-                        ctx.fillRect(x, y, 2 + Math.random() * 8, 2 + Math.random() * 8);
-                    }
-                    for (let i = 0; i < 15; i++) {
-                        ctx.strokeStyle = `rgba(60,50,40,${0.1 + Math.random()*0.1})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(Math.random() * w, Math.random() * h);
-                        ctx.lineTo(Math.random() * w, Math.random() * h);
-                        ctx.stroke();
-                    }
-                    ctx.strokeStyle = 'rgba(50,45,40,0.08)';
-                    ctx.lineWidth = 1;
-                    for (let i = 0; i < 20; i++) {
-                        ctx.beginPath();
-                        ctx.moveTo(0, i * 12 + 5);
-                        ctx.lineTo(w, i * 12 + 5);
-                        ctx.stroke();
-                    }
-                });
+            function getBossHealth(sector) {
+                const baseHp = 50 + sector * 8;
+                return Math.round(baseHp * diffConfig.bossHealthMult);
             }
 
-            function createFloorTexture() {
-                return createTexture(256, 256, '#1a1815', (ctx, w, h) => {
-                    for (let i = 0; i < 60; i++) {
-                        ctx.fillStyle = `rgba(40,35,30,${0.1 + Math.random()*0.2})`;
-                        const x = Math.random() * w,
-                            y = Math.random() * h;
-                        const size = 1 + Math.random() * 4;
-                        ctx.fillRect(x, y, size, size);
-                    }
-                    ctx.strokeStyle = 'rgba(50,45,40,0.05)';
-                    ctx.lineWidth = 0.5;
-                    for (let i = 0; i < 30; i++) {
-                        ctx.beginPath();
-                        ctx.moveTo(i * 8, 0);
-                        ctx.lineTo(i * 8, h);
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.moveTo(0, i * 8);
-                        ctx.lineTo(w, i * 8);
-                        ctx.stroke();
-                    }
-                });
+            function getBossDamage() {
+                return diffConfig.damagePerSec * 0.6 * diffConfig.bossDamageMult;
             }
 
-            function createMonsterTexture(baseColor, emissiveColor) {
-                return createTexture(128, 128, baseColor, (ctx, w, h) => {
-                    for (let i = 0; i < 30; i++) {
-                        ctx.strokeStyle = `rgba(${emissiveColor},${0.2 + Math.random()*0.3})`;
-                        ctx.lineWidth = 1 + Math.random() * 2;
-                        ctx.beginPath();
-                        let x = Math.random() * w,
-                            y = Math.random() * h;
-                        ctx.moveTo(x, y);
-                        for (let j = 0; j < 5; j++) {
-                            x += (Math.random() - 0.5) * 20;
-                            y += (Math.random() - 0.5) * 20;
-                            ctx.lineTo(x, y);
-                        }
-                        ctx.stroke();
-                    }
-                    for (let i = 0; i < 20; i++) {
-                        ctx.fillStyle = `rgba(0,0,0,${0.1 + Math.random()*0.2})`;
-                        ctx.beginPath();
-                        ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    for (let i = 0; i < 8; i++) {
-                        ctx.fillStyle = `rgba(${emissiveColor},${0.2 + Math.random()*0.3})`;
-                        ctx.beginPath();
-                        ctx.arc(Math.random() * w, Math.random() * h, 3 + Math.random() * 8, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                });
-            }
-
-            function createBossTexture() {
-                return createTexture(256, 256, '#442222', (ctx, w, h) => {
-                    for (let i = 0; i < 50; i++) {
-                        ctx.strokeStyle = `rgba(200,50,50,${0.2 + Math.random()*0.3})`;
-                        ctx.lineWidth = 1 + Math.random() * 3;
-                        ctx.beginPath();
-                        let x = Math.random() * w,
-                            y = Math.random() * h;
-                        ctx.moveTo(x, y);
-                        for (let j = 0; j < 8; j++) {
-                            x += (Math.random() - 0.5) * 30;
-                            y += (Math.random() - 0.5) * 30;
-                            ctx.lineTo(x, y);
-                        }
-                        ctx.stroke();
-                    }
-                    for (let i = 0; i < 12; i++) {
-                        ctx.fillStyle = `rgba(255,50,50,${0.3 + Math.random()*0.4})`;
-                        ctx.font = `${20 + Math.random()*30}px serif`;
-                        ctx.fillText(['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ'][i % 8], Math.random() * w, Math.random() *
-                        h);
-                    }
-                });
-            }
-
-            function createGunTexture() {
-                return createTexture(128, 128, '#2a2218', (ctx, w, h) => {
-                    for (let i = 0; i < 20; i++) {
-                        ctx.strokeStyle = `rgba(80,70,60,${0.1 + Math.random()*0.15})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(Math.random() * w, Math.random() * h);
-                        ctx.lineTo(Math.random() * w, Math.random() * h);
-                        ctx.stroke();
-                    }
-                    for (let i = 0; i < 15; i++) {
-                        ctx.fillStyle = `rgba(60,55,50,${0.3 + Math.random()*0.3})`;
-                        ctx.beginPath();
-                        ctx.arc(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                });
-            }
-
-            // ---- ENEMY TYPES ----
-            const enemyTypes = [
-                { id: 'grunt', name: 'Grunt', color: '#441111', emissive: '200,40,40', size: 0.7, height: 1.8,
-                    speedMult: 1.0, hpMult: 1.0, damageMult: 1.0, attackRange: 1.3, attackCooldown: 1.0 },
-                { id: 'fast', name: 'Runner', color: '#224488', emissive: '70,140,255', size: 0.6, height: 1.6,
-                    speedMult: 1.6, hpMult: 0.7, damageMult: 0.8, attackRange: 1.5, attackCooldown: 0.7 },
-                { id: 'tank', name: 'Tank', color: '#444422', emissive: '140,180,70', size: 0.9, height: 2.0,
-                    speedMult: 0.7, hpMult: 2.5, damageMult: 1.3, attackRange: 1.5, attackCooldown: 1.5 },
-                { id: 'brute', name: 'Brute', color: '#442222', emissive: '200,70,70', size: 1.0, height: 2.2,
-                    speedMult: 0.8, hpMult: 3.0, damageMult: 1.5, attackRange: 1.8, attackCooldown: 1.8 },
-                { id: 'spitter', name: 'Spitter', color: '#224422', emissive: '70,255,70', size: 0.6, height: 1.5,
-                    speedMult: 1.2, hpMult: 0.8, damageMult: 1.2, attackRange: 3.0, attackCooldown: 0.9 },
-            ];
-
+            // ---- BUILD LEVEL ----
             function buildLevel(sector) {
                 const base = 8;
                 cols = base + Math.min(sector, 6);
                 rows = base + Math.min(sector, 6);
 
-                isBossLevel = (sector % 5 === 0 && sector > 0);
+                isHellMode = diffConfig.hellMode || false;
+                if (isHellMode) {
+                    isBossLevel = true;
+                } else {
+                    const interval = diffConfig.bossInterval || 5;
+                    isBossLevel = (sector % interval === 0 && sector > 0);
+                }
+
                 levelClearedForStat = false;
 
                 grid = generateMaze(cols, rows);
@@ -1439,23 +2195,29 @@
 
                 scene = new THREE.Scene();
                 scene.background = new THREE.Color(0x020100);
-                scene.fog = new THREE.FogExp2(0x020100, 0.018);
+                scene.fog = new THREE.FogExp2(0x020100, 0.015);
 
                 camera = new THREE.PerspectiveCamera(72, window.innerWidth / window.innerHeight, 0.1, 180);
                 camera.position.set(CELL * 0.5, playerHeight, CELL * 0.5);
 
-                // ---- LIGHTS ----
-                const ambientLight = new THREE.AmbientLight(0x2a1a0a, 0.3);
+                // ---- LIGHTING ----
+                const ambientLight = new THREE.AmbientLight(0x2a1a0a, 0.25);
                 scene.add(ambientLight);
 
-                const dirLight = new THREE.DirectionalLight(0xff8844, 0.4);
+                const dirLight = new THREE.DirectionalLight(0xff8844, 0.35);
                 dirLight.position.set(15, 25, 15);
                 dirLight.castShadow = true;
                 dirLight.shadow.mapSize.width = 2048;
                 dirLight.shadow.mapSize.height = 2048;
+                dirLight.shadow.camera.near = 0.1;
+                dirLight.shadow.camera.far = 50;
+                dirLight.shadow.camera.left = -30;
+                dirLight.shadow.camera.right = 30;
+                dirLight.shadow.camera.top = 30;
+                dirLight.shadow.camera.bottom = -30;
                 scene.add(dirLight);
 
-                const fillLight = new THREE.DirectionalLight(0x4466ff, 0.15);
+                const fillLight = new THREE.DirectionalLight(0x4466ff, 0.1);
                 fillLight.position.set(-10, 10, -10);
                 scene.add(fillLight);
 
@@ -1471,35 +2233,81 @@
                 scene.add(camera);
                 flashlightOn = true;
 
-                // ---- GUN ----
+                // ---- GUN/KNIFE MODEL ----
                 gunGroup = new THREE.Group();
-                const gunTexture = createGunTexture();
-                const gunMat = new THREE.MeshStandardMaterial({
-                    map: gunTexture,
-                    roughness: 0.7,
-                    metalness: 0.4,
-                    color: 0x3a3228
-                });
 
-                const body = new THREE.Mesh(new THREE.BoxGeometry(0.10, 0.10, 0.5), gunMat);
-                body.position.set(0.20, -0.20, -0.45);
-                const barrel = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.3), gunMat);
-                barrel.position.set(0.20, -0.17, -0.80);
-                const grip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.14, 0.08), gunMat);
-                grip.position.set(0.18, -0.34, -0.40);
-                const lightMat = new THREE.MeshStandardMaterial({ color: 0x888888, emissive: 0xffaa44,
-                    emissiveIntensity: 0.4, roughness: 0.3, metalness: 0.6 });
-                const lightAttach = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.08, 8), lightMat);
-                lightAttach.position.set(0.22, -0.10, -0.72);
-                lightAttach.rotation.x = Math.PI / 2;
-                gunGroup.add(body, barrel, grip, lightAttach);
+                if (currentWeapon.isMelee) {
+                    const knifeTexture = createKnifeTexture();
+                    const knifeMat = new THREE.MeshStandardMaterial({
+                        map: knifeTexture,
+                        roughness: 0.3,
+                        metalness: 0.8,
+                        color: 0x6a6a6a
+                    });
+                    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.35, 0.015), knifeMat);
+                    blade.position.set(0.20, -0.10, -0.60);
+                    const handleMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.9 });
+                    const handle = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.12, 0.06), handleMat);
+                    handle.position.set(0.20, -0.28, -0.60);
+                    const guardMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.5, roughness: 0.4 });
+                    const guard = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.015, 0.04), guardMat);
+                    guard.position.set(0.20, -0.22, -0.60);
+                    gunGroup.add(blade, handle, guard);
+                } else {
+                    const gunTexture = createGunTexture();
+                    const gunMat = new THREE.MeshStandardMaterial({
+                        map: gunTexture,
+                        roughness: 0.5,
+                        metalness: 0.6,
+                        color: 0x3a3228
+                    });
+
+                    const body = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.5), gunMat);
+                    body.position.set(0.20, -0.20, -0.45);
+                    const barrelGeo = new THREE.CylinderGeometry(0.035, 0.025, 0.35, 8);
+                    const barrel = new THREE.Mesh(barrelGeo, gunMat);
+                    barrel.rotation.x = Math.PI / 2;
+                    barrel.position.set(0.20, -0.17, -0.82);
+                    const shroud = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, 0.3), gunMat);
+                    shroud.position.set(0.20, -0.15, -0.82);
+                    const gripMat = new THREE.MeshStandardMaterial({ color: 0x1a1510, roughness: 0.9 });
+                    const grip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.16, 0.08), gripMat);
+                    grip.position.set(0.18, -0.36, -0.40);
+                    const guard2 = new THREE.Mesh(new THREE.TorusGeometry(0.035, 0.015, 6, 8), gunMat);
+                    guard2.position.set(0.18, -0.26, -0.42);
+                    guard2.rotation.x = Math.PI / 2;
+                    const sight = new THREE.Mesh(new THREE.BoxGeometry(0.015, 0.015, 0.02), gunMat);
+                    sight.position.set(0.20, -0.12, -0.65);
+                    const lightMat = new THREE.MeshStandardMaterial({
+                        color: 0x888888,
+                        emissive: 0xffaa44,
+                        emissiveIntensity: 0.4,
+                        roughness: 0.3,
+                        metalness: 0.6
+                    });
+                    const lightAttach = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.08, 8), lightMat);
+                    lightAttach.position.set(0.22, -0.10, -0.72);
+                    lightAttach.rotation.x = Math.PI / 2;
+                    const lensMat = new THREE.MeshStandardMaterial({
+                        color: 0xffeedd,
+                        emissive: 0xffaa44,
+                        emissiveIntensity: 0.2,
+                        transparent: true,
+                        opacity: 0.3
+                    });
+                    const lens = new THREE.Mesh(new THREE.CircleGeometry(0.035, 8), lensMat);
+                    lens.position.set(0.22, -0.10, -0.76);
+                    lens.rotation.y = Math.PI / 2;
+
+                    gunGroup.add(body, barrel, shroud, grip, guard2, sight, lightAttach, lens);
+                }
                 camera.add(gunGroup);
 
                 // ---- WALLS ----
                 const wallTexture = createWallTexture();
                 const wallMat = new THREE.MeshStandardMaterial({
                     map: wallTexture,
-                    roughness: 0.95,
+                    roughness: 0.9,
                     metalness: 0.0,
                     color: 0x4a4540
                 });
@@ -1538,6 +2346,20 @@
                 ceiling.rotation.x = Math.PI / 2;
                 ceiling.position.set(cols * CELL / 2, 3.4, rows * CELL / 2);
                 scene.add(ceiling);
+
+                const pipeMat = new THREE.MeshStandardMaterial({ color: 0x333030, roughness: 0.7, metalness: 0.3 });
+                for (let i = 0; i < Math.min(cols, rows); i++) {
+                    const x = i * CELL + CELL / 2;
+                    const z = i * CELL + CELL / 2;
+                    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 3.2, 6), pipeMat);
+                    pipe.position.set(x, 1.7, z);
+                    scene.add(pipe);
+                    if (i % 2 === 0) {
+                        const cross = new THREE.Mesh(new THREE.BoxGeometry(3, 0.04, 0.04), pipeMat);
+                        cross.position.set(x, 1.7, z + 1);
+                        scene.add(cross);
+                    }
+                }
 
                 // ---- WALLS ----
                 wallMeshes = [];
@@ -1578,7 +2400,7 @@
                     if (!scene.userData.lamps) scene.userData.lamps = [];
                     scene.userData.lamps.push(lamp);
 
-                    const fixtureMat = new THREE.MeshStandardMaterial({ color: 0x333030, roughness: 0.8 });
+                    const fixtureMat = new THREE.MeshStandardMaterial({ color: 0x333030, roughness: 0.8, metalness: 0.2 });
                     const fixture = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.12, 0.15, 6), fixtureMat);
                     fixture.position.set(i * CELL + CELL / 2, 2.7, j * CELL + CELL / 2);
                     scene.add(fixture);
@@ -1586,51 +2408,130 @@
 
                 // ---- OBSTACLES ----
                 obstacles = [];
-                const crateTexture = createTexture(64, 64, '#4a3a2a', (ctx, w, h) => {
-                    for (let i = 0; i < 10; i++) {
-                        ctx.strokeStyle = `rgba(60,50,40,${0.2 + Math.random()*0.3})`;
-                        ctx.lineWidth = 1;
-                        ctx.strokeRect(Math.random() * w, Math.random() * h, 5 + Math.random() * 15, 5 + Math.random() *
-                            15);
-                    }
+                const metalTexture = createMetalTexture();
+                const metalMat = new THREE.MeshStandardMaterial({
+                    map: metalTexture,
+                    roughness: 0.4,
+                    metalness: 0.8,
+                    color: 0x4a4a4a
                 });
-                const crateMat = new THREE.MeshStandardMaterial({ map: crateTexture, roughness: 0.9, metalness: 0.0 });
-                const barrelMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.8, metalness: 0.3 });
+                const crateMat = new THREE.MeshStandardMaterial({
+                    color: 0x4a3a2a,
+                    roughness: 0.9,
+                    metalness: 0.0
+                });
+                const barrelMat = new THREE.MeshStandardMaterial({
+                    color: 0x3a3a3a,
+                    roughness: 0.5,
+                    metalness: 0.6
+                });
+                const toxicMat = new THREE.MeshStandardMaterial({
+                    color: 0x2a4a2a,
+                    emissive: 0x44ff44,
+                    emissiveIntensity: 0.2,
+                    transparent: true,
+                    opacity: 0.7
+                });
 
-                const obstacleCount = Math.min(4 + sector * 2, 20);
+                const obstacleCount = Math.min(6 + sector * 2, 20);
                 for (let n = 0; n < obstacleCount; n++) {
                     let placed = false;
                     let attempts = 0;
-                    while (!placed && attempts < 50) {
+                    while (!placed && attempts < 80) {
                         attempts++;
-                        const i = Math.floor(Math.random() * cols),
-                            j = Math.floor(Math.random() * rows);
+                        const i = Math.floor(Math.random() * (cols - 2)) + 1;
+                        const j = Math.floor(Math.random() * (rows - 2)) + 1;
                         const dist = Math.abs(i - 0) + Math.abs(j - 0);
                         if (dist < 4) continue;
                         if (i === exitCell.i && j === exitCell.j) continue;
-                        const x = i * CELL + CELL / 2 + (Math.random() - 0.5) * CELL * 0.4;
-                        const z = j * CELL + CELL / 2 + (Math.random() - 0.5) * CELL * 0.4;
+                        const cell = grid[i][j];
+                        const isCorridor = (!cell.top && !cell.bottom) || (!cell.left && !cell.right);
+                        if (!isCorridor && Math.random() > 0.4) continue;
+
+                        const x = i * CELL + CELL / 2 + (Math.random() - 0.5) * CELL * 0.3;
+                        const z = j * CELL + CELL / 2 + (Math.random() - 0.5) * CELL * 0.3;
+
                         let tooClose = false;
                         for (const e of enemies) {
                             if (Math.abs(e.position.x - x) < 1.5 && Math.abs(e.position.z - z) < 1.5) tooClose = true;
                         }
-                        if (tooClose) continue;
-                        const isCrate = Math.random() > 0.5;
-                        let mesh;
-                        if (isCrate) {
-                            const size = 0.4 + Math.random() * 0.5;
-                            const height = 0.4 + Math.random() * 0.5;
-                            mesh = new THREE.Mesh(new THREE.BoxGeometry(size, height, size), crateMat);
-                        } else {
-                            const radius = 0.25 + Math.random() * 0.2;
-                            const height = 0.4 + Math.random() * 0.3;
-                            mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.8, height, 8), barrelMat);
+                        for (const obs of obstacles) {
+                            if (Math.abs(obs.position.x - x) < 1.2 && Math.abs(obs.position.z - z) < 1.2) tooClose = true;
                         }
-                        mesh.position.set(x, (mesh.geometry.parameters?.height || 0.5) / 2, z);
-                        mesh.castShadow = true;
-                        mesh.receiveShadow = true;
+                        if (tooClose) continue;
+
+                        const type = Math.floor(Math.random() * 5);
+                        let mesh;
+                        let radius = 0.4;
+                        switch (type) {
+                            case 0:
+                                const crateGroup = new THREE.Group();
+                                for (let s = 0; s < 2 + Math.floor(Math.random() * 2); s++) {
+                                    const size = 0.4 + Math.random() * 0.3;
+                                    const crate = new THREE.Mesh(new THREE.BoxGeometry(size, size * 0.7, size),
+                                        metalMat);
+                                    crate.position.set((Math.random() - 0.5) * 0.2, s * size * 0.65, (Math
+                                    .random() - 0.5) * 0.2);
+                                    crate.castShadow = true;
+                                    crate.receiveShadow = true;
+                                    crateGroup.add(crate);
+                                }
+                                mesh = crateGroup;
+                                radius = 0.5;
+                                break;
+                            case 1:
+                                const barrelGroup = new THREE.Group();
+                                for (let b = 0; b < 2 + Math.floor(Math.random() * 2); b++) {
+                                    const rad = 0.2 + Math.random() * 0.12;
+                                    const barrel = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad * 0.9,
+                                        0.3 + Math.random() * 0.25, 8), barrelMat);
+                                    barrel.position.set((Math.random() - 0.5) * 0.3, 0.15, (Math.random() - 0.5) *
+                                        0.3);
+                                    barrel.rotation.z = (Math.random() - 0.5) * 0.1;
+                                    barrel.castShadow = true;
+                                    barrel.receiveShadow = true;
+                                    barrelGroup.add(barrel);
+                                }
+                                mesh = barrelGroup;
+                                radius = 0.45;
+                                break;
+                            case 2:
+                                mesh = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.3, 0.4, 8), toxicMat);
+                                const glow = new THREE.PointLight(0x44ff44, 0.5, 2);
+                                glow.position.y = 0.2;
+                                mesh.add(glow);
+                                radius = 0.4;
+                                break;
+                            case 3:
+                                const pipeGroup = new THREE.Group();
+                                for (let p = 0; p < 4; p++) {
+                                    const pRadius = 0.03 + Math.random() * 0.025;
+                                    const pipeMesh = new THREE.Mesh(new THREE.CylinderGeometry(pRadius, pRadius, 0.3 +
+                                        Math.random() * 0.5, 6), metalMat);
+                                    pipeMesh.position.set((Math.random() - 0.5) * 0.3, 0.15, (Math.random() - 0.5) *
+                                    0.3);
+                                    pipeMesh.rotation.x = (Math.random() - 0.5) * 0.4;
+                                    pipeMesh.rotation.z = (Math.random() - 0.5) * 0.4;
+                                    pipeMesh.castShadow = true;
+                                    pipeMesh.receiveShadow = true;
+                                    pipeGroup.add(pipeMesh);
+                                }
+                                mesh = pipeGroup;
+                                radius = 0.4;
+                                break;
+                            case 4:
+                                const barrier = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.5, 0.8), new THREE
+                                    .MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.9 }));
+                                barrier.castShadow = true;
+                                barrier.receiveShadow = true;
+                                mesh = barrier;
+                                radius = 0.5;
+                                break;
+                        }
+                        mesh.position.set(x, 0.25, z);
                         mesh.userData.isObstacle = true;
-                        mesh.userData.radius = 0.4;
+                        mesh.userData.radius = radius;
+                        mesh.userData.collisionRadius = radius;
                         scene.add(mesh);
                         obstacles.push(mesh);
                         placed = true;
@@ -1640,60 +2541,15 @@
                 // ---- ENEMIES ----
                 enemies = [];
                 bossEnemy = null;
+                bossAbilityCooldowns = getBossAbilityCooldowns();
 
-                if (isBossLevel) {
-                    // ---- BOSS ----
-                    const bossTexture = createBossTexture();
-                    const bossMat = new THREE.MeshStandardMaterial({
-                        map: bossTexture,
-                        emissive: new THREE.Color(0xff3333),
-                        emissiveIntensity: 0.5,
-                        roughness: 0.3,
-                        metalness: 0.6
-                    });
-                    const boss = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3.0, 1.5), bossMat);
-                    const centerI = Math.floor(cols / 2),
-                        centerJ = Math.floor(rows / 2);
-                    boss.position.set(centerI * CELL + CELL / 2, 1.5, centerJ * CELL + CELL / 2);
-                    boss.userData.isEnemy = true;
-                    boss.userData.isBoss = true;
-                    boss.userData.type = 'boss';
-                    boss.userData.cell = { i: centerI, j: centerJ };
-                    boss.userData.path = null;
-                    boss.userData.repathTimer = 0.2;
-                    boss.userData.speed = diffConfig.enemySpeed * 0.6;
-                    boss.userData.maxHp = Math.round((50 + level * 5) * diffConfig.bossHealthMult);
-                    boss.userData.hp = boss.userData.maxHp;
-                    boss.userData.scareTimer = 0;
-                    boss.userData.height = 3.0;
-                    boss.userData.attackRange = 2.0;
-                    boss.userData.attackCooldown = 1.2;
-                    boss.userData.attackTimer = 0;
-                    boss.userData.damageMult = diffConfig.bossDamageMult;
-                    boss.castShadow = true;
-                    boss.receiveShadow = true;
-                    const glowLight = new THREE.PointLight(0xff3333, 2, 10);
-                    glowLight.position.set(0, 1.5, 0);
-                    boss.add(glowLight);
-                    const spikeMat = new THREE.MeshStandardMaterial({ color: 0x662222, emissive: 0xff4444,
-                        emissiveIntensity: 0.3 });
-                    for (let i = 0; i < 5; i++) {
-                        const angle = (i / 5) * Math.PI * 2;
-                        const spike = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.3, 4), spikeMat);
-                        spike.position.set(Math.cos(angle) * 0.8, 1.7, Math.sin(angle) * 0.8);
-                        spike.rotation.x = Math.PI / 2;
-                        spike.rotation.z = angle;
-                        boss.add(spike);
+                if (isHellMode) {
+                    const bossCount = Math.min(3 + Math.floor(sector / 2), 8);
+                    for (let i = 0; i < bossCount; i++) {
+                        spawnBoss(i, bossCount);
                     }
-                    scene.add(boss);
-                    bossEnemy = boss;
-                    enemies.push(boss);
-
-                    const indicator = document.getElementById('bossIndicator');
-                    indicator.style.opacity = 1;
-                    setTimeout(() => { indicator.style.opacity = 0; }, 3000);
-                    AudioSys.boss();
-
+                } else if (isBossLevel) {
+                    spawnBoss(0, 1);
                     const regularCount = Math.min(diffConfig.enemyCount - 1, 4);
                     spawnRegularEnemies(regularCount, sector);
                 } else {
@@ -1708,21 +2564,109 @@
                     document.getElementById('sanityVal').textContent = '100%';
                     document.getElementById('sanityBar').querySelector('span').style.width = '100%';
                     health = getMaxHealth();
+                    playerHealth = health;
                 }
                 savedLevelLoaded = false;
                 renderHealthBar();
                 playerHeight = 1.7;
                 velocityY = 0;
                 isGrounded = true;
-                document.getElementById('clearTitle').textContent = isBossLevel ? '⚔ BOSS DEFEATED ⚔' :
-                'SECTOR PURGED';
+                isCrouching = false;
+                document.getElementById('clearTitle').textContent = isBossLevel || isHellMode ? '⚔ BOSS DEFEATED ⚔' :
+                    'SECTOR PURGED';
                 document.getElementById('shieldVal').textContent = Math.round(shieldAmount);
                 document.getElementById('shieldDisplay').style.opacity = shieldAmount > 0 ? 1 : 0;
                 document.getElementById('statPointsVal').textContent = statPoints;
+                document.getElementById('weaponNameVal').textContent = currentWeapon.name;
+                document.getElementById('weaponLevelVal').textContent = currentWeapon.level;
+                updateAmmoDisplay();
+
+                if (isBossLevel || isHellMode) {
+                    document.getElementById('bossIndicator').style.opacity = 1;
+                    setTimeout(() => {
+                        document.getElementById('bossIndicator').style.opacity = 0;
+                    }, 2000);
+                    AudioSys.boss();
+                    document.getElementById('objective').querySelector('.val').classList.add('boss-objective');
+                    document.getElementById('objectiveVal').textContent = '⚔ DEFEAT THE BOSS(ES) ⚔';
+                } else {
+                    document.getElementById('objective').querySelector('.val').classList.remove('boss-objective');
+                    document.getElementById('objectiveVal').textContent = 'LOCATE EXIT PAD';
+                }
+            }
+
+            function spawnBoss(index, total) {
+                const bossTexture = createBossTexture();
+                const bossMat = new THREE.MeshStandardMaterial({
+                    map: bossTexture,
+                    emissive: new THREE.Color(0xff3333),
+                    emissiveIntensity: 0.5 + (index * 0.05),
+                    roughness: 0.3,
+                    metalness: 0.6
+                });
+
+                const boss = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3.0, 1.5), bossMat);
+                const margin = 2;
+                const i = margin + Math.floor(Math.random() * (cols - margin * 2));
+                const j = margin + Math.floor(Math.random() * (rows - margin * 2));
+                boss.position.set(i * CELL + CELL / 2, 1.5, j * CELL + CELL / 2);
+                boss.userData.isEnemy = true;
+                boss.userData.isBoss = true;
+                boss.userData.type = 'boss';
+                boss.userData.cell = { i, j };
+                boss.userData.path = null;
+                boss.userData.repathTimer = 0.2 + Math.random() * 0.3;
+                boss.userData.speed = diffConfig.enemySpeed * (0.5 + Math.random() * 0.2);
+                boss.userData.maxHp = getBossHealth(level) * (1 + index * 0.2);
+                boss.userData.hp = boss.userData.maxHp;
+                boss.userData.scareTimer = 0;
+                boss.userData.height = 3.0;
+                boss.userData.attackRange = 2.0 + index * 0.1;
+                boss.userData.attackCooldown = 1.2 - index * 0.05;
+                boss.userData.attackTimer = Math.random() * 0.5;
+                boss.userData.damageMult = diffConfig.bossDamageMult * (1 + index * 0.1);
+                boss.userData.bossDamage = getBossDamage() * (1 + index * 0.1);
+                boss.userData.bossIndex = index;
+                boss.userData.abilityCooldowns = getBossAbilityCooldowns();
+                boss.castShadow = true;
+                boss.receiveShadow = true;
+
+                const glowLight = new THREE.PointLight(0xff3333, 2.5 + index * 0.3, 12);
+                glowLight.position.set(0, 1.5, 0);
+                boss.add(glowLight);
+
+                const spikeMat = new THREE.MeshStandardMaterial({
+                    color: 0x662222,
+                    emissive: 0xff4444,
+                    emissiveIntensity: 0.3 + index * 0.05
+                });
+                for (let i2 = 0; i2 < 8; i2++) {
+                    const angle = (i2 / 8) * Math.PI * 2 + index * 0.5;
+                    const spike = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.4, 4), spikeMat);
+                    spike.position.set(Math.cos(angle) * 0.85, 1.7, Math.sin(angle) * 0.85);
+                    spike.rotation.x = Math.PI / 2;
+                    spike.rotation.z = angle;
+                    boss.add(spike);
+                }
+
+                const eyeMat = new THREE.MeshStandardMaterial({
+                    color: 0xff0000,
+                    emissive: 0xff0000,
+                    emissiveIntensity: 1.0
+                });
+                const eye = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), eyeMat);
+                eye.position.set(0.25, 0.5, -0.8);
+                boss.add(eye);
+                const eye2 = eye.clone();
+                eye2.position.set(-0.25, 0.5, -0.8);
+                boss.add(eye2);
+
+                scene.add(boss);
+                if (index === 0) bossEnemy = boss;
+                enemies.push(boss);
             }
 
             function spawnRegularEnemies(count, sector) {
-                const baseHealth = 1 + Math.floor(sector * 0.4);
                 const types = ['grunt', 'fast', 'tank', 'brute', 'spitter'];
 
                 for (let n = 0; n < count; n++) {
@@ -1742,10 +2686,17 @@
                         const typeId = types[typeIdx];
                         const typeDef = enemyTypes.find(t => t.id === typeId) || enemyTypes[0];
 
-                        const tex = createMonsterTexture(typeDef.color, typeDef.emissive);
+                        const healthScale = getEnemyHealthScaling(sector);
+                        const maxHp = Math.round(healthScale * typeDef.hpMult);
+
+                        const tex = createMonsterTexture(typeId);
                         const mat = new THREE.MeshStandardMaterial({
                             map: tex,
-                            emissive: new THREE.Color(`rgb(${typeDef.emissive})`),
+                            emissive: typeId === 'spitter' ? new THREE.Color(0x44ff44) :
+                                typeId === 'fast' ? new THREE.Color(0x4488ff) :
+                                typeId === 'tank' ? new THREE.Color(0x88aa44) :
+                                typeId === 'brute' ? new THREE.Color(0xcc4444) :
+                                new THREE.Color(0xcc2222),
                             emissiveIntensity: 0.3,
                             roughness: 0.6,
                             metalness: 0.2
@@ -1760,7 +2711,7 @@
                         mesh.userData.path = null;
                         mesh.userData.repathTimer = 0.2 + Math.random() * 0.3;
                         mesh.userData.speed = diffConfig.enemySpeed * typeDef.speedMult + (Math.random() * 0.2 - 0.1);
-                        mesh.userData.maxHp = Math.round((baseHealth + Math.random() * 2) * typeDef.hpMult);
+                        mesh.userData.maxHp = maxHp;
                         mesh.userData.hp = mesh.userData.maxHp;
                         mesh.userData.scareTimer = 0;
                         mesh.userData.height = typeDef.height;
@@ -1771,8 +2722,16 @@
                         mesh.castShadow = true;
                         mesh.receiveShadow = true;
                         const eyeMat = new THREE.MeshStandardMaterial({
-                            color: new THREE.Color(`rgb(${typeDef.emissive})`),
-                            emissive: new THREE.Color(`rgb(${typeDef.emissive})`),
+                            color: typeId === 'spitter' ? new THREE.Color(0x44ff44) :
+                                typeId === 'fast' ? new THREE.Color(0x4488ff) :
+                                typeId === 'tank' ? new THREE.Color(0x88aa44) :
+                                typeId === 'brute' ? new THREE.Color(0xcc4444) :
+                                new THREE.Color(0xcc2222),
+                            emissive: typeId === 'spitter' ? new THREE.Color(0x44ff44) :
+                                typeId === 'fast' ? new THREE.Color(0x4488ff) :
+                                typeId === 'tank' ? new THREE.Color(0x88aa44) :
+                                typeId === 'brute' ? new THREE.Color(0xcc4444) :
+                                new THREE.Color(0xcc2222),
                             emissiveIntensity: 0.8
                         });
                         const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.06, 6, 6), eyeMat);
@@ -1840,8 +2799,11 @@
                 return segs;
             }
 
+            // ---- COLLISION RESOLUTION ----
             function resolveCollision(pos, radius, segments, obstaclesList) {
-                for (let pass = 0; pass < 4; pass++) {
+                let maxIterations = 8;
+                for (let iter = 0; iter < maxIterations; iter++) {
+                    let moved = false;
                     for (const s of segments) {
                         const dx = s.x2 - s.x1,
                             dz = s.z2 - s.z1;
@@ -1855,21 +2817,25 @@
                         const dist = Math.sqrt(distX * distX + distZ * distZ);
                         if (dist < radius && dist > 0.0001) {
                             const push = (radius - dist) / dist;
-                            pos.x += distX * push;
-                            pos.z += distZ * push;
+                            pos.x += distX * push * 1.05;
+                            pos.z += distZ * push * 1.05;
+                            moved = true;
                         }
                     }
                     for (const obs of obstaclesList) {
                         const dx = pos.x - obs.position.x;
                         const dz = pos.z - obs.position.z;
                         const dist = Math.sqrt(dx * dx + dz * dz);
-                        const obsRadius = obs.userData.radius || 0.5;
-                        if (dist < radius + obsRadius) {
-                            const push = (radius + obsRadius - dist) / (dist || 0.001);
-                            pos.x += dx * push;
-                            pos.z += dz * push;
+                        const obsRadius = obs.userData.collisionRadius || obs.userData.radius || 0.4;
+                        const combinedRadius = radius + obsRadius;
+                        if (dist < combinedRadius && dist > 0.0001) {
+                            const push = (combinedRadius - dist) / dist;
+                            pos.x += dx * push * 1.05;
+                            pos.z += dz * push * 1.05;
+                            moved = true;
                         }
                     }
+                    if (!moved) break;
                 }
                 return pos;
             }
@@ -1907,6 +2873,24 @@
                 return path;
             }
 
+            // ---- KILL FEED ----
+            function addKillFeed(monsterType, isHeadshot, isBoss) {
+                const feed = document.getElementById('killFeed');
+                const entry = document.createElement('div');
+                entry.className = 'kill-entry';
+                const bossText = isBoss ? ' 👑 BOSS!' : '';
+                const headshotText = isHeadshot ? ' 💀 HEADSHOT!' : '';
+                entry.textContent = `☠ ${monsterType} eliminated${bossText}${headshotText}`;
+                entry.style.color = isBoss ? '#ff8800' : isHeadshot ? '#ff8800' : '#ff4444';
+                feed.appendChild(entry);
+                setTimeout(() => {
+                    if (entry.parentNode) entry.remove();
+                }, 2500);
+                if (feed.children.length > 5) {
+                    feed.firstChild.remove();
+                }
+            }
+
             // ---- INPUT ----
             document.addEventListener('keydown', e => {
                 keys[e.key] = true;
@@ -1914,13 +2898,14 @@
                 if (e.key === 'f' || e.key === 'F') tryFlare();
                 if (e.key === ' ' && gameActive && !gamePaused) { e.preventDefault();
                     tryJump(); }
+                if (e.key === 'c' || e.key === 'C') toggleCrouch();
+                if (e.key === 'q' || e.key === 'Q') toggleWeaponInspect();
                 if ((e.key === 'Escape' || e.key === 'p' || e.key === 'P') && gameActive && !gamePaused) {
                     togglePause();
                 }
             });
             document.addEventListener('keyup', e => { keys[e.key] = false; });
 
-            // ---- Pointer Lock & Click ----
             canvas.addEventListener('click', () => {
                 if (!gameActive) return;
                 if (!pointerLocked) {
@@ -1928,8 +2913,14 @@
                     return;
                 }
                 if (!gamePaused) {
-                    tryShoot();
+                    tryAttack();
                 }
+            });
+
+            canvas.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                if (!gameActive || !pointerLocked || gamePaused) return;
+                tryHeavyAttack();
             });
 
             document.addEventListener('pointerlockchange', () => {
@@ -1955,6 +2946,47 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
 
+            // ---- TOGGLE CROUCH ----
+            function toggleCrouch() {
+                if (!gameActive || gamePaused) return;
+                isCrouching = !isCrouching;
+                playerHeight = isCrouching ? 1.0 : 1.7;
+            }
+
+            // ---- WEAPON INSPECT ----
+            function toggleWeaponInspect() {
+                if (!gameActive || gamePaused || isInspecting) return;
+                isInspecting = true;
+                const originalRotation = gunGroup.rotation.x;
+                const targetRotation = Math.PI / 3;
+                const steps = 30;
+                let step = 0;
+
+                const inspectInterval = setInterval(() => {
+                    step++;
+                    const progress = step / steps;
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    gunGroup.rotation.x = originalRotation + (targetRotation - originalRotation) * eased;
+                    if (step >= steps) {
+                        clearInterval(inspectInterval);
+                        setTimeout(() => {
+                            const returnInterval = setInterval(() => {
+                                step--;
+                                const progress2 = step / steps;
+                                const eased2 = 1 - Math.pow(1 - progress2, 3);
+                                gunGroup.rotation.x = originalRotation + (targetRotation - originalRotation) *
+                                    eased2;
+                                if (step <= 0) {
+                                    clearInterval(returnInterval);
+                                    gunGroup.rotation.x = originalRotation;
+                                    isInspecting = false;
+                                }
+                            }, 16);
+                        }, 200);
+                    }
+                }, 16);
+            }
+
             // ---- JUMP ----
             function tryJump() {
                 if (!isGrounded || jumpCooldownTimer > 0) return;
@@ -1978,8 +3010,10 @@
                 if (!gameActive || gamePaused) return;
                 flashlightOn = !flashlightOn;
                 flashlight.intensity = flashlightOn ? 2.5 : 0;
-                const lightAttach = gunGroup.children.find(c => c.geometry && c.geometry.type === 'CylinderGeometry');
-                if (lightAttach) { lightAttach.material.emissiveIntensity = flashlightOn ? 0.4 : 0; }
+                const lens = gunGroup.children.find(c => c.geometry && c.geometry.type === 'CircleGeometry');
+                if (lens) {
+                    lens.material.emissiveIntensity = flashlightOn ? 0.5 : 0;
+                }
                 document.getElementById('objectiveVal').textContent = flashlightOn ? 'FLASHLIGHT: ON' :
                     'FLASHLIGHT: OFF';
                 setTimeout(() => { document.getElementById('objectiveVal').textContent = 'LOCATE EXIT PAD'; }, 800);
@@ -2003,68 +3037,233 @@
                 });
             }
 
-            // ---- SHOOTING ----
+            // ---- ATTACK SYSTEM ----
             const raycaster = new THREE.Raycaster();
 
-            function tryShoot() {
-                if (!ammoReady || !gameActive || gamePaused) return;
-                ammoReady = false;
-                shootCooldown = currentWeapon.fireRate;
-                document.getElementById('ammoVal').textContent = 'CYCLING';
-                AudioSys.shoot();
-                gunGroup.position.z = 0.12;
+            function tryAttack() {
+                if (!gameActive || gamePaused) return;
+                if (currentWeapon.isMelee) {
+                    if (meleeCooldown > 0) return;
+                    meleeCooldown = currentWeapon.fireRate;
+                    AudioSys.knife();
+                    gunGroup.position.z = 0.08;
+                    setTimeout(() => { gunGroup.position.z = 0; }, 150);
+
+                    raycaster.setFromCamera({ x: 0, y: 0 }, camera);
+                    const targets = enemies;
+                    const hits = raycaster.intersectObjects(targets, 1.8);
+                    if (hits.length) {
+                        const enemy = hits[0].object;
+                        if (enemy.userData.isEnemy) {
+                            const damageBonus = getDamageBonus();
+                            const totalDamage = currentWeapon.damage + damageBonus;
+                            const localHit = enemy.worldToLocal(hits[0].point.clone());
+                            const isHeadshot = localHit.y > enemy.userData.height * 0.6;
+                            const finalDamage = isHeadshot ? totalDamage * 2 : totalDamage;
+                            enemy.userData.hp -= finalDamage;
+                            if (enemy.userData.hp <= 0) {
+                                killEnemy(enemy, isHeadshot);
+                                flashCrosshair(isHeadshot);
+                                if (isHeadshot) {
+                                    AudioSys.headshot();
+                                } else {
+                                    AudioSys.hit();
+                                }
+                            } else {
+                                flashCrosshair(isHeadshot);
+                                AudioSys.hit();
+                            }
+                        }
+                    }
+                } else {
+                    if (isReloading) return;
+                    if (currentAmmo <= 0) {
+                        startReload();
+                        return;
+                    }
+                    if (!ammoReady) return;
+
+                    ammoReady = false;
+                    shootCooldown = currentWeapon.fireRate;
+                    AudioSys.shoot();
+                    gunGroup.position.z = 0.12;
+                    applyScreenShake(0.3);
+                    setTimeout(() => { gunGroup.position.z = 0; }, 100);
+
+                    currentAmmo--;
+                    updateAmmoDisplay();
+
+                    const damageBonus = getDamageBonus();
+                    const totalDamage = currentWeapon.damage + damageBonus;
+
+                    const spread = currentWeapon.spread || 0.02;
+                    const randX = (Math.random() - 0.5) * spread;
+                    const randY = (Math.random() - 0.5) * spread;
+
+                    raycaster.setFromCamera({ x: randX, y: randY }, camera);
+                    const targets = wallMeshes.concat(enemies);
+                    const hits = raycaster.intersectObjects(targets);
+
+                    if (currentWeapon.id === 'm870') {
+                        for (let i = 0; i < 5; i++) {
+                            const sX = (Math.random() - 0.5) * 0.15;
+                            const sY = (Math.random() - 0.5) * 0.15;
+                            raycaster.setFromCamera({ x: sX, y: sY }, camera);
+                            const pelletHits = raycaster.intersectObjects(targets);
+                            if (pelletHits.length && pelletHits[0].object.userData.isEnemy) {
+                                const enemy = pelletHits[0].object;
+                                const localHit = enemy.worldToLocal(pelletHits[0].point.clone());
+                                const isHeadshot = localHit.y > enemy.userData.height * 0.6;
+                                const dmg = isHeadshot ? totalDamage * 0.3 * 2 : totalDamage * 0.3;
+                                enemy.userData.hp -= dmg;
+                                if (enemy.userData.hp <= 0) {
+                                    killEnemy(enemy, isHeadshot);
+                                    flashCrosshair(isHeadshot);
+                                    AudioSys.hit();
+                                }
+                            }
+                        }
+                    }
+
+                    if (hits.length) {
+                        const hit = hits[0];
+                        if (hit.object.userData.isEnemy) {
+                            const enemy = hit.object;
+                            const localHit = enemy.worldToLocal(hit.point.clone());
+                            const isHeadshot = localHit.y > enemy.userData.height * 0.6;
+                            const damage = isHeadshot ? totalDamage * 2 * (enemy.userData.isBoss ? 0.7 : 1) :
+                                totalDamage * (enemy.userData.isBoss ? 0.7 : 1);
+                            enemy.userData.hp -= damage;
+                            if (enemy.userData.hp <= 0) {
+                                killEnemy(enemy, isHeadshot);
+                                flashCrosshair(isHeadshot);
+                                if (isHeadshot) {
+                                    AudioSys.headshot();
+                                } else {
+                                    AudioSys.hit();
+                                }
+                            } else {
+                                flashCrosshair(isHeadshot);
+                                AudioSys.hit();
+                            }
+                        }
+                    }
+
+                    if (currentAmmo <= 0) {
+                        setTimeout(() => startReload(), 300);
+                    }
+                }
+            }
+
+            function tryHeavyAttack() {
+                if (!gameActive || gamePaused) return;
+                if (!currentWeapon.isMelee) return;
+                if (meleeCooldown > 0) return;
+
+                meleeCooldown = currentWeapon.fireRate * 1.5;
+                AudioSys.heavyKnife();
+                gunGroup.position.z = 0.15;
+                gunGroup.rotation.x = -0.3;
+                applyScreenShake(0.4);
+                setTimeout(() => {
+                    gunGroup.position.z = 0;
+                    gunGroup.rotation.x = 0;
+                }, 300);
 
                 const damageBonus = getDamageBonus();
-                const totalDamage = currentWeapon.damage + damageBonus;
+                const totalDamage = (currentWeapon.damage + damageBonus) * 1.5;
 
-                raycaster.setFromCamera({ x: 0, y: 0 }, camera);
-                const targets = wallMeshes.concat(enemies);
-                const hits = raycaster.intersectObjects(targets);
-                if (hits.length) {
-                    const hit = hits[0];
-                    if (hit.object.userData.isEnemy) {
-                        const enemy = hit.object;
-                        const damage = totalDamage * (enemy.userData.isBoss ? 0.7 : 1);
-                        enemy.userData.hp -= damage;
-                        if (enemy.userData.hp <= 0) {
-                            killEnemy(enemy);
-                            flashCrosshair();
-                            AudioSys.hit();
-                        } else {
-                            flashCrosshair();
-                            AudioSys.hit();
+                for (let angle = -0.2; angle <= 0.2; angle += 0.1) {
+                    raycaster.setFromCamera({ x: angle, y: 0 }, camera);
+                    const hits = raycaster.intersectObjects(enemies, 2.0);
+                    if (hits.length) {
+                        const enemy = hits[0].object;
+                        if (enemy.userData.isEnemy) {
+                            const localHit = enemy.worldToLocal(hits[0].point.clone());
+                            const isHeadshot = localHit.y > enemy.userData.height * 0.6;
+                            const dmg = isHeadshot ? totalDamage * 2 : totalDamage;
+                            enemy.userData.hp -= dmg;
+                            if (enemy.userData.hp <= 0) {
+                                killEnemy(enemy, isHeadshot);
+                                flashCrosshair(isHeadshot);
+                                AudioSys.hit();
+                            }
                         }
                     }
                 }
             }
 
-            function flashCrosshair() {
-                const c = document.getElementById('crosshair');
-                c.classList.add('hit');
-                setTimeout(() => c.classList.remove('hit'), 120);
+            function startReload() {
+                if (isReloading || currentWeapon.isMelee) return;
+                const maxAmmo = getMaxAmmoForWeapon(currentWeapon);
+                if (currentAmmo >= maxAmmo) return;
+                isReloading = true;
+                reloadTimer = currentWeapon.reloadTime || 1.5;
+                document.getElementById('ammoVal').textContent = 'RELOADING...';
             }
 
-            function killEnemy(mesh) {
+            function updateReload(dt) {
+                if (!isReloading) return;
+                reloadTimer -= dt;
+                if (reloadTimer <= 0) {
+                    isReloading = false;
+                    currentAmmo = getMaxAmmoForWeapon(currentWeapon);
+                    updateAmmoDisplay();
+                    ammoReady = true;
+                    document.getElementById('ammoVal').textContent = 'READY';
+                } else {
+                    document.getElementById('ammoVal').textContent = `RELOADING ${Math.ceil(reloadTimer * 10) / 10}s`;
+                }
+            }
+
+            function flashCrosshair(isHeadshot) {
+                const c = document.getElementById('crosshair');
+                c.classList.remove('hit', 'headshot');
+                c.classList.add('hit-marker');
+                if (isHeadshot) {
+                    c.classList.add('headshot');
+                    setTimeout(() => c.classList.remove('headshot'), 200);
+                } else {
+                    c.classList.add('hit');
+                    setTimeout(() => c.classList.remove('hit'), 120);
+                }
+                setTimeout(() => c.classList.remove('hit-marker'), 150);
+            }
+
+            function killEnemy(mesh, isHeadshot) {
                 scene.remove(mesh);
                 enemies = enemies.filter(e => e !== mesh);
                 const isBoss = mesh.userData.isBoss || false;
-                const earned = isBoss ? 200 : 25;
+                const earned = isBoss ? 300 : 25;
                 money += earned;
                 stats.totalMoney += earned;
-                const scoreGain = Math.round((isBoss ? 500 : 75) * diffConfig.scoreMult);
+                const scoreGain = Math.round((isBoss ? 800 : 75) * diffConfig.scoreMult);
                 score += scoreGain;
                 stats.totalScore += scoreGain;
                 totalKillsThisRun++;
                 stats.totalKills++;
                 if (isBoss) stats.bossesDefeated++;
+                if (isHeadshot) {
+                    headshots++;
+                    stats.headshots++;
+                }
+
+                // Weapon XP - only for non-melee weapons
+                if (!currentWeapon.isMelee) {
+                    addWeaponXP(isBoss ? 50 : 10);
+                }
+
+                const monsterName = mesh.userData.isBoss ? 'BOSS' :
+                    mesh.userData.type ? mesh.userData.type.toUpperCase() : 'MONSTER';
+                addKillFeed(monsterName, isHeadshot, isBoss);
 
                 let gainedStatPoint = false;
                 if (isBoss) {
-                    statPoints++;
+                    statPoints += 2;
                     gainedStatPoint = true;
                 } else {
                     const luckBonus = getLuckBonus();
-                    const chance = 0.01 + luckBonus;
+                    const chance = 0.02 + luckBonus;
                     if (Math.random() < chance) {
                         statPoints++;
                         gainedStatPoint = true;
@@ -2075,10 +3274,19 @@
                 document.getElementById('moneyVal').textContent = money;
                 document.getElementById('statPointsVal').textContent = statPoints;
                 updateEnemyCount();
-                sanity = Math.min(100, sanity + (isBoss ? 20 : 3));
+                sanity = Math.min(100, sanity + (isBoss ? 25 : 3));
                 document.getElementById('sanityVal').textContent = Math.round(sanity) + '%';
                 document.getElementById('sanityBar').querySelector('span').style.width = sanity + '%';
-                if (isBoss) bossEnemy = null;
+                if (isBoss && mesh === bossEnemy) {
+                    bossEnemy = null;
+                    const remainingBosses = enemies.filter(e => e.userData.isBoss).length;
+                    if (remainingBosses === 0 && isHellMode) {
+                        document.getElementById('objectiveVal').textContent = '⚔ ALL BOSSES DEFEATED! ⚔';
+                        setTimeout(() => {
+                            onLevelClear();
+                        }, 1000);
+                    }
+                }
                 updateStatsUI();
 
                 if (gainedStatPoint) {
@@ -2148,11 +3356,11 @@
                         ctx.stroke();
                     }
 
-                ctx.fillStyle = 'rgba(150,120,80,0.25)';
+                ctx.fillStyle = 'rgba(150,120,80,0.3)';
                 obstacles.forEach(obs => {
                     const ox = (obs.position.x / CELL) * cellPx,
                         oz = (obs.position.z / CELL) * cellPx;
-                    ctx.fillRect(ox - 2, oz - 2, 4, 4);
+                    ctx.fillRect(ox - 3, oz - 3, 6, 6);
                 });
 
                 ctx.fillStyle = 'rgba(80,200,80,0.25)';
@@ -2162,12 +3370,17 @@
                 enemies.forEach(e => {
                     const ex = (e.position.x / CELL) * cellPx,
                         ez = (e.position.z / CELL) * cellPx;
-                    const size = e.userData.isBoss ? 5 : 2;
-                    const color = e.userData.isBoss ? 'rgba(255,50,50,0.6)' : 'rgba(200,50,50,0.4)';
+                    const size = e.userData.isBoss ? 6 : 2;
+                    const color = e.userData.isBoss ? 'rgba(255,80,80,0.8)' : 'rgba(200,50,50,0.4)';
                     ctx.fillStyle = color;
                     ctx.beginPath();
                     ctx.arc(ex, ez, size, 0, Math.PI * 2);
                     ctx.fill();
+                    if (e.userData.isBoss) {
+                        ctx.strokeStyle = 'rgba(255,255,0,0.5)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
                 });
 
                 const px = (camera.position.x / CELL) * cellPx,
@@ -2205,7 +3418,7 @@
                         en.material.emissiveIntensity = 0.8 + Math.sin(performance.now() * 0.02) * 0.3;
                         return;
                     } else {
-                        en.material.emissiveIntensity = en.userData.isBoss ? 0.5 : 0.3;
+                        en.material.emissiveIntensity = en.userData.isBoss ? 0.6 : 0.3;
                     }
 
                     const curCell = { i: Math.floor(en.position.x / CELL), j: Math.floor(en.position.z / CELL) };
@@ -2217,11 +3430,57 @@
                     const distToPlayer = en.position.distanceTo(camera.position);
                     const attackRange = en.userData.attackRange || 1.3;
 
+                    if (en.userData.isBoss && diffConfig.bossAbilities) {
+                        if (Math.random() < 0.02 && en.userData.attackTimer <= 0) {
+                            const abilityKeys = ['PULL', 'SUMMON', 'TELEPORT', 'SHOCKWAVE'];
+                            const available = [];
+                            for (const key of abilityKeys) {
+                                if (!en.userData.abilityCooldowns) {
+                                    en.userData.abilityCooldowns = getBossAbilityCooldowns();
+                                }
+                                if (en.userData.abilityCooldowns[key] <= 0) {
+                                    available.push(key);
+                                }
+                            }
+                            if (available.length > 0) {
+                                const abilityKey = available[Math.floor(Math.random() * available.length)];
+                                const ability = BOSS_ABILITIES[abilityKey];
+                                if (ability) {
+                                    const playerPos = camera.position.clone();
+                                    const success = ability.execute(en, playerPos, scene, enemies);
+                                    if (success) {
+                                        en.userData.abilityCooldowns[abilityKey] = ability.cooldown + Math.random() *
+                                        2;
+                                        en.userData.attackTimer = ability.duration;
+                                        if (abilityKey === 'SHOCKWAVE' || abilityKey === 'PULL') {
+                                            if (!window._lastPlayerPos) {
+                                                window._lastPlayerPos = playerPos.clone();
+                                            }
+                                            const distMoved = playerPos.distanceTo(window._lastPlayerPos);
+                                            if (distMoved > 1.5) {
+                                                dodges++;
+                                                stats.dodges++;
+                                                updateStatsUI();
+                                                AudioSys.dodge();
+                                            }
+                                            window._lastPlayerPos = playerPos.clone();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if (distToPlayer < attackRange && en.userData.attackTimer <= 0) {
-                        const baseDamage = diffConfig.damagePerSec * 0.5;
-                        const damage = baseDamage * (en.userData.damageMult || 1) * (en.userData.isBoss ? diffConfig
-                            .bossDamageMult : 1);
-                        let dmg = damage;
+                        let damage;
+                        if (en.userData.isBoss) {
+                            damage = en.userData.bossDamage || (diffConfig.damagePerSec * 0.6 * diffConfig
+                            .bossDamageMult);
+                        } else {
+                            damage = diffConfig.damagePerSec * 0.5 * (en.userData.damageMult || 1);
+                        }
+                        const defenseBonus = getDefenseBonus();
+                        let dmg = Math.max(1, damage - defenseBonus);
                         if (shieldAmount > 0) {
                             const absorbed = Math.min(shieldAmount, dmg);
                             shieldAmount -= absorbed;
@@ -2231,12 +3490,16 @@
                             document.getElementById('shieldDisplay').style.opacity = shieldAmount > 0 ? 1 : 0;
                         }
                         health -= dmg;
+                        playerHealth = health;
                         hitFlashTimer = 0.2;
+                        damageOverlay.style.opacity = Math.min(0.4, dmg / 50);
+                        setTimeout(() => { damageOverlay.style.opacity = 0; }, 300);
                         AudioSys.hurt();
+                        applyScreenShake(0.3);
                         en.userData.attackTimer = en.userData.attackCooldown || 1.0;
 
                         en.material.emissiveIntensity = 1.5;
-                        setTimeout(() => { en.material.emissiveIntensity = en.userData.isBoss ? 0.5 : 0.3; }, 150);
+                        setTimeout(() => { en.material.emissiveIntensity = en.userData.isBoss ? 0.6 : 0.3; }, 150);
 
                         const dir = new THREE.Vector3().subVectors(en.position, camera.position).normalize();
                         en.position.add(dir.multiplyScalar(0.3));
@@ -2357,13 +3620,14 @@
                 if (!isGrounded) {
                     velocityY += GRAVITY * dt;
                     playerHeight += velocityY * dt;
-                    if (playerHeight <= 1.7) {
-                        playerHeight = 1.7;
+                    if (playerHeight <= (isCrouching ? 1.0 : 1.7)) {
+                        playerHeight = isCrouching ? 1.0 : 1.7;
                         velocityY = 0;
                         isGrounded = true;
                     }
                 }
                 if (jumpCooldownTimer > 0) jumpCooldownTimer -= dt;
+                if (meleeCooldown > 0) meleeCooldown -= dt;
 
                 if (speedBoostTimer > 0) {
                     speedBoostTimer -= dt;
@@ -2431,13 +3695,18 @@
                     cj = Math.floor(camera.position.z / CELL);
                 if (ci === exitCell.i && cj === exitCell.j) {
                     if (isBossLevel && bossEnemy) return;
-                    if (enemies.length === 0 || (isBossLevel && !bossEnemy)) {
+                    if (isHellMode) {
+                        const remainingBosses = enemies.filter(e => e.userData.isBoss).length;
+                        if (remainingBosses > 0) return;
+                    }
+                    if (enemies.length === 0) {
                         onLevelClear();
                     } else {
                         document.getElementById('objectiveVal').textContent = '⚔ DEFEAT ALL ENEMIES';
                         document.getElementById('objectiveVal').style.color = '#ff4444';
                         setTimeout(() => {
-                            document.getElementById('objectiveVal').textContent = 'LOCATE EXIT PAD';
+                            document.getElementById('objectiveVal').textContent = isBossLevel || isHellMode ?
+                                '⚔ DEFEAT THE BOSS(ES) ⚔' : 'LOCATE EXIT PAD';
                             document.getElementById('objectiveVal').style.color = '#6f6';
                         }, 1500);
                     }
@@ -2457,6 +3726,7 @@
 
                 updatePlayer(dt);
                 updateEnemies(dt);
+                updateReload(dt);
 
                 if (mapRevealTimer > 0) mapRevealTimer -= dt;
 
@@ -2467,7 +3737,9 @@
                 }
                 if (flareCooldown > 0) flareCooldown -= dt;
 
-                gunGroup.position.z += (0 - gunGroup.position.z) * 0.2;
+                if (gunGroup.position.z > 0) {
+                    gunGroup.position.z += (0 - gunGroup.position.z) * 0.1;
+                }
 
                 if (scene.userData.lamps) {
                     scene.userData.lamps.forEach(l => {
@@ -2512,29 +3784,51 @@
                         div.className = 'shop-item';
                         const owned = w.owned ? (w.equipped ? ' ✅ EQUIPPED' : ' ✅ OWNED') : '';
                         const priceText = w.price === 0 ? 'FREE' : `💰 ${w.price}`;
+                        const ammoText = w.isMelee ? '—' : `${w.maxAmmo}`;
+                        const rateText = w.isMelee ? 'Melee' : `${(1/w.fireRate).toFixed(0)}/s`;
+                        const masteryText = w.mastered ? ' ⭐ MASTERED' : '';
                         div.innerHTML = `
-                            <div class="name">${w.name}</div>
-                            <div class="price">${priceText}</div>
-                            <div class="owned">${owned}</div>
-                            <div class="stats">DMG:${w.damage} ROF:${w.fireRate.toFixed(2)}</div>
-                        `;
+                                <div class="name">${w.name}${masteryText}</div>
+                                <div class="price">${priceText}</div>
+                                <div class="owned">${owned}</div>
+                                <div class="stats">DMG:${w.damage} | ROF:${rateText} | AMMO:${ammoText}</div>
+                                <div class="desc">${w.desc}</div>
+                            `;
                         div.style.cursor = 'pointer';
                         div.addEventListener('click', () => {
                             if (w.owned) {
                                 WEAPONS.forEach(we => we.equipped = false);
                                 w.equipped = true;
                                 currentWeapon = w;
+                                if (!w.isMelee) {
+                                    currentAmmo = getMaxAmmoForWeapon(w);
+                                } else {
+                                    currentAmmo = 0;
+                                }
+                                document.getElementById('weaponNameVal').textContent = w.name;
+                                document.getElementById('weaponLevelVal').textContent = w.level;
+                                updateAmmoDisplay();
                                 renderShop(tab);
                                 updateStatsUI();
+                                buildLevel(level);
                             } else if (money >= w.price) {
                                 money -= w.price;
                                 w.owned = true;
                                 WEAPONS.forEach(we => we.equipped = false);
                                 w.equipped = true;
                                 currentWeapon = w;
+                                if (!w.isMelee) {
+                                    currentAmmo = getMaxAmmoForWeapon(w);
+                                } else {
+                                    currentAmmo = 0;
+                                }
+                                document.getElementById('weaponNameVal').textContent = w.name;
+                                document.getElementById('weaponLevelVal').textContent = w.level;
+                                updateAmmoDisplay();
                                 document.getElementById('moneyVal').textContent = money;
                                 renderShop(tab);
                                 updateStatsUI();
+                                buildLevel(level);
                             }
                         });
                         container.appendChild(div);
@@ -2545,11 +3839,11 @@
                         div.className = 'shop-item';
                         const owned = t.owned ? ' ✅ OWNED' : '';
                         div.innerHTML = `
-                            <div class="name">${t.name}</div>
-                            <div class="price">💰 ${t.price}</div>
-                            <div class="desc">${t.desc}</div>
-                            <div style="font-size:10px; color:#7a8a9a;">${owned}</div>
-                        `;
+                                <div class="name">${t.name}</div>
+                                <div class="price">💰 ${t.price}</div>
+                                <div class="desc">${t.desc}</div>
+                                <div style="font-size:10px; color:#7a8a9a;">${owned}</div>
+                            `;
                         div.style.cursor = 'pointer';
                         div.addEventListener('click', () => {
                             if (t.owned) {
@@ -2571,12 +3865,12 @@
                         const div = document.createElement('div');
                         div.className = 'shop-item';
                         div.innerHTML = `
-                            <div class="name">${stat.label}</div>
-                            <div class="level">Level ${level}/${stat.max}</div>
-                            <div class="price">⭐ ${stat.cost}</div>
-                            <div class="stats">Bonus: +${(stat.bonus * level).toFixed(2)}</div>
-                            <div style="font-size:8px; color:#7a8a9a;">${maxed ? 'MAXED' : 'Click to upgrade'}</div>
-                        `;
+                                <div class="name">${stat.label}</div>
+                                <div class="level">Level ${level}/${stat.max}</div>
+                                <div class="price">⭐ ${stat.cost}</div>
+                                <div class="stats">Bonus: +${(stat.bonus * level).toFixed(2)}</div>
+                                <div style="font-size:8px; color:#7a8a9a;">${maxed ? 'MAXED' : 'Click to upgrade'}</div>
+                            `;
                         div.style.cursor = maxed ? 'default' : 'pointer';
                         div.style.opacity = maxed ? 0.5 : 1;
                         if (!maxed) {
@@ -2588,6 +3882,10 @@
                                     if (statKey === 'health') {
                                         health = getMaxHealth();
                                         renderHealthBar();
+                                    }
+                                    if (statKey === 'ammo' && !currentWeapon.isMelee) {
+                                        currentAmmo = getMaxAmmoForWeapon(currentWeapon);
+                                        updateAmmoDisplay();
                                     }
                                     renderShop(tab);
                                     saveGame();
@@ -2610,6 +3908,7 @@
                         break;
                     case 'health_pack':
                         health = Math.min(getMaxHealth(), health + 30);
+                        playerHealth = health;
                         renderHealthBar();
                         showMessage('❤️ +30 HP');
                         break;
@@ -2629,6 +3928,10 @@
                         document.getElementById('shieldDisplay').style.opacity = 1;
                         showMessage('🛡 Shield +50');
                         break;
+                    case 'xp_boost':
+                        // XP Boost is passive, just mark as used
+                        showMessage('⚡ XP Boost activated for next 10 kills!');
+                        break;
                 }
             }
 
@@ -2637,8 +3940,13 @@
                 obj.textContent = text;
                 obj.style.color = '#88aaff';
                 setTimeout(() => {
-                    obj.textContent = 'LOCATE EXIT PAD';
-                    obj.style.color = '#6f6';
+                    if (isBossLevel || isHellMode) {
+                        obj.textContent = '⚔ DEFEAT THE BOSS(ES) ⚔';
+                        obj.style.color = '#ff4444';
+                    } else {
+                        obj.textContent = 'LOCATE EXIT PAD';
+                        obj.style.color = '#6f6';
+                    }
                 }, 2000);
             }
 
@@ -2669,15 +3977,23 @@
                 score = 0;
                 level = 1;
                 health = getMaxHealth();
+                playerHealth = health;
                 sanity = 100;
                 money = 0;
                 shieldAmount = 0;
                 statPoints = 0;
+                headshots = 0;
+                dodges = 0;
+                weaponMastered = 0;
                 WEAPONS.forEach(w => { w.owned = false;
-                    w.equipped = false; });
+                    w.equipped = false;
+                    w.xp = 0;
+                    w.level = 1;
+                    w.mastered = false; });
                 WEAPONS[0].owned = true;
                 WEAPONS[0].equipped = true;
                 currentWeapon = WEAPONS[0];
+                currentAmmo = 0;
                 tools.forEach(t => t.owned = false);
                 Object.keys(PLAYER_STATS).forEach(key => playerStatLevels[key] = 0);
                 document.getElementById('scoreVal').textContent = score;
@@ -2686,6 +4002,11 @@
                 document.getElementById('shieldVal').textContent = '0';
                 document.getElementById('shieldDisplay').style.opacity = 0;
                 document.getElementById('statPointsVal').textContent = statPoints;
+                document.getElementById('weaponNameVal').textContent = currentWeapon.name;
+                document.getElementById('weaponLevelVal').textContent = currentWeapon.level;
+                document.getElementById('statHeadshots').textContent = headshots;
+                document.getElementById('statDodges').textContent = dodges;
+                document.getElementById('statMastered').textContent = weaponMastered;
                 initMinimap();
                 buildLevel(level);
                 clock = new THREE.Clock();
@@ -2693,6 +4014,7 @@
                 gamePaused = false;
                 canvas.requestPointerLock();
                 updateStatsUI();
+                updateAmmoDisplay();
             }
 
             function onLevelClear() {
@@ -2708,19 +4030,23 @@
                     levelClearedForStat = true;
                 }
 
-                const bonus = isBossLevel ? 300 : 100;
+                const bonus = (isBossLevel || isHellMode) ? 500 : 100;
                 money += bonus;
                 stats.totalMoney += bonus;
-                score += Math.round((isBossLevel ? 500 : 200) * diffConfig.scoreMult);
-                stats.totalScore += Math.round((isBossLevel ? 500 : 200) * diffConfig.scoreMult);
+                score += Math.round((isBossLevel || isHellMode) ? 1000 : 200) * diffConfig.scoreMult;
+                stats.totalScore += Math.round((isBossLevel || isHellMode) ? 1000 : 200) * diffConfig.scoreMult;
                 if (level > stats.highestLevel) stats.highestLevel = level;
+                if (level > highestLevelCleared) {
+                    highestLevelCleared = level;
+                }
                 document.getElementById('moneyVal').textContent = money;
                 document.getElementById('clearScore').textContent = score;
-                document.getElementById('clearTitle').textContent = isBossLevel ? '⚔ BOSS DEFEATED ⚔' :
-                'SECTOR PURGED';
+                document.getElementById('clearTitle').textContent = (isBossLevel || isHellMode) ? '⚔ BOSS DEFEATED ⚔' :
+                    'SECTOR PURGED';
                 document.getElementById('clearScreen').style.display = 'flex';
                 updateStatsUI();
                 saveGame();
+                checkDifficultyUnlocks();
             }
 
             function nextLevel() {
@@ -2728,6 +4054,7 @@
                 level += 1;
                 document.getElementById('scoreVal').textContent = score;
                 health = Math.min(getMaxHealth(), health + 10);
+                playerHealth = health;
                 renderHealthBar();
                 buildLevel(level);
                 gameActive = true;
@@ -2770,11 +4097,13 @@
             // ---- DIFFICULTY ----
             document.querySelectorAll('#difficultyRow .menu-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    const diff = btn.dataset.diff;
+                    if (!unlockedDifficulties.includes(diff)) return;
                     document.querySelectorAll('#difficultyRow .menu-btn').forEach(b => b.classList.remove(
                     'active-mode'));
                     btn.classList.add('active-mode');
-                    currentDifficulty = btn.dataset.diff;
-                    diffConfig = DIFFICULTIES[currentDifficulty];
+                    currentDifficulty = diff;
+                    diffConfig = DIFFICULTIES[diff];
                     updateStatsUI();
                 });
             });
@@ -2787,10 +4116,12 @@
                 }
                 startGame();
             });
+
             document.getElementById('continueBtn').addEventListener('click', () => {
                 const saveData = loadSave();
                 if (saveData) { startGame(saveData); } else { alert('No saved game found.'); }
             });
+
             document.getElementById('retryBtn').addEventListener('click', restartGame);
             document.getElementById('nextBtn').addEventListener('click', nextLevel);
             document.getElementById('resumeBtn').addEventListener('click', () => { if (gamePaused) togglePause(); });
@@ -2847,6 +4178,9 @@
 
             const hasSave = loadSave() !== null;
             document.getElementById('continueBtn').style.display = hasSave ? 'block' : 'none';
+
+            // Initialize difficulty unlocks
+            checkDifficultyUnlocks();
 
             initRenderer();
             animate();
