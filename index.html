@@ -1,308 +1,487 @@
-<!-- index.html - Matching your JS Code -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <title>BUNKER-9 :: DELIRIUM SWEEP</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#0b0a09">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-</head>
-<body>
-    <!-- MAIN MENU -->
+    <meta
+      name="description"
+      content="Bunker 9 - Delirium Sweep. A 3D first-person survival horror game with procedural mazes, boss fights, and 16 weapons."
+    />
+    <meta name="theme-color" content="#0b0a09" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ============ MAIN MENU ============ -->
     <div id="mainMenu">
-        <div class="menu-bg"></div>
-        <div class="menu-glow"></div>
-        <div class="menu-particles"></div>
-        <div class="menu-content">
-            <div class="logo-container">
-                <div class="logo-shield">⛭</div>
-                <h1>BUNKER-9</h1>
-            </div>
-            <div class="sub">D E L I R I U M &nbsp; S W E E P</div>
-            <div class="rule"></div>
-            <div id="menuOptions">
-                <button class="menu-btn primary" id="startGameBtn">
-                    <span class="btn-icon">▶</span> START
-                </button>
-                <button class="menu-btn secondary" id="continueBtn" style="display:none;">
-                    <span class="btn-icon">⏭</span> CONTINUE
-                </button>
-                <button class="menu-btn secondary" id="shopMenuBtn">
-                    <span class="btn-icon">🛒</span> SHOP
-                </button>
-                <button class="menu-btn secondary" id="statsMenuBtn">
-                    <span class="btn-icon">📊</span> STATS
-                </button>
-                <button class="menu-btn secondary" id="settingsMenuBtn">
-                    <span class="btn-icon">⚙</span> SETTINGS
-                </button>
-                <div class="menu-divider"></div>
-                <div class="difficulty-label">DIFFICULTY</div>
-                <div id="difficultyRow">
-                    <button class="menu-btn small active-mode" data-diff="easy">EASY</button>
-                    <button class="menu-btn small" data-diff="medium">MEDIUM</button>
-                    <button class="menu-btn small locked" data-diff="hard">HARD</button>
-                    <button class="menu-btn small locked" data-diff="extreme">EXTREME</button>
-                    <button class="menu-btn small locked" data-diff="impossible">IMPOSSIBLE</button>
-                    <button class="menu-btn small locked" data-diff="hell">HELL</button>
-                </div>
-                <div id="unlockInfo">🔒 Complete 10 levels on EASY to unlock MEDIUM</div>
-            </div>
-            <div class="blink">CLICK TO LOCK — ESC TO RELEASE</div>
+      <div class="menu-bg"></div>
+      <div class="menu-glow"></div>
+      <div class="menu-content">
+        <div class="logo-container">
+          <div class="logo-shield">&#9881;</div>
+          <h1>BUNKER-9</h1>
         </div>
+        <div class="sub">D E L I R I U M &nbsp; S W E E P</div>
+        <div class="rule"></div>
+        <div id="menuOptions">
+          <button class="menu-btn primary" id="startGameBtn">
+            <span class="btn-icon">&#9654;</span> START
+          </button>
+          <button
+            class="menu-btn secondary"
+            id="continueBtn"
+            style="display: none"
+          >
+            <span class="btn-icon">&#9193;</span> CONTINUE
+          </button>
+          <button class="menu-btn secondary" id="shopMenuBtn">
+            <span class="btn-icon">&#128722;</span> SHOP
+          </button>
+          <button class="menu-btn secondary" id="statsMenuBtn">
+            <span class="btn-icon">&#128202;</span> STATS
+          </button>
+          <button class="menu-btn secondary" id="settingsMenuBtn">
+            <span class="btn-icon">&#9881;</span> SETTINGS
+          </button>
+          <div class="menu-divider"></div>
+          <div class="difficulty-label">DIFFICULTY</div>
+          <div id="difficultyRow">
+            <button class="menu-btn small active-mode" data-diff="easy">
+              EASY
+            </button>
+            <button class="menu-btn small" data-diff="medium">MEDIUM</button>
+            <button class="menu-btn small locked" data-diff="hard">HARD</button>
+            <button class="menu-btn small locked" data-diff="extreme">
+              EXTREME
+            </button>
+            <button class="menu-btn small locked" data-diff="impossible">
+              IMPOSSIBLE
+            </button>
+            <button class="menu-btn small locked" data-diff="hell">HELL</button>
+          </div>
+          <div id="unlockInfo">Complete 10 levels on EASY to unlock MEDIUM</div>
+        </div>
+        <div class="blink">CLICK TO LOCK &mdash; ESC TO RELEASE</div>
+      </div>
     </div>
 
-    <!-- SHOP -->
+    <!-- ============ SHOP ============ -->
     <div id="shopMenu">
-        <div class="shop-header">
-            <h2>🛒 ARMORY</h2>
-            <button id="shopClose" class="close-btn">✕</button>
-        </div>
-        <div id="shopBalance">💰 BALANCE: <span class="val" id="shopMoney">0</span> &nbsp;|&nbsp; ⭐ STAT POINTS: <span class="val" id="shopStatPoints">0</span></div>
-        <div class="shop-tabs">
-            <button class="shop-tab active" data-tab="weapons">WEAPONS</button>
-            <button class="shop-tab" data-tab="tools">TOOLS</button>
-            <button class="shop-tab" data-tab="stats">STATS</button>
-            <button class="shop-tab" data-tab="perks">PERKS</button>
-        </div>
-        <div id="shopItems"></div>
+      <div class="shop-header">
+        <h2>&#128722; ARMORY</h2>
+        <button id="shopClose" class="close-btn" aria-label="Close shop">
+          &times;
+        </button>
+      </div>
+      <div id="shopBalance">
+        &#128176; BALANCE:
+        <span class="val" id="shopMoney">0</span> &nbsp;|&nbsp; &#11088; STAT
+        POINTS: <span class="val" id="shopStatPoints">0</span>
+      </div>
+      <div class="shop-tabs">
+        <button class="shop-tab active" data-tab="weapons">WEAPONS</button>
+        <button class="shop-tab" data-tab="tools">TOOLS</button>
+        <button class="shop-tab" data-tab="stats">STATS</button>
+        <button class="shop-tab" data-tab="perks">PERKS</button>
+      </div>
+      <div id="shopItems"></div>
     </div>
 
-    <!-- STATS PANEL -->
+    <!-- ============ STATS ============ -->
     <div id="statsPanel">
-        <div class="panel-header">
-            <h2>📊 STATISTICS</h2>
-            <button id="statsClose" class="close-btn">✕</button>
+      <div class="panel-header">
+        <h2>&#128202; STATISTICS</h2>
+        <button id="statsClose" class="close-btn" aria-label="Close stats">
+          &times;
+        </button>
+      </div>
+      <div id="statsContent">
+        <div class="stat-row">
+          <span class="stat-label">TOTAL SCORE</span
+          ><span class="stat-value gold" id="statScore">0</span>
         </div>
-        <div id="statsContent">
-            <div class="stat-row"><span class="stat-label">TOTAL SCORE</span> <span class="stat-value gold" id="statScore">0</span></div>
-            <div class="stat-row"><span class="stat-label">HIGHEST LEVEL</span> <span class="stat-value blue" id="statLevel">0</span></div>
-            <div class="stat-row"><span class="stat-label">TOTAL KILLS</span> <span class="stat-value red" id="statKills">0</span></div>
-            <div class="stat-row"><span class="stat-label">BOSSES DEFEATED</span> <span class="stat-value gold" id="statBosses">0</span></div>
-            <div class="stat-row"><span class="stat-label">TOTAL MONEY EARNED</span> <span class="stat-value green" id="statMoney">0</span></div>
-            <div class="stat-row"><span class="stat-label">GAMES PLAYED</span> <span class="stat-value blue" id="statGames">0</span></div>
-            <div class="stat-row"><span class="stat-label">CURRENT WEAPON</span> <span class="stat-value gold" id="statWeapon">COMBAT KNIFE</span></div>
-            <div class="stat-row"><span class="stat-label">DIFFICULTY</span> <span class="stat-value gold" id="statDifficulty">EASY</span></div>
-            <div class="stat-row"><span class="stat-label">HEADSHOTS</span> <span class="stat-value red" id="statHeadshots">0</span></div>
-            <div class="stat-row"><span class="stat-label">BOSS ABILITIES DODGED</span> <span class="stat-value blue" id="statDodges">0</span></div>
-            <div class="stat-row"><span class="stat-label">WEAPONS MASTERED</span> <span class="stat-value gold" id="statMastered">0</span></div>
-            <div class="stat-row"><span class="stat-label">PLAYTIME</span> <span class="stat-value gold" id="statPlaytime">0h 0m</span></div>
+        <div class="stat-row">
+          <span class="stat-label">HIGHEST LEVEL</span
+          ><span class="stat-value blue" id="statLevel">0</span>
         </div>
+        <div class="stat-row">
+          <span class="stat-label">TOTAL KILLS</span
+          ><span class="stat-value red" id="statKills">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">BOSSES DEFEATED</span
+          ><span class="stat-value gold" id="statBosses">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">TOTAL MONEY EARNED</span
+          ><span class="stat-value green" id="statMoney">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">GAMES PLAYED</span
+          ><span class="stat-value blue" id="statGames">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">CURRENT WEAPON</span
+          ><span class="stat-value gold" id="statWeapon">COMBAT KNIFE</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">DIFFICULTY</span
+          ><span class="stat-value gold" id="statDifficulty">EASY</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">HEADSHOTS</span
+          ><span class="stat-value red" id="statHeadshots">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">BOSS DODGES</span
+          ><span class="stat-value blue" id="statDodges">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">WEAPONS MASTERED</span
+          ><span class="stat-value gold" id="statMastered">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">GRENADES THROWN</span
+          ><span class="stat-value orange" id="statGrenades">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">HORDES SUMMONED</span
+          ><span class="stat-value orange" id="statHordes">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">PLAYTIME</span
+          ><span class="stat-value gold" id="statPlaytime">0h 0m</span>
+        </div>
+      </div>
     </div>
 
-    <!-- PAUSE MENU -->
+    <!-- ============ PAUSE ============ -->
     <div id="pauseMenu">
-        <h2>⏸ PAUSED</h2>
-        <button class="menu-btn primary" id="resumeBtn">▶ RESUME</button>
-        <button class="menu-btn secondary" id="saveBtn">💾 SAVE</button>
-        <button class="menu-btn secondary" id="shopFromPauseBtn">🛒 SHOP</button>
-        <button class="menu-btn secondary" id="statsFromPauseBtn">📊 STATS</button>
-        <button class="menu-btn secondary" id="settingsFromPauseBtn">⚙ SETTINGS</button>
-        <button class="menu-btn danger" id="quitToMenuBtn">✕ QUIT</button>
+      <h2>&#9208; PAUSED</h2>
+      <button class="menu-btn primary" id="resumeBtn">&#9654; RESUME</button>
+      <button class="menu-btn secondary" id="saveBtn">&#128190; SAVE</button>
+      <button class="menu-btn secondary" id="shopFromPauseBtn">
+        &#128722; SHOP
+      </button>
+      <button class="menu-btn secondary" id="statsFromPauseBtn">
+        &#128202; STATS
+      </button>
+      <button class="menu-btn secondary" id="settingsFromPauseBtn">
+        &#9881; SETTINGS
+      </button>
+      <button class="menu-btn danger" id="quitToMenuBtn">&times; QUIT</button>
     </div>
 
-    <!-- SETTINGS -->
+    <!-- ============ SETTINGS ============ -->
     <div id="settingsMenu">
-        <div class="panel-header">
-            <h2>⚙ SETTINGS</h2>
-            <button id="settingsClose" class="close-btn">✕</button>
+      <div class="panel-header">
+        <h2>&#9881; SETTINGS</h2>
+        <button
+          id="settingsClose"
+          class="close-btn"
+          aria-label="Close settings"
+        >
+          &times;
+        </button>
+      </div>
+      <div id="settingsContent">
+        <div class="settings-section">
+          <div class="settings-title">CONTROLS</div>
+          <div class="key-bind">
+            <span class="key">W A S D</span><span class="key-desc">Move</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">MOUSE</span><span class="key-desc">Look</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">LEFT CLICK</span
+            ><span class="key-desc">Attack</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">RIGHT CLICK</span
+            ><span class="key-desc">Heavy Melee</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">R</span
+            ><span class="key-desc">Toggle Flashlight</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">F</span><span class="key-desc">Flare</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">G</span><span class="key-desc">Grenade</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">SHIFT</span><span class="key-desc">Sprint</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">SPACE</span><span class="key-desc">Jump</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">C</span><span class="key-desc">Crouch</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">Q</span
+            ><span class="key-desc">Inspect Weapon</span>
+          </div>
+          <div class="key-bind">
+            <span class="key">ESC / P</span><span class="key-desc">Pause</span>
+          </div>
         </div>
-        <div id="settingsContent">
-            <div class="settings-section">
-                <div class="settings-title">CONTROLS</div>
-                <div class="key-bind">
-                    <span class="key">W A S D</span> <span class="key-desc">— Move</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">MOUSE</span> <span class="key-desc">— Look</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">LEFT CLICK</span> <span class="key-desc">— Attack</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">RIGHT CLICK</span> <span class="key-desc">— Heavy Melee</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">R</span> <span class="key-desc">— Toggle Flashlight</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">F</span> <span class="key-desc">— Flare</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">SHIFT</span> <span class="key-desc">— Sprint</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">SPACE</span> <span class="key-desc">— Jump</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">C</span> <span class="key-desc">— Crouch</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">Q</span> <span class="key-desc">— Weapon Inspect</span>
-                </div>
-                <div class="key-bind">
-                    <span class="key">ESC / P</span> <span class="key-desc">— Pause</span>
-                </div>
+        <div class="settings-divider"></div>
+        <div class="settings-section">
+          <div class="settings-title">PREFERENCES</div>
+          <div class="setting-row">
+            <span>MOUSE SENSITIVITY</span>
+            <div class="range-control">
+              <input
+                type="range"
+                id="sensitivitySlider"
+                min="0.5"
+                max="2.0"
+                step="0.1"
+                value="1.0"
+              />
+              <span id="sensitivityValue">1.0</span>
             </div>
-            
-            <div class="settings-divider"></div>
-            
-            <div class="settings-section">
-                <div class="settings-title">PREFERENCES</div>
-                <div class="setting-row">
-                    <span>MOUSE SENSITIVITY</span>
-                    <div class="range-control">
-                        <input type="range" id="sensitivitySlider" min="0.5" max="2.0" step="0.1" value="1.0">
-                        <span id="sensitivityValue">1.0</span>
-                    </div>
-                </div>
-                <div class="setting-row">
-                    <span>INVERT Y-AXIS</span>
-                    <button class="toggle-btn" id="invertToggle">OFF</button>
-                </div>
-                <div class="setting-row">
-                    <span>SCREEN SHAKE</span>
-                    <button class="toggle-btn active" id="shakeToggle">ON</button>
-                </div>
+          </div>
+          <div class="setting-row">
+            <span>INVERT Y-AXIS</span>
+            <button class="toggle-btn" id="invertToggle">OFF</button>
+          </div>
+          <div class="setting-row">
+            <span>SCREEN SHAKE</span>
+            <button class="toggle-btn active" id="shakeToggle">ON</button>
+          </div>
+          <div class="setting-row">
+            <span>FIELD OF VIEW</span>
+            <div class="range-control">
+              <input
+                type="range"
+                id="fovSlider"
+                min="60"
+                max="100"
+                step="1"
+                value="72"
+              />
+              <span id="fovValue">72</span>
             </div>
-            
-            <div class="settings-divider"></div>
-            
-            <div class="settings-section">
-                <div class="settings-title">DIFFICULTY BOSS RATES</div>
-                <div class="difficulty-info">
-                    <span class="diff-easy">EASY</span> — Boss every 10 levels<br>
-                    <span class="diff-medium">MEDIUM</span> — Boss every 7 levels<br>
-                    <span class="diff-hard">HARD</span> — Boss every 5 levels<br>
-                    <span class="diff-extreme">EXTREME</span> — Boss every 3 levels<br>
-                    <span class="diff-impossible">IMPOSSIBLE</span> — Boss every level<br>
-                    <span class="diff-hell">HELL</span> — All enemies are mini-bosses!
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="settings-divider"></div>
+        <div class="settings-section">
+          <div class="settings-title">DIFFICULTY BOSS RATES</div>
+          <div class="difficulty-info">
+            <span class="diff-easy">EASY</span> &mdash; Boss every 10 levels<br />
+            <span class="diff-medium">MEDIUM</span> &mdash; Boss every 7
+            levels<br />
+            <span class="diff-hard">HARD</span> &mdash; Boss every 5 levels<br />
+            <span class="diff-extreme">EXTREME</span> &mdash; Boss every 3
+            levels<br />
+            <span class="diff-impossible">IMPOSSIBLE</span> &mdash; Boss every
+            level<br />
+            <span class="diff-hell">HELL</span> &mdash; All enemies are
+            mini-bosses!
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- GAME HUD -->
-    <div id="hud" style="display:none;">
-        <div class="hud-border tl"></div>
-        <div class="hud-border tr"></div>
-        <div class="hud-border bl"></div>
-        <div class="hud-border br"></div>
-        <div id="crosshair"><div class="dot"></div></div>
+    <!-- ============ GAME HUD ============ -->
+    <div id="hud" style="display: none">
+      <div class="hud-border tl"></div>
+      <div class="hud-border tr"></div>
+      <div class="hud-border bl"></div>
+      <div class="hud-border br"></div>
+      <div id="crosshair"><div class="dot"></div></div>
 
-        <div id="topLeftPanel">
-            <div class="hud-item"><span class="label">SCORE</span> <span class="val" id="scoreVal">0</span></div>
-            <div class="hud-item"><span class="label">SECTOR</span> <span class="val" id="levelVal">1</span></div>
-            <div class="hud-item"><span class="label">HOSTILES</span> <span class="val" id="enemyVal">0</span></div>
-            <div class="hud-item"><span class="label">MAP</span> <span class="val" id="mapTypeVal">BUNKER</span></div>
+      <div id="topLeftPanel">
+        <div class="hud-item">
+          <span class="label">SCORE</span>
+          <span class="val" id="scoreVal">0</span>
         </div>
-
-        <div id="moneyDisplay">💰 <span class="val" id="moneyVal">0</span></div>
-        <div id="shieldDisplay">🛡 SHIELD: <span class="val" id="shieldVal">0</span></div>
-        <div id="statPointsDisplay">⭐ <span class="val" id="statPointsVal">0</span></div>
-        
-        <div id="weaponInfo">
-            <div id="weaponNameDisplay">🔪 <span class="val" id="weaponNameVal">COMBAT KNIFE</span></div>
-            <div id="weaponXpDisplay">
-                <div class="xp-bar-bg"><div class="xp-bar" id="weaponXpBar" style="width:0%"></div></div>
-                <span class="xp-text" id="weaponXpText">0/50</span>
-            </div>
+        <div class="hud-item">
+          <span class="label">SECTOR</span>
+          <span class="val" id="levelVal">1</span>
         </div>
-
-        <div id="sanityWrap">
-            <div class="sanity-label">SANITY <span id="sanityVal" class="val">100%</span></div>
-            <div id="sanityBar"><span style="width:100%"></span></div>
+        <div class="hud-item">
+          <span class="label">HOSTILES</span>
+          <span class="val" id="enemyVal">0</span>
         </div>
-
-        <div id="objective">
-            <div class="objective-label">OBJECTIVE</div>
-            <div class="val" id="objectiveVal">LOCATE EXIT PAD</div>
+        <div class="hud-item">
+          <span class="label">MAP</span>
+          <span class="val" id="mapTypeVal">BUNKER</span>
         </div>
+      </div>
 
-        <div id="healthWrap">
-            <div id="healthLabel">INTEGRITY</div>
-            <div id="healthBar"></div>
+      <div id="moneyDisplay">
+        &#128176; <span class="val" id="moneyVal">0</span>
+      </div>
+      <div id="shieldDisplay">
+        &#128737; SHIELD: <span class="val" id="shieldVal">0</span>
+      </div>
+      <div id="statPointsDisplay">
+        &#11088; <span class="val" id="statPointsVal">0</span>
+      </div>
+
+      <div id="sanityWrap">
+        <div class="sanity-label">
+          SANITY <span id="sanityVal" class="val">100%</span>
         </div>
+        <div id="sanityBar"><span style="width: 100%"></span></div>
+      </div>
 
-        <div id="ammoWrap">
-            <div class="val" id="ammoVal">—</div>
-            <div class="ammo-label">AMMO</div>
+      <div id="weaponInfo">
+        <div id="weaponNameDisplay">
+          &#128299; <span class="val" id="weaponNameVal">COMBAT KNIFE</span>
         </div>
-        <div id="weaponLevelDisplay">LEVEL <span class="val" id="weaponLevelVal">1</span></div>
-
-        <div id="minimapWrap"><canvas id="minimap"></canvas></div>
-
-        <div id="alertBanner">☠ HOSTILE PROXIMITY ☠</div>
-        <div id="heartbeat">💓 💓 💓</div>
-        <div id="jumpCooldown">JUMP READY</div>
-        <div id="bossIndicator">⚠ BOSS APPROACHING ⚠</div>
-        <div id="bossAbilityDisplay"></div>
-        <div id="killFeed"></div>
-        <div id="damageNumbers"></div>
-        <div id="reloadIndicator">RELOADING</div>
-        
-        <!-- Mobile Controls -->
-        <div id="mobileControls" style="display:none;">
-            <div class="touch-zone" id="touchLeft">
-                <div class="joystick-base" id="joystickBase">
-                    <div class="joystick-handle" id="joystickHandle"></div>
-                    <div class="joystick-ring"></div>
-                </div>
-            </div>
-            <div class="touch-zone" id="touchRight">
-                <button class="action-btn primary" id="actionAttack">🔫</button>
-                <button class="action-btn secondary" id="actionHeavy">⚔️</button>
-                <button class="action-btn jump" id="actionJump">⬆</button>
-                <button class="action-btn reload" id="actionReload">🔄</button>
-                <button class="action-btn utility" id="actionFlashlight">💡</button>
-            </div>
+        <div id="weaponXpDisplay">
+          <div class="xp-bar-bg">
+            <div class="xp-bar" id="weaponXpBar" style="width: 0%"></div>
+          </div>
+          <span class="xp-text" id="weaponXpText">0/50</span>
         </div>
+      </div>
+
+      <div id="objective">
+        <div class="objective-label">OBJECTIVE</div>
+        <div class="val" id="objectiveVal">LOCATE EXIT PAD</div>
+      </div>
+
+      <div id="healthWrap">
+        <div id="healthLabel">INTEGRITY</div>
+        <div id="healthBar"></div>
+      </div>
+
+      <div id="ammoWrap">
+        <div class="val" id="ammoVal">&mdash;</div>
+        <div class="ammo-label">AMMO</div>
+      </div>
+      <div id="weaponLevelDisplay">
+        LEVEL <span class="val" id="weaponLevelVal">1</span>
+      </div>
+
+      <div id="grenadeDisplay">
+        <div class="grenade-icon">&#128163;</div>
+        <div class="grenade-cooldown ready" id="grenadeCooldown">READY</div>
+        <div class="grenade-bar-bg">
+          <div class="grenade-bar" id="grenadeBar" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div id="minimapWrap">
+        <canvas id="minimap" width="150" height="150"></canvas>
+      </div>
+
+      <div id="alertBanner">&#9760; HOSTILE PROXIMITY &#9760;</div>
+      <div id="hordeAlert">&#9876; HORDE APPROACHING &#9876;</div>
+      <div id="heartbeat">&#128147; &#128147; &#128147;</div>
+      <div id="jumpCooldown">JUMP READY</div>
+      <div id="bossIndicator">&#9888; BOSS APPROACHING &#9888;</div>
+      <div id="bossAbilityDisplay"></div>
+      <div id="killFeed"></div>
+      <div id="damageNumbers"></div>
+      <div id="reloadIndicator">RELOADING</div>
+
+      <!-- Mobile Controls -->
+      <div id="mobileControls" style="display: none">
+        <div class="touch-zone" id="touchLeft">
+          <div class="joystick-base" id="joystickBase">
+            <div class="joystick-handle" id="joystickHandle"></div>
+            <div class="joystick-ring"></div>
+          </div>
+        </div>
+        <div class="touch-zone" id="touchRight">
+          <button
+            class="action-btn primary"
+            id="actionAttack"
+            aria-label="Attack"
+          >
+            &#128299;
+          </button>
+          <button
+            class="action-btn secondary"
+            id="actionHeavy"
+            aria-label="Heavy melee"
+          >
+            &#9876;
+          </button>
+          <button class="action-btn jump" id="actionJump" aria-label="Jump">
+            &#11014;
+          </button>
+          <button
+            class="action-btn reload"
+            id="actionReload"
+            aria-label="Reload"
+          >
+            &#128260;
+          </button>
+          <button
+            class="action-btn utility"
+            id="actionFlashlight"
+            aria-label="Flashlight"
+          >
+            &#128161;
+          </button>
+          <button
+            class="action-btn grenade"
+            id="actionGrenade"
+            aria-label="Grenade"
+          >
+            &#128163;
+          </button>
+        </div>
+      </div>
     </div>
 
     <div id="damageOverlay"></div>
     <div id="crt"></div>
     <div id="screenShake"></div>
-
-    <!-- SAVE NOTIFICATION -->
-    <div id="saveNotify">💾 GAME SAVED</div>
-
-    <!-- JUMBSCARE -->
+    <div id="saveNotify">&#128190; GAME SAVED</div>
     <div id="jumpscare"></div>
 
     <!-- GAME OVER -->
-    <div class="overlay" id="gameOverScreen" style="display:none;">
-        <div class="overlay-content">
-            <div class="overlay-icon">💀</div>
-            <h1>SYSTEM COLLAPSE</h1>
-            <div class="overlay-stats">
-                <div class="stat">FINAL SCORE — <b id="goScore">0</b></div>
-                <div class="stat">SECTORS CLEARED — <b id="goLevel">0</b></div>
-            </div>
-            <button id="retryBtn" class="menu-btn primary">RE-INSERT</button>
+    <div class="overlay" id="gameOverScreen" style="display: none">
+      <div class="overlay-content">
+        <div class="overlay-icon">&#128128;</div>
+        <h1>SYSTEM COLLAPSE</h1>
+        <div class="overlay-stats">
+          <div class="stat">FINAL SCORE &mdash; <b id="goScore">0</b></div>
+          <div class="stat">SECTORS CLEARED &mdash; <b id="goLevel">0</b></div>
         </div>
+        <button id="retryBtn" class="menu-btn primary">RE-INSERT</button>
+      </div>
     </div>
 
     <!-- LEVEL CLEAR -->
-    <div class="overlay" id="clearScreen" style="display:none;">
-        <div class="overlay-content">
-            <div class="overlay-icon">🏆</div>
-            <h1 id="clearTitle">SECTOR PURGED</h1>
-            <div class="overlay-stats">
-                <div class="stat">SCORE — <b id="clearScore">0</b></div>
-            </div>
-            <button id="nextBtn" class="menu-btn primary">DESCEND DEEPER</button>
+    <div class="overlay" id="clearScreen" style="display: none">
+      <div class="overlay-content">
+        <div class="overlay-icon">&#127942;</div>
+        <h1 id="clearTitle">SECTOR PURGED</h1>
+        <div class="overlay-stats">
+          <div class="stat">SCORE &mdash; <b id="clearScore">0</b></div>
         </div>
+        <button id="nextBtn" class="menu-btn primary">DESCEND DEEPER</button>
+      </div>
     </div>
 
     <canvas id="gameCanvas"></canvas>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
     <script src="game.js"></script>
-</body>
+  </body>
 </html>
