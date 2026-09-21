@@ -1,6 +1,5 @@
-    /* ============================================================
-   BUNKER-9 :: DELIRIUM SWEEP
-   game.js
+/* ============================================================
+   BUNKER-9 :: DELIRIUM SWEEP   game.js
    ============================================================ */
 
 /* ============================================================
@@ -8,56 +7,122 @@
    ============================================================ */
 const DIFFICULTIES = {
   easy: {
-    label: "EASY", enemyCount: 3, enemySpeed: 1.0, damagePerSec: 6,
-    sanityDrain: 0.6, scoreMult: 0.8, moneyMult: 0.8, health: 130,
-    bossHealthMult: 0.8, bossDamageMult: 0.6, bossInterval: 10,
-    healthScaling: 0.15, enemyScaling: 0.3, hellMode: false,
-    allBoss: false, bossAbilities: false,
+    label: "EASY",
+    enemyCount: 3,
+    enemySpeed: 1.0,
+    damagePerSec: 6,
+    sanityDrain: 0.6,
+    scoreMult: 0.8,
+    moneyMult: 0.8,
+    health: 130,
+    bossHealthMult: 0.8,
+    bossDamageMult: 0.6,
+    bossInterval: 10,
+    healthScaling: 0.15,
+    enemyScaling: 0.3,
+    hellMode: false,
+    allBoss: false,
+    bossAbilities: false,
   },
   medium: {
-    label: "MEDIUM", enemyCount: 5, enemySpeed: 1.4, damagePerSec: 12,
-    sanityDrain: 1.5, scoreMult: 1.0, moneyMult: 1.0, health: 100,
-    bossHealthMult: 1.2, bossDamageMult: 0.9, bossInterval: 7,
-    healthScaling: 0.35, enemyScaling: 0.8, hellMode: false,
-    allBoss: false, bossAbilities: false,
+    label: "MEDIUM",
+    enemyCount: 5,
+    enemySpeed: 1.4,
+    damagePerSec: 12,
+    sanityDrain: 1.5,
+    scoreMult: 1.0,
+    moneyMult: 1.0,
+    health: 100,
+    bossHealthMult: 1.2,
+    bossDamageMult: 0.9,
+    bossInterval: 7,
+    healthScaling: 0.35,
+    enemyScaling: 0.8,
+    hellMode: false,
+    allBoss: false,
+    bossAbilities: false,
   },
   hard: {
-    label: "HARD", enemyCount: 8, enemySpeed: 1.8, damagePerSec: 20,
-    sanityDrain: 2.5, scoreMult: 1.3, moneyMult: 1.3, health: 80,
-    bossHealthMult: 1.8, bossDamageMult: 1.2, bossInterval: 5,
-    healthScaling: 0.55, enemyScaling: 1.3, hellMode: false,
-    allBoss: false, bossAbilities: false,
+    label: "HARD",
+    enemyCount: 8,
+    enemySpeed: 1.8,
+    damagePerSec: 20,
+    sanityDrain: 2.5,
+    scoreMult: 1.3,
+    moneyMult: 1.3,
+    health: 80,
+    bossHealthMult: 1.8,
+    bossDamageMult: 1.2,
+    bossInterval: 5,
+    healthScaling: 0.55,
+    enemyScaling: 1.3,
+    hellMode: false,
+    allBoss: false,
+    bossAbilities: false,
   },
   extreme: {
-    label: "EXTREME", enemyCount: 11, enemySpeed: 2.2, damagePerSec: 28,
-    sanityDrain: 3.5, scoreMult: 1.7, moneyMult: 1.7, health: 65,
-    bossHealthMult: 2.5, bossDamageMult: 1.6, bossInterval: 3,
-    healthScaling: 0.75, enemyScaling: 1.8, hellMode: false,
-    allBoss: false, bossAbilities: false,
+    label: "EXTREME",
+    enemyCount: 11,
+    enemySpeed: 2.2,
+    damagePerSec: 28,
+    sanityDrain: 3.5,
+    scoreMult: 1.7,
+    moneyMult: 1.7,
+    health: 65,
+    bossHealthMult: 2.5,
+    bossDamageMult: 1.6,
+    bossInterval: 3,
+    healthScaling: 0.75,
+    enemyScaling: 1.8,
+    hellMode: false,
+    allBoss: false,
+    bossAbilities: false,
   },
   impossible: {
-    label: "IMPOSSIBLE", enemyCount: 14, enemySpeed: 2.6, damagePerSec: 35,
-    sanityDrain: 4.5, scoreMult: 2.2, moneyMult: 2.2, health: 50,
-    bossHealthMult: 3.5, bossDamageMult: 2.0, bossInterval: 1,
-    healthScaling: 1.0, enemyScaling: 2.2, hellMode: false,
-    allBoss: false, bossAbilities: true,
+    label: "IMPOSSIBLE",
+    enemyCount: 14,
+    enemySpeed: 2.6,
+    damagePerSec: 35,
+    sanityDrain: 4.5,
+    scoreMult: 2.2,
+    moneyMult: 2.2,
+    health: 50,
+    bossHealthMult: 3.5,
+    bossDamageMult: 2.0,
+    bossInterval: 1,
+    healthScaling: 1.0,
+    enemyScaling: 2.2,
+    hellMode: false,
+    allBoss: false,
+    bossAbilities: true,
   },
   hell: {
-    label: "HELL", enemyCount: 20, enemySpeed: 2.8, damagePerSec: 40,
-    sanityDrain: 6.0, scoreMult: 3.0, moneyMult: 3.0, health: 35,
-    bossHealthMult: 4.0, bossDamageMult: 2.5, bossInterval: 1,
-    healthScaling: 1.5, enemyScaling: 0, hellMode: true,
-    allBoss: true, bossAbilities: true,
+    label: "HELL",
+    enemyCount: 20,
+    enemySpeed: 2.8,
+    damagePerSec: 40,
+    sanityDrain: 6.0,
+    scoreMult: 3.0,
+    moneyMult: 3.0,
+    health: 35,
+    bossHealthMult: 4.0,
+    bossDamageMult: 2.5,
+    bossInterval: 1,
+    healthScaling: 1.5,
+    enemyScaling: 0,
+    hellMode: true,
+    allBoss: true,
+    bossAbilities: true,
   },
 };
 
 const DIFFICULTY_UNLOCKS = {
-  easy:       { require: null,       label: "EASY" },
-  medium:     { require: "easy",     requireLevel: 10, label: "MEDIUM" },
-  hard:       { require: "medium",   requireLevel: 10, label: "HARD" },
-  extreme:    { require: "hard",     requireLevel: 10, label: "EXTREME" },
-  impossible: { require: "extreme",  requireLevel: 10, label: "IMPOSSIBLE" },
-  hell:       { require: "impossible", requireLevel: 10, label: "HELL" },
+  easy: { require: null, label: "EASY" },
+  medium: { require: "easy", requireLevel: 10, label: "MEDIUM" },
+  hard: { require: "medium", requireLevel: 10, label: "HARD" },
+  extreme: { require: "hard", requireLevel: 10, label: "EXTREME" },
+  impossible: { require: "extreme", requireLevel: 10, label: "IMPOSSIBLE" },
+  hell: { require: "impossible", requireLevel: 10, label: "HELL" },
 };
 
 /* ============================================================
@@ -65,52 +130,100 @@ const DIFFICULTY_UNLOCKS = {
    ============================================================ */
 const MAP_TYPES = {
   BUNKER: {
-    name: "BUNKER", theme: "industrial",
-    wallColor: "#4a4540", floorColor: "#2a2520", ceilingColor: "#0a0908",
-    accentColor: "#5a5040", ambientColor: 0x2a1a0a, lightColor: 0xff8040,
-    fogColor: 0x020100, fogDensity: 0.015,
-    hasLamps: true, hasPipes: true,
-    enemyTypes: ["grunt", "tank", "brute"], bossType: "warden",
+    name: "BUNKER",
+    theme: "industrial",
+    wallColor: "#4a4540",
+    floorColor: "#2a2520",
+    ceilingColor: "#0a0908",
+    accentColor: "#5a5040",
+    ambientColor: 0x2a1a0a,
+    lightColor: 0xff8040,
+    fogColor: 0x020100,
+    fogDensity: 0.015,
+    hasLamps: true,
+    hasPipes: true,
+    enemyTypes: ["grunt", "tank", "brute"],
+    bossType: "warden",
   },
   CRYPT: {
-    name: "CRYPT", theme: "dark",
-    wallColor: "#3a3535", floorColor: "#1a1a1a", ceilingColor: "#0a0a0a",
-    accentColor: "#4a4035", ambientColor: 0x1a0a1a, lightColor: 0x8040ff,
-    fogColor: 0x050005, fogDensity: 0.02,
-    hasLamps: false, hasPipes: false,
-    enemyTypes: ["grunt", "fast", "spitter"], bossType: "lich",
+    name: "CRYPT",
+    theme: "dark",
+    wallColor: "#3a3535",
+    floorColor: "#1a1a1a",
+    ceilingColor: "#0a0a0a",
+    accentColor: "#4a4035",
+    ambientColor: 0x1a0a1a,
+    lightColor: 0x8040ff,
+    fogColor: 0x050005,
+    fogDensity: 0.02,
+    hasLamps: false,
+    hasPipes: false,
+    enemyTypes: ["grunt", "fast", "spitter"],
+    bossType: "lich",
   },
   FACTORY: {
-    name: "FACTORY", theme: "mechanical",
-    wallColor: "#5a5045", floorColor: "#3a3530", ceilingColor: "#1a1a1a",
-    accentColor: "#6a6040", ambientColor: 0x1a2a0a, lightColor: 0x80ff40,
-    fogColor: 0x020100, fogDensity: 0.012,
-    hasLamps: true, hasPipes: true,
-    enemyTypes: ["grunt", "tank", "brute", "fast"], bossType: "mech",
+    name: "FACTORY",
+    theme: "mechanical",
+    wallColor: "#5a5045",
+    floorColor: "#3a3530",
+    ceilingColor: "#1a1a1a",
+    accentColor: "#6a6040",
+    ambientColor: 0x1a2a0a,
+    lightColor: 0x80ff40,
+    fogColor: 0x020100,
+    fogDensity: 0.012,
+    hasLamps: true,
+    hasPipes: true,
+    enemyTypes: ["grunt", "tank", "brute", "fast"],
+    bossType: "mech",
   },
   LAB: {
-    name: "LAB", theme: "scientific",
-    wallColor: "#4a5a5a", floorColor: "#2a3a3a", ceilingColor: "#1a2a2a",
-    accentColor: "#5a6a6a", ambientColor: 0x0a1a2a, lightColor: 0x4080ff,
-    fogColor: 0x000510, fogDensity: 0.01,
-    hasLamps: true, hasPipes: false,
-    enemyTypes: ["fast", "spitter", "grunt"], bossType: "experiment",
+    name: "LAB",
+    theme: "scientific",
+    wallColor: "#4a5a5a",
+    floorColor: "#2a3a3a",
+    ceilingColor: "#1a2a2a",
+    accentColor: "#5a6a6a",
+    ambientColor: 0x0a1a2a,
+    lightColor: 0x4080ff,
+    fogColor: 0x000510,
+    fogDensity: 0.01,
+    hasLamps: true,
+    hasPipes: false,
+    enemyTypes: ["fast", "spitter", "grunt"],
+    bossType: "experiment",
   },
   SEWER: {
-    name: "SEWER", theme: "toxic",
-    wallColor: "#3a3a2a", floorColor: "#2a2a1a", ceilingColor: "#1a1a0a",
-    accentColor: "#4a4a2a", ambientColor: 0x0a1a0a, lightColor: 0x40ff80,
-    fogColor: 0x000500, fogDensity: 0.025,
-    hasLamps: false, hasPipes: true,
-    enemyTypes: ["spitter", "grunt", "fast"], bossType: "abomination",
+    name: "SEWER",
+    theme: "toxic",
+    wallColor: "#3a3a2a",
+    floorColor: "#2a2a1a",
+    ceilingColor: "#1a1a0a",
+    accentColor: "#4a4a2a",
+    ambientColor: 0x0a1a0a,
+    lightColor: 0x40ff80,
+    fogColor: 0x000500,
+    fogDensity: 0.025,
+    hasLamps: false,
+    hasPipes: true,
+    enemyTypes: ["spitter", "grunt", "fast"],
+    bossType: "abomination",
   },
   TEMPLE: {
-    name: "TEMPLE", theme: "ancient",
-    wallColor: "#5a4a3a", floorColor: "#3a2a1a", ceilingColor: "#1a1a0a",
-    accentColor: "#6a5a4a", ambientColor: 0x1a0a0a, lightColor: 0xff8040,
-    fogColor: 0x050000, fogDensity: 0.018,
-    hasLamps: false, hasPipes: false,
-    enemyTypes: ["grunt", "brute", "fast"], bossType: "guardian",
+    name: "TEMPLE",
+    theme: "ancient",
+    wallColor: "#5a4a3a",
+    floorColor: "#3a2a1a",
+    ceilingColor: "#1a1a0a",
+    accentColor: "#6a5a4a",
+    ambientColor: 0x1a0a0a,
+    lightColor: 0xff8040,
+    fogColor: 0x050000,
+    fogDensity: 0.018,
+    hasLamps: false,
+    hasPipes: false,
+    enemyTypes: ["grunt", "brute", "fast"],
+    bossType: "guardian",
   },
 };
 
@@ -118,58 +231,493 @@ const MAP_TYPES = {
    WEAPONS
    ============================================================ */
 const WEAPONS = [
-  { id: "knife", name: "COMBAT KNIFE", damage: 30, fireRate: 0.35, range: 1.8, price: 0, owned: true, equipped: true, spread: 0, ammo: 0, maxAmmo: 0, reloadTime: 0, auto: false, desc: "Standard melee weapon", color: "#888888", isMelee: true, xp: 0, level: 1, mastered: false, weaponType: "melee" },
-  { id: "machete", name: "MACHETE", damage: 45, fireRate: 0.5, range: 2.2, price: 350, owned: false, equipped: false, spread: 0, ammo: 0, maxAmmo: 0, reloadTime: 0, auto: false, desc: "Heavy slashing blade", color: "#aaaaaa", isMelee: true, xp: 0, level: 1, mastered: false, weaponType: "melee" },
-  { id: "m9", name: "M9 PISTOL", damage: 25, fireRate: 0.28, range: 30, price: 200, owned: false, equipped: false, spread: 0.02, ammo: 15, maxAmmo: 15, reloadTime: 1.2, auto: false, desc: "Standard sidearm", color: "#f0b060", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "pistol" },
-  { id: "deagle", name: "DEAGLE .50", damage: 90, fireRate: 0.4, range: 38, price: 800, owned: false, equipped: false, spread: 0.02, ammo: 7, maxAmmo: 7, reloadTime: 1.8, auto: false, desc: "High-caliber pistol", color: "#ffcc44", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "pistol" },
-  { id: "mp5", name: "MP5 SMG", damage: 18, fireRate: 0.08, range: 25, price: 400, owned: false, equipped: false, spread: 0.06, ammo: 30, maxAmmo: 30, reloadTime: 1.5, auto: true, desc: "High rate of fire", color: "#88aaff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "smg" },
-  { id: "vector", name: "KRISS VECTOR", damage: 22, fireRate: 0.05, range: 28, price: 650, owned: false, equipped: false, spread: 0.04, ammo: 25, maxAmmo: 25, reloadTime: 1.3, auto: true, desc: "Rapid fire SMG", color: "#66ccff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "smg" },
-  { id: "m870", name: "M870 SHOTGUN", damage: 12, fireRate: 0.45, range: 15, price: 550, owned: false, equipped: false, spread: 0.15, ammo: 6, maxAmmo: 6, reloadTime: 2.0, auto: false, desc: "Devastating close range", color: "#ff8844", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "shotgun" },
-  { id: "spas12", name: "SPAS-12", damage: 14, fireRate: 0.5, range: 18, price: 750, owned: false, equipped: false, spread: 0.12, ammo: 8, maxAmmo: 8, reloadTime: 2.2, auto: true, desc: "Combat shotgun", color: "#ff6633", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "shotgun" },
-  { id: "m4a1", name: "M4A1 CARBINE", damage: 35, fireRate: 0.14, range: 45, price: 700, owned: false, equipped: false, spread: 0.03, ammo: 30, maxAmmo: 30, reloadTime: 1.8, auto: true, desc: "Versatile combat rifle", color: "#44ff88", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "rifle" },
-  { id: "ak47", name: "AK-47", damage: 40, fireRate: 0.12, range: 42, price: 1000, owned: false, equipped: false, spread: 0.05, ammo: 30, maxAmmo: 30, reloadTime: 1.6, auto: true, desc: "Iconic assault rifle", color: "#aa8844", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "rifle" },
-  { id: "m24", name: "M24 SNIPER", damage: 180, fireRate: 0.9, range: 80, price: 0, owned: false, equipped: false, spread: 0.005, ammo: 5, maxAmmo: 5, reloadTime: 2.5, auto: false, desc: "Long range precision", color: "#ff44ff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "rifle" },
-  { id: "rpg7", name: "RPG-7", damage: 200, fireRate: 1.5, range: 40, price: 1300, owned: false, equipped: false, spread: 0.1, ammo: 1, maxAmmo: 1, reloadTime: 3.0, auto: false, desc: "Explosive devastation", color: "#ff4444", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "heavy" },
-  { id: "m134", name: "M134 MINIGUN", damage: 10, fireRate: 0.04, range: 22, price: 1100, owned: false, equipped: false, spread: 0.1, ammo: 100, maxAmmo: 100, reloadTime: 3.5, auto: true, desc: "Unleash a storm of lead", color: "#ff8800", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "heavy" },
-  { id: "railgun", name: "RAILGUN", damage: 250, fireRate: 1.2, range: 100, price: 2200, owned: false, equipped: false, spread: 0.001, ammo: 3, maxAmmo: 3, reloadTime: 3.5, auto: false, desc: "Penetrating power", color: "#00ffff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "heavy" },
-  { id: "phaser", name: "PHASER RIFLE", damage: 45, fireRate: 0.1, range: 55, price: 850, owned: false, equipped: false, spread: 0.01, ammo: 20, maxAmmo: 20, reloadTime: 1.6, auto: true, desc: "Precise energy weapon", color: "#44ffff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "energy" },
-  { id: "laser", name: "LASER CANNON", damage: 60, fireRate: 0.15, range: 60, price: 1200, owned: false, equipped: false, spread: 0.005, ammo: 15, maxAmmo: 15, reloadTime: 2.0, auto: true, desc: "High-power laser", color: "#ff44ff", isMelee: false, xp: 0, level: 1, mastered: false, weaponType: "energy" },
+  {
+    id: "knife",
+    name: "COMBAT KNIFE",
+    damage: 30,
+    fireRate: 0.35,
+    range: 1.8,
+    price: 0,
+    owned: true,
+    equipped: true,
+    spread: 0,
+    ammo: 0,
+    maxAmmo: 0,
+    reloadTime: 0,
+    auto: false,
+    desc: "Standard melee weapon",
+    color: "#888888",
+    isMelee: true,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "melee",
+  },
+  {
+    id: "machete",
+    name: "MACHETE",
+    damage: 45,
+    fireRate: 0.5,
+    range: 2.2,
+    price: 350,
+    owned: false,
+    equipped: false,
+    spread: 0,
+    ammo: 0,
+    maxAmmo: 0,
+    reloadTime: 0,
+    auto: false,
+    desc: "Heavy slashing blade",
+    color: "#aaaaaa",
+    isMelee: true,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "melee",
+  },
+  {
+    id: "m9",
+    name: "M9 PISTOL",
+    damage: 25,
+    fireRate: 0.28,
+    range: 30,
+    price: 200,
+    owned: false,
+    equipped: false,
+    spread: 0.02,
+    ammo: 15,
+    maxAmmo: 15,
+    reloadTime: 1.2,
+    auto: false,
+    desc: "Standard sidearm",
+    color: "#f0b060",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "pistol",
+  },
+  {
+    id: "deagle",
+    name: "DEAGLE .50",
+    damage: 90,
+    fireRate: 0.4,
+    range: 38,
+    price: 800,
+    owned: false,
+    equipped: false,
+    spread: 0.02,
+    ammo: 7,
+    maxAmmo: 7,
+    reloadTime: 1.8,
+    auto: false,
+    desc: "High-caliber pistol",
+    color: "#ffcc44",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "pistol",
+  },
+  {
+    id: "mp5",
+    name: "MP5 SMG",
+    damage: 18,
+    fireRate: 0.08,
+    range: 25,
+    price: 400,
+    owned: false,
+    equipped: false,
+    spread: 0.06,
+    ammo: 30,
+    maxAmmo: 30,
+    reloadTime: 1.5,
+    auto: true,
+    desc: "High rate of fire",
+    color: "#88aaff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "smg",
+  },
+  {
+    id: "vector",
+    name: "KRISS VECTOR",
+    damage: 22,
+    fireRate: 0.05,
+    range: 28,
+    price: 650,
+    owned: false,
+    equipped: false,
+    spread: 0.04,
+    ammo: 25,
+    maxAmmo: 25,
+    reloadTime: 1.3,
+    auto: true,
+    desc: "Rapid fire SMG",
+    color: "#66ccff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "smg",
+  },
+  {
+    id: "m870",
+    name: "M870 SHOTGUN",
+    damage: 12,
+    fireRate: 0.45,
+    range: 15,
+    price: 550,
+    owned: false,
+    equipped: false,
+    spread: 0.15,
+    ammo: 6,
+    maxAmmo: 6,
+    reloadTime: 2.0,
+    auto: false,
+    desc: "Devastating close range",
+    color: "#ff8844",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "shotgun",
+  },
+  {
+    id: "spas12",
+    name: "SPAS-12",
+    damage: 14,
+    fireRate: 0.5,
+    range: 18,
+    price: 750,
+    owned: false,
+    equipped: false,
+    spread: 0.12,
+    ammo: 8,
+    maxAmmo: 8,
+    reloadTime: 2.2,
+    auto: true,
+    desc: "Combat shotgun",
+    color: "#ff6633",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "shotgun",
+  },
+  {
+    id: "m4a1",
+    name: "M4A1 CARBINE",
+    damage: 35,
+    fireRate: 0.14,
+    range: 45,
+    price: 700,
+    owned: false,
+    equipped: false,
+    spread: 0.03,
+    ammo: 30,
+    maxAmmo: 30,
+    reloadTime: 1.8,
+    auto: true,
+    desc: "Versatile combat rifle",
+    color: "#44ff88",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "rifle",
+  },
+  {
+    id: "ak47",
+    name: "AK-47",
+    damage: 40,
+    fireRate: 0.12,
+    range: 42,
+    price: 1000,
+    owned: false,
+    equipped: false,
+    spread: 0.05,
+    ammo: 30,
+    maxAmmo: 30,
+    reloadTime: 1.6,
+    auto: true,
+    desc: "Iconic assault rifle",
+    color: "#aa8844",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "rifle",
+  },
+  {
+    id: "m24",
+    name: "M24 SNIPER",
+    damage: 180,
+    fireRate: 0.9,
+    range: 80,
+    price: 0,
+    owned: false,
+    equipped: false,
+    spread: 0.005,
+    ammo: 5,
+    maxAmmo: 5,
+    reloadTime: 2.5,
+    auto: false,
+    desc: "Long range precision",
+    color: "#ff44ff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "rifle",
+  },
+  {
+    id: "rpg7",
+    name: "RPG-7",
+    damage: 200,
+    fireRate: 1.5,
+    range: 40,
+    price: 1300,
+    owned: false,
+    equipped: false,
+    spread: 0.1,
+    ammo: 1,
+    maxAmmo: 1,
+    reloadTime: 3.0,
+    auto: false,
+    desc: "Explosive devastation",
+    color: "#ff4444",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "heavy",
+  },
+  {
+    id: "m134",
+    name: "M134 MINIGUN",
+    damage: 10,
+    fireRate: 0.04,
+    range: 22,
+    price: 1100,
+    owned: false,
+    equipped: false,
+    spread: 0.1,
+    ammo: 100,
+    maxAmmo: 100,
+    reloadTime: 3.5,
+    auto: true,
+    desc: "Unleash a storm of lead",
+    color: "#ff8800",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "heavy",
+  },
+  {
+    id: "railgun",
+    name: "RAILGUN",
+    damage: 250,
+    fireRate: 1.2,
+    range: 100,
+    price: 2200,
+    owned: false,
+    equipped: false,
+    spread: 0.001,
+    ammo: 3,
+    maxAmmo: 3,
+    reloadTime: 3.5,
+    auto: false,
+    desc: "Penetrating power",
+    color: "#00ffff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "heavy",
+  },
+  {
+    id: "phaser",
+    name: "PHASER RIFLE",
+    damage: 45,
+    fireRate: 0.1,
+    range: 55,
+    price: 850,
+    owned: false,
+    equipped: false,
+    spread: 0.01,
+    ammo: 20,
+    maxAmmo: 20,
+    reloadTime: 1.6,
+    auto: true,
+    desc: "Precise energy weapon",
+    color: "#44ffff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "energy",
+  },
+  {
+    id: "laser",
+    name: "LASER CANNON",
+    damage: 60,
+    fireRate: 0.15,
+    range: 60,
+    price: 1200,
+    owned: false,
+    equipped: false,
+    spread: 0.005,
+    ammo: 15,
+    maxAmmo: 15,
+    reloadTime: 2.0,
+    auto: true,
+    desc: "High-power laser",
+    color: "#ff44ff",
+    isMelee: false,
+    xp: 0,
+    level: 1,
+    mastered: false,
+    weaponType: "energy",
+  },
 ];
 
 /* ============================================================
    TOOLS
    ============================================================ */
 const TOOLS = [
-  { id: "map_reveal",   name: "MAP REVEAL",   price: 150, desc: "Reveals minimap for 10s", owned: false },
-  { id: "health_pack",  name: "HEALTH PACK",  price: 100, desc: "Restore 30 HP", owned: false },
-  { id: "sanity_boost", name: "SANITY BOOST", price: 120, desc: "Restore 40 Sanity", owned: false },
-  { id: "speed_boost",  name: "SPEED BOOST",  price: 200, desc: "+50% speed for 8s", owned: false },
-  { id: "shield",       name: "SHIELD",       price: 250, desc: "Absorb 50 damage", owned: false },
-  { id: "xp_boost",     name: "XP BOOST",     price: 300, desc: "Double weapon XP for 10 kills", owned: false },
+  {
+    id: "map_reveal",
+    name: "MAP REVEAL",
+    price: 150,
+    desc: "Reveals minimap for 10s",
+    owned: false,
+  },
+  {
+    id: "health_pack",
+    name: "HEALTH PACK",
+    price: 100,
+    desc: "Restore 30 HP",
+    owned: false,
+  },
+  {
+    id: "sanity_boost",
+    name: "SANITY BOOST",
+    price: 120,
+    desc: "Restore 40 Sanity",
+    owned: false,
+  },
+  {
+    id: "speed_boost",
+    name: "SPEED BOOST",
+    price: 200,
+    desc: "+50% speed for 8s",
+    owned: false,
+  },
+  {
+    id: "shield",
+    name: "SHIELD",
+    price: 250,
+    desc: "Absorb 50 damage",
+    owned: false,
+  },
+  {
+    id: "xp_boost",
+    name: "XP BOOST",
+    price: 300,
+    desc: "Double weapon XP for 10 kills",
+    owned: false,
+  },
 ];
 
 /* ============================================================
    PLAYER STATS & PERKS
    ============================================================ */
 const PLAYER_STATS = {
-  health:  { level: 0, cost: 2, max: 20, label: "HEALTH",  bonus: 5 },
-  damage:  { level: 0, cost: 2, max: 20, label: "DAMAGE",  bonus: 3 },
+  health: { level: 0, cost: 2, max: 20, label: "HEALTH", bonus: 5 },
+  damage: { level: 0, cost: 2, max: 20, label: "DAMAGE", bonus: 3 },
   defense: { level: 0, cost: 2, max: 20, label: "DEFENSE", bonus: 2 },
-  speed:   { level: 0, cost: 2, max: 20, label: "SPEED",   bonus: 0.05 },
-  luck:    { level: 0, cost: 3, max: 15, label: "LUCK",    bonus: 0.01 },
-  ammo:    { level: 0, cost: 2, max: 15, label: "AMMO",    bonus: 2 },
+  speed: { level: 0, cost: 2, max: 20, label: "SPEED", bonus: 0.05 },
+  luck: { level: 0, cost: 3, max: 15, label: "LUCK", bonus: 0.01 },
+  ammo: { level: 0, cost: 2, max: 15, label: "AMMO", bonus: 2 },
 };
 
 const PERKS = {
-  quick_hands: { id: "quick_hands", name: "Quick Hands", desc: "+30% reload speed", cost: 1, tier: 1, icon: "Z" },
-  steady_aim:  { id: "steady_aim",  name: "Steady Aim",  desc: "-50% weapon spread", cost: 1, tier: 1, icon: "T" },
-  light_foot:  { id: "light_foot",  name: "Light Foot",  desc: "+20% movement speed", cost: 1, tier: 1, icon: "L" },
-  berserker:   { id: "berserker",   name: "Berserker",   desc: "+30% damage when below 30% HP", cost: 2, tier: 2, icon: "B" },
-  tank:        { id: "tank",        name: "Tank",        desc: "+50% max health, +30% defense", cost: 2, tier: 2, icon: "D" },
-  scout:       { id: "scout",       name: "Scout",       desc: "+40% speed, +20% dodge", cost: 2, tier: 2, icon: "S" },
-  demo:        { id: "demo",        name: "Demolition",  desc: "+50% explosive damage", cost: 3, tier: 3, icon: "X" },
-  sniper:      { id: "sniper",      name: "Sniper",      desc: "+100% headshot damage", cost: 3, tier: 3, icon: "N" },
-  assassin:    { id: "assassin",    name: "Assassin",    desc: "+200% melee damage from behind", cost: 3, tier: 3, icon: "A" },
+  quick_hands: {
+    id: "quick_hands",
+    name: "Quick Hands",
+    desc: "+30% reload speed",
+    cost: 1,
+    tier: 1,
+    icon: "Z",
+  },
+  steady_aim: {
+    id: "steady_aim",
+    name: "Steady Aim",
+    desc: "-50% weapon spread",
+    cost: 1,
+    tier: 1,
+    icon: "T",
+  },
+  light_foot: {
+    id: "light_foot",
+    name: "Light Foot",
+    desc: "+20% movement speed",
+    cost: 1,
+    tier: 1,
+    icon: "L",
+  },
+  berserker: {
+    id: "berserker",
+    name: "Berserker",
+    desc: "+30% damage when below 30% HP",
+    cost: 2,
+    tier: 2,
+    icon: "B",
+  },
+  tank: {
+    id: "tank",
+    name: "Tank",
+    desc: "+50% max health, +30% defense",
+    cost: 2,
+    tier: 2,
+    icon: "D",
+  },
+  scout: {
+    id: "scout",
+    name: "Scout",
+    desc: "+40% speed, +20% dodge",
+    cost: 2,
+    tier: 2,
+    icon: "S",
+  },
+  demo: {
+    id: "demo",
+    name: "Demolition",
+    desc: "+50% explosive damage",
+    cost: 3,
+    tier: 3,
+    icon: "X",
+  },
+  sniper: {
+    id: "sniper",
+    name: "Sniper",
+    desc: "+100% headshot damage",
+    cost: 3,
+    tier: 3,
+    icon: "N",
+  },
+  assassin: {
+    id: "assassin",
+    name: "Assassin",
+    desc: "+200% melee damage from behind",
+    cost: 3,
+    tier: 3,
+    icon: "A",
+  },
 };
 
 /* ============================================================
@@ -190,7 +738,14 @@ let headshots = 0;
 let dodges = 0;
 let weaponMastered = 0;
 let tools = JSON.parse(JSON.stringify(TOOLS));
-let playerStatLevels = { health: 0, damage: 0, defense: 0, speed: 0, luck: 0, ammo: 0 };
+let playerStatLevels = {
+  health: 0,
+  damage: 0,
+  defense: 0,
+  speed: 0,
+  luck: 0,
+  ammo: 0,
+};
 let shieldAmount = 0;
 let playtime = 0;
 let activePerks = [];
@@ -201,26 +756,41 @@ let grenadesThrown = 0;
 let hordesSummoned = 0;
 
 let stats = {
-  totalScore: 0, highestLevel: 0, totalKills: 0, bossesDefeated: 0,
-  totalMoney: 0, gamesPlayed: 0, headshots: 0, dodges: 0, mastered: 0,
-  grenadesThrown: 0, hordesSummoned: 0,
+  totalScore: 0,
+  highestLevel: 0,
+  totalKills: 0,
+  bossesDefeated: 0,
+  totalMoney: 0,
+  gamesPlayed: 0,
+  headshots: 0,
+  dodges: 0,
+  mastered: 0,
+  grenadesThrown: 0,
+  hordesSummoned: 0,
 };
 
 /* ============================================================
    THREE.JS GLOBALS
    ============================================================ */
 let scene, camera, renderer, clock;
-let flashlight, flashlightOn = true;
+let flashlight,
+  flashlightOn = true;
 let wallMeshes = [];
 let enemies = [];
 let obstacles = [];
 let bossEnemy = null;
 let isBossLevel = false;
 let isHellMode = false;
-let score = 0, level = 1, health = 100, sanity = 100;
-let ammoReady = true, shootCooldown = 0;
-let gameActive = false, gamePaused = false;
-let yaw = 0, pitch = 0;
+let score = 0,
+  level = 1,
+  health = 100,
+  sanity = 100;
+let ammoReady = true,
+  shootCooldown = 0;
+let gameActive = false,
+  gamePaused = false;
+let yaw = 0,
+  pitch = 0;
 let keys = {};
 let pointerLocked = false;
 let minimapCtx;
@@ -265,7 +835,8 @@ const damageOverlay = document.getElementById("damageOverlay");
 const AudioSys = {
   ctx: null,
   ensure() {
-    if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!this.ctx)
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
     if (this.ctx.state === "suspended") this.ctx.resume();
     return this.ctx;
   },
@@ -276,42 +847,70 @@ const AudioSys = {
       const gain = c.createGain();
       osc.type = type || "square";
       osc.frequency.setValueAtTime(freq, c.currentTime);
-      if (sweepTo) osc.frequency.exponentialRampToValueAtTime(sweepTo, c.currentTime + dur);
+      if (sweepTo)
+        osc.frequency.exponentialRampToValueAtTime(
+          sweepTo,
+          c.currentTime + dur,
+        );
       gain.gain.setValueAtTime(Math.min(gainVal || 0.12, 0.3), c.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + dur);
       osc.connect(gain);
       gain.connect(c.destination);
       osc.start();
       osc.stop(c.currentTime + dur);
-    } catch (e) { /* silent */ }
+    } catch (e) {
+      /* silent */
+    }
   },
-  shoot() { this.beep(180, 0.08, "square", 0.1, 70); },
-  hit() { this.beep(660, 0.07, "square", 0.12, 400); },
-  headshot() { this.beep(880, 0.1, "sine", 0.15, 1200); },
-  hurt() { this.beep(100, 0.3, "sawtooth", 0.15, 50); },
+  shoot() {
+    this.beep(180, 0.08, "square", 0.1, 70);
+  },
+  hit() {
+    this.beep(660, 0.07, "square", 0.12, 400);
+  },
+  headshot() {
+    this.beep(880, 0.1, "sine", 0.15, 1200);
+  },
+  hurt() {
+    this.beep(100, 0.3, "sawtooth", 0.15, 50);
+  },
   clear() {
     this.beep(440, 0.15, "sine", 0.12, 880);
     setTimeout(() => this.beep(660, 0.2, "sine", 0.12, 1200), 150);
   },
-  death() { this.beep(250, 0.8, "sawtooth", 0.18, 30); },
+  death() {
+    this.beep(250, 0.8, "sawtooth", 0.18, 30);
+  },
   scare() {
     this.beep(800, 0.3, "sawtooth", 0.15, 200);
     setTimeout(() => this.beep(200, 0.4, "sawtooth", 0.1, 50), 200);
   },
-  jump() { this.beep(120, 0.05, "sine", 0.04, 200); },
+  jump() {
+    this.beep(120, 0.05, "sine", 0.04, 200);
+  },
   boss() {
     this.beep(150, 0.5, "sawtooth", 0.2, 60);
     setTimeout(() => this.beep(200, 0.4, "sawtooth", 0.15, 100), 300);
   },
-  knife() { this.beep(300, 0.05, "sawtooth", 0.08, 100); },
-  heavyKnife() { this.beep(250, 0.1, "sawtooth", 0.12, 80); },
-  bossAbility() { this.beep(400, 0.3, "sine", 0.15, 800); },
-  dodge() { this.beep(500, 0.05, "sine", 0.08, 1000); },
+  knife() {
+    this.beep(300, 0.05, "sawtooth", 0.08, 100);
+  },
+  heavyKnife() {
+    this.beep(250, 0.1, "sawtooth", 0.12, 80);
+  },
+  bossAbility() {
+    this.beep(400, 0.3, "sine", 0.15, 800);
+  },
+  dodge() {
+    this.beep(500, 0.05, "sine", 0.08, 1000);
+  },
   levelUp() {
     this.beep(500, 0.1, "sine", 0.12, 800);
     setTimeout(() => this.beep(700, 0.15, "sine", 0.12, 1000), 150);
   },
-  money() { this.beep(600, 0.05, "sine", 0.06, 800); },
+  money() {
+    this.beep(600, 0.05, "sine", 0.06, 800);
+  },
   grenade() {
     this.beep(300, 0.3, "sawtooth", 0.2, 60);
     setTimeout(() => this.beep(400, 0.5, "sawtooth", 0.15, 80), 300);
@@ -325,15 +924,33 @@ const AudioSys = {
 /* ============================================================
    HELPER FUNCTIONS
    ============================================================ */
-function getStatBonus(stat) { return PLAYER_STATS[stat].bonus * playerStatLevels[stat]; }
-function getMaxHealth() { return diffConfig.health + getStatBonus("health"); }
-function getDamageBonus() { return getStatBonus("damage"); }
-function getDefenseBonus() { return getStatBonus("defense"); }
-function getSpeedBonus() { return 1 + getStatBonus("speed"); }
-function getLuckBonus() { return getStatBonus("luck"); }
-function getAmmoBonus() { return getStatBonus("ammo"); }
-function getMaxAmmoForWeapon(w) { return w.isMelee ? 0 : w.maxAmmo + Math.floor(getAmmoBonus() / 2); }
-function getWeaponXpToLevel(lvl) { return lvl * 50; }
+function getStatBonus(stat) {
+  return PLAYER_STATS[stat].bonus * playerStatLevels[stat];
+}
+function getMaxHealth() {
+  return diffConfig.health + getStatBonus("health");
+}
+function getDamageBonus() {
+  return getStatBonus("damage");
+}
+function getDefenseBonus() {
+  return getStatBonus("defense");
+}
+function getSpeedBonus() {
+  return 1 + getStatBonus("speed");
+}
+function getLuckBonus() {
+  return getStatBonus("luck");
+}
+function getAmmoBonus() {
+  return getStatBonus("ammo");
+}
+function getMaxAmmoForWeapon(w) {
+  return w.isMelee ? 0 : w.maxAmmo + Math.floor(getAmmoBonus() / 2);
+}
+function getWeaponXpToLevel(lvl) {
+  return lvl * 50;
+}
 function getMapType(lvl) {
   const keys = Object.keys(MAP_TYPES);
   return MAP_TYPES[keys[lvl % keys.length]];
@@ -347,7 +964,7 @@ function updateGrenadeDisplay() {
     const pct = (grenadeCooldown / GRENADE_MAX_COOLDOWN) * 100;
     cooldownEl.textContent = Math.ceil(grenadeCooldown) + "s";
     cooldownEl.className = "grenade-cooldown";
-    barEl.style.width = (100 - pct) + "%";
+    barEl.style.width = 100 - pct + "%";
   } else {
     cooldownEl.textContent = "READY";
     cooldownEl.className = "grenade-cooldown ready";
@@ -367,7 +984,8 @@ function updateAmmoDisplay() {
   const maxAmmo = getMaxAmmoForWeapon(currentWeapon);
   if (isReloading) {
     ammoEl.textContent = "...";
-    reloadEl.textContent = "RELOADING " + Math.max(0, reloadTimer).toFixed(1) + "s";
+    reloadEl.textContent =
+      "RELOADING " + Math.max(0, reloadTimer).toFixed(1) + "s";
     reloadEl.classList.add("active");
   } else {
     ammoEl.textContent = Math.floor(currentAmmo) + "/" + maxAmmo;
@@ -418,7 +1036,10 @@ function updateEnemyCount() {
 }
 
 function updateStatsUI() {
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
   set("statScore", stats.totalScore);
   set("statLevel", stats.highestLevel);
   set("statKills", stats.totalKills);
@@ -485,7 +1106,9 @@ function showBossAbility(text) {
   if (!display) return;
   display.textContent = text;
   display.style.opacity = 1;
-  setTimeout(() => { display.style.opacity = 0; }, 1500);
+  setTimeout(() => {
+    display.style.opacity = 0;
+  }, 1500);
 }
 
 function applyScreenShake(intensity) {
@@ -517,8 +1140,11 @@ function addDamageNumber(position, damage, isHeadshot, isBoss) {
   el.style.left = x + "px";
   el.style.top = y + "px";
   container.appendChild(el);
-  while (container.children.length > 40) container.removeChild(container.firstChild);
-  setTimeout(() => { if (el.parentNode) el.remove(); }, 1000);
+  while (container.children.length > 40)
+    container.removeChild(container.firstChild);
+  setTimeout(() => {
+    if (el.parentNode) el.remove();
+  }, 1000);
 }
 
 function addMoneyPopup(amount, position) {
@@ -528,12 +1154,15 @@ function addMoneyPopup(amount, position) {
   el.className = "money-popup";
   el.textContent = "+" + amount;
   const vector = position.clone().project(camera);
-  const x = (vector.x * 0.5 + 0.5) * window.innerWidth + (Math.random() - 0.5) * 40;
+  const x =
+    (vector.x * 0.5 + 0.5) * window.innerWidth + (Math.random() - 0.5) * 40;
   const y = (-vector.y * 0.5 + 0.5) * window.innerHeight;
   el.style.left = x + "px";
   el.style.top = y + "px";
   container.appendChild(el);
-  setTimeout(() => { if (el.parentNode) el.remove(); }, 1200);
+  setTimeout(() => {
+    if (el.parentNode) el.remove();
+  }, 1200);
 }
 
 function flashCrosshair(isHeadshot) {
@@ -561,7 +1190,9 @@ function addKillFeed(monsterType, isHeadshot, isBoss) {
   entry.textContent = monsterType + " eliminated" + bossText + headshotText;
   entry.style.color = isBoss ? "#ff8800" : isHeadshot ? "#ff8800" : "#ff4444";
   feed.appendChild(entry);
-  setTimeout(() => { if (entry.parentNode) entry.remove(); }, 2500);
+  setTimeout(() => {
+    if (entry.parentNode) entry.remove();
+  }, 2500);
   if (feed.children.length > 5) feed.removeChild(feed.firstChild);
 }
 
@@ -606,7 +1237,9 @@ function tryFlare() {
     if (d < 10) {
       en.userData.scareTimer = 0.8;
       en.userData.path = null;
-      const dir = new THREE.Vector3().subVectors(en.position, camera.position).normalize();
+      const dir = new THREE.Vector3()
+        .subVectors(en.position, camera.position)
+        .normalize();
       en.position.add(dir.multiplyScalar(1.5));
     }
   });
@@ -629,7 +1262,9 @@ function toggleWeaponInspect() {
     step++;
     const progress = step / steps;
     const eased = 1 - Math.pow(1 - progress, 3);
-    if (gunGroup) gunGroup.rotation.x = originalRotation + (targetRotation - originalRotation) * eased;
+    if (gunGroup)
+      gunGroup.rotation.x =
+        originalRotation + (targetRotation - originalRotation) * eased;
     if (step >= steps) {
       clearInterval(inspectInterval);
       setTimeout(() => {
@@ -637,7 +1272,9 @@ function toggleWeaponInspect() {
           step--;
           const progress2 = step / steps;
           const eased2 = 1 - Math.pow(1 - progress2, 3);
-          if (gunGroup) gunGroup.rotation.x = originalRotation + (targetRotation - originalRotation) * eased2;
+          if (gunGroup)
+            gunGroup.rotation.x =
+              originalRotation + (targetRotation - originalRotation) * eased2;
           if (step <= 0) {
             clearInterval(returnInterval);
             if (gunGroup) gunGroup.rotation.x = originalRotation;
@@ -673,7 +1310,9 @@ function generateLoot(enemyType) {
     if (Math.random() < 0.2) {
       const available = tools.filter((t) => !t.owned);
       if (available.length > 0) {
-        loot.items.push(available[Math.floor(Math.random() * available.length)].id);
+        loot.items.push(
+          available[Math.floor(Math.random() * available.length)].id,
+        );
       }
     }
   }
@@ -682,7 +1321,8 @@ function generateLoot(enemyType) {
 
 function applyPerk(perkId) {
   const perk = PERKS[perkId];
-  if (!perk || activePerks.includes(perkId) || statPoints < perk.cost) return false;
+  if (!perk || activePerks.includes(perkId) || statPoints < perk.cost)
+    return false;
   statPoints -= perk.cost;
   activePerks.push(perkId);
   updateStatsUI();
@@ -727,8 +1367,15 @@ function throwGrenade() {
       const actualDamage = Math.max(10, damage);
       enemy.userData.hp -= actualDamage;
       enemiesHit++;
-      addDamageNumber(enemy.position, actualDamage, false, enemy.userData.isBoss);
-      const dir = new THREE.Vector3().subVectors(enemy.position, origin).normalize();
+      addDamageNumber(
+        enemy.position,
+        actualDamage,
+        false,
+        enemy.userData.isBoss,
+      );
+      const dir = new THREE.Vector3()
+        .subVectors(enemy.position, origin)
+        .normalize();
       enemy.position.add(dir.multiplyScalar(2));
       if (enemy.userData.hp <= 0) killEnemy(enemy, false);
     }
@@ -768,22 +1415,39 @@ function spawnHorde() {
     const radius = spawnRadius + (Math.random() - 0.5) * 2;
     const spawnX = camera.position.x + Math.cos(angle) * radius;
     const spawnZ = camera.position.z + Math.sin(angle) * radius;
-    if (spawnX < 1 || spawnX > cols * CELL - 1 || spawnZ < 1 || spawnZ > rows * CELL - 1) continue;
+    if (
+      spawnX < 1 ||
+      spawnX > cols * CELL - 1 ||
+      spawnZ < 1 ||
+      spawnZ > rows * CELL - 1
+    )
+      continue;
 
     const types = ["grunt", "fast", "tank", "brute", "spitter"];
     const typeId = types[Math.floor(Math.random() * types.length)];
     const typeDef = enemyTypes.find((t) => t.id === typeId) || enemyTypes[0];
-    const maxHp = Math.round(getEnemyHealthScaling(level) * typeDef.hpMult * 1.2);
+    const maxHp = Math.round(
+      getEnemyHealthScaling(level) * typeDef.hpMult * 1.2,
+    );
 
-    const enemy = createMapMonster(typeId, typeDef.size, typeDef.height, "dark");
+    const enemy = createMapMonster(
+      typeId,
+      typeDef.size,
+      typeDef.height,
+      "dark",
+    );
     enemy.position.set(spawnX, 0, spawnZ);
     enemy.userData.isEnemy = true;
     enemy.userData.isBoss = false;
     enemy.userData.type = typeDef.id;
-    enemy.userData.cell = { i: Math.floor(spawnX / CELL), j: Math.floor(spawnZ / CELL) };
+    enemy.userData.cell = {
+      i: Math.floor(spawnX / CELL),
+      j: Math.floor(spawnZ / CELL),
+    };
     enemy.userData.path = null;
     enemy.userData.repathTimer = 0.2 + Math.random() * 0.3;
-    enemy.userData.speed = diffConfig.enemySpeed * typeDef.speedMult * (0.8 + Math.random() * 0.4);
+    enemy.userData.speed =
+      diffConfig.enemySpeed * typeDef.speedMult * (0.8 + Math.random() * 0.4);
     enemy.userData.maxHp = maxHp;
     enemy.userData.hp = maxHp;
     enemy.userData.scareTimer = 0;
@@ -807,7 +1471,9 @@ function spawnHorde() {
     entry.style.color = "#ff8800";
     entry.style.fontWeight = "bold";
     feed.appendChild(entry);
-    setTimeout(() => { if (entry.parentNode) entry.remove(); }, 3000);
+    setTimeout(() => {
+      if (entry.parentNode) entry.remove();
+    }, 3000);
   }
 }
 
@@ -819,148 +1485,299 @@ function createPolygonWeapon(weaponType) {
 
   switch (weaponType) {
     case "knife": {
-      const bladeMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.8, roughness: 0.2 });
-      const handleMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.9 });
-      const blade = new THREE.Mesh(new THREE.BoxGeometry(0.015, 0.3, 0.04), bladeMat);
+      const bladeMat = new THREE.MeshStandardMaterial({
+        color: 0xcccccc,
+        metalness: 0.8,
+        roughness: 0.2,
+      });
+      const handleMat = new THREE.MeshStandardMaterial({
+        color: 0x222222,
+        roughness: 0.9,
+      });
+      const blade = new THREE.Mesh(
+        new THREE.BoxGeometry(0.015, 0.3, 0.04),
+        bladeMat,
+      );
       blade.position.set(0.2, -0.08, -0.65);
       blade.scale.x = 0.5;
       group.add(blade);
-      const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.12, 6), handleMat);
+      const handle = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.03, 0.04, 0.12, 6),
+        handleMat,
+      );
       handle.position.set(0.2, -0.22, -0.65);
       handle.rotation.x = Math.PI / 2;
       group.add(handle);
-      const guard = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.015, 0.04), new THREE.MeshStandardMaterial({ color: 0x444444, metalness: 0.5 }));
+      const guard = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.015, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0x444444, metalness: 0.5 }),
+      );
       guard.position.set(0.2, -0.15, -0.65);
       group.add(guard);
       break;
     }
     case "machete": {
-      const macheteMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 0.7, roughness: 0.3 });
-      const macheteHandle = new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.9 });
-      const macheteBlade = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.4, 0.05), macheteMat);
+      const macheteMat = new THREE.MeshStandardMaterial({
+        color: 0xaaaaaa,
+        metalness: 0.7,
+        roughness: 0.3,
+      });
+      const macheteHandle = new THREE.MeshStandardMaterial({
+        color: 0x3a2a1a,
+        roughness: 0.9,
+      });
+      const macheteBlade = new THREE.Mesh(
+        new THREE.BoxGeometry(0.02, 0.4, 0.05),
+        macheteMat,
+      );
       macheteBlade.position.set(0.2, -0.05, -0.75);
       macheteBlade.scale.x = 0.3;
       group.add(macheteBlade);
-      const h = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.15, 6), macheteHandle);
+      const h = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.035, 0.045, 0.15, 6),
+        macheteHandle,
+      );
       h.position.set(0.2, -0.25, -0.75);
       h.rotation.x = Math.PI / 2;
       group.add(h);
       break;
     }
     case "pistol": {
-      const pistolMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.6, roughness: 0.4 });
-      const pistolGrip = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.8 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.35), pistolMat);
+      const pistolMat = new THREE.MeshStandardMaterial({
+        color: 0x333333,
+        metalness: 0.6,
+        roughness: 0.4,
+      });
+      const pistolGrip = new THREE.MeshStandardMaterial({
+        color: 0x222222,
+        roughness: 0.8,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, 0.08, 0.35),
+        pistolMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.25, 8), pistolMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.025, 0.02, 0.25, 8),
+        pistolMat,
+      );
       barrel.position.set(0.2, -0.15, -0.85);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const grip = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.12, 0.05), pistolGrip);
+      const grip = new THREE.Mesh(
+        new THREE.BoxGeometry(0.04, 0.12, 0.05),
+        pistolGrip,
+      );
       grip.position.set(0.18, -0.34, -0.5);
       group.add(grip);
-      const sight = new THREE.Mesh(new THREE.BoxGeometry(0.01, 0.015, 0.015), pistolMat);
+      const sight = new THREE.Mesh(
+        new THREE.BoxGeometry(0.01, 0.015, 0.015),
+        pistolMat,
+      );
       sight.position.set(0.2, -0.1, -0.7);
       group.add(sight);
       break;
     }
     case "smg": {
-      const smgMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 0.5, roughness: 0.5 });
-      const smgStock = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.09, 0.5), smgMat);
+      const smgMat = new THREE.MeshStandardMaterial({
+        color: 0x2a2a2a,
+        metalness: 0.5,
+        roughness: 0.5,
+      });
+      const smgStock = new THREE.MeshStandardMaterial({
+        color: 0x1a1a1a,
+        roughness: 0.8,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.07, 0.09, 0.5),
+        smgMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.015, 0.3, 8), smgMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.02, 0.015, 0.3, 8),
+        smgMat,
+      );
       barrel.position.set(0.2, -0.15, -0.95);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const mag = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.1, 0.03), smgMat);
+      const mag = new THREE.Mesh(
+        new THREE.BoxGeometry(0.04, 0.1, 0.03),
+        smgMat,
+      );
       mag.position.set(0.18, -0.32, -0.6);
       group.add(mag);
-      const stock = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.04, 0.08), smgStock);
+      const stock = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.04, 0.08),
+        smgStock,
+      );
       stock.position.set(0.2, -0.14, -0.3);
       group.add(stock);
-      const sight = new THREE.Mesh(new THREE.BoxGeometry(0.01, 0.02, 0.02), smgMat);
+      const sight = new THREE.Mesh(
+        new THREE.BoxGeometry(0.01, 0.02, 0.02),
+        smgMat,
+      );
       sight.position.set(0.2, -0.09, -0.75);
       group.add(sight);
       break;
     }
     case "shotgun": {
-      const shotMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, metalness: 0.6, roughness: 0.4 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.1, 0.4), shotMat);
+      const shotMat = new THREE.MeshStandardMaterial({
+        color: 0x3a3a3a,
+        metalness: 0.6,
+        roughness: 0.4,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, 0.1, 0.4),
+        shotMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.03, 0.4, 8), shotMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.035, 0.03, 0.4, 8),
+        shotMat,
+      );
       barrel.position.set(0.2, -0.14, -0.95);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const grip = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.14, 0.05), new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }));
+      const grip = new THREE.Mesh(
+        new THREE.BoxGeometry(0.05, 0.14, 0.05),
+        new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }),
+      );
       grip.position.set(0.18, -0.35, -0.5);
       group.add(grip);
-      const stock = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.1), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }));
+      const stock = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.03, 0.1),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }),
+      );
       stock.position.set(0.2, -0.15, -0.3);
       group.add(stock);
       break;
     }
     case "rifle": {
-      const rifleMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, metalness: 0.5, roughness: 0.5 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.08, 0.6), rifleMat);
+      const rifleMat = new THREE.MeshStandardMaterial({
+        color: 0x2a2a2a,
+        metalness: 0.5,
+        roughness: 0.5,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.07, 0.08, 0.6),
+        rifleMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.4, 8), rifleMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.025, 0.02, 0.4, 8),
+        rifleMat,
+      );
       barrel.position.set(0.2, -0.15, -1.0);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const grip = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.12, 0.05), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }));
+      const grip = new THREE.Mesh(
+        new THREE.BoxGeometry(0.04, 0.12, 0.05),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }),
+      );
       grip.position.set(0.18, -0.34, -0.5);
       group.add(grip);
-      const stock = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.04, 0.12), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }));
+      const stock = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.04, 0.12),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }),
+      );
       stock.position.set(0.2, -0.14, -0.25);
       group.add(stock);
-      const scope = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.03, 0.08, 8), new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.7 }));
+      const scope = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.025, 0.03, 0.08, 8),
+        new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.7 }),
+      );
       scope.position.set(0.2, -0.05, -0.7);
       scope.rotation.x = Math.PI / 2;
       group.add(scope);
       break;
     }
     case "heavy": {
-      const heavyMat = new THREE.MeshStandardMaterial({ color: 0x444444, metalness: 0.7, roughness: 0.3 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.12, 0.5), heavyMat);
+      const heavyMat = new THREE.MeshStandardMaterial({
+        color: 0x444444,
+        metalness: 0.7,
+        roughness: 0.3,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.1, 0.12, 0.5),
+        heavyMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.03, 0.35, 8), heavyMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.03, 0.35, 8),
+        heavyMat,
+      );
       barrel.position.set(0.2, -0.14, -0.95);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const grip = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.14, 0.06), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.9 }));
+      const grip = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.14, 0.06),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.9 }),
+      );
       grip.position.set(0.18, -0.36, -0.5);
       group.add(grip);
-      const stock = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, 0.1), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }));
+      const stock = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, 0.04, 0.1),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.8 }),
+      );
       stock.position.set(0.2, -0.16, -0.25);
       group.add(stock);
       break;
     }
     case "energy": {
-      const energyMat = new THREE.MeshStandardMaterial({ color: 0x44ffff, emissive: 0x44ffff, emissiveIntensity: 0.3, transparent: true, opacity: 0.8 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.08, 0.4), energyMat);
+      const energyMat = new THREE.MeshStandardMaterial({
+        color: 0x44ffff,
+        emissive: 0x44ffff,
+        emissiveIntensity: 0.3,
+        transparent: true,
+        opacity: 0.8,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.08, 0.4),
+        energyMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.015, 0.3, 8), energyMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.02, 0.015, 0.3, 8),
+        energyMat,
+      );
       barrel.position.set(0.2, -0.15, -0.9);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
-      const core = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), new THREE.MeshStandardMaterial({ color: 0x00ffff, emissive: 0x00ffff, emissiveIntensity: 0.8, transparent: true, opacity: 0.6 }));
+      const core = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 8, 8),
+        new THREE.MeshStandardMaterial({
+          color: 0x00ffff,
+          emissive: 0x00ffff,
+          emissiveIntensity: 0.8,
+          transparent: true,
+          opacity: 0.6,
+        }),
+      );
       core.position.set(0.2, -0.14, -0.55);
       group.add(core);
       break;
     }
     default: {
-      const defMat = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.6 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.4), defMat);
+      const defMat = new THREE.MeshStandardMaterial({
+        color: 0x333333,
+        metalness: 0.6,
+      });
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, 0.08, 0.4),
+        defMat,
+      );
       body.position.set(0.2, -0.18, -0.55);
       group.add(body);
-      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.3, 8), defMat);
+      const barrel = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.025, 0.02, 0.3, 8),
+        defMat,
+      );
       barrel.position.set(0.2, -0.15, -0.9);
       barrel.rotation.x = Math.PI / 2;
       group.add(barrel);
@@ -978,152 +1795,381 @@ function createMapMonster(type, size, height, mapTheme) {
 
   let color, emissive;
   switch (mapTheme) {
-    case "industrial": color = 0x663333; emissive = 0xff4422; break;
-    case "dark":       color = 0x334466; emissive = 0x6644ff; break;
-    case "mechanical": color = 0x666633; emissive = 0x88ff44; break;
-    case "scientific": color = 0x336666; emissive = 0x44ff88; break;
-    case "toxic":      color = 0x336633; emissive = 0x44ff44; break;
-    case "ancient":    color = 0x664433; emissive = 0xff8844; break;
-    default:           color = 0x663333; emissive = 0xff4422;
+    case "industrial":
+      color = 0x663333;
+      emissive = 0xff4422;
+      break;
+    case "dark":
+      color = 0x334466;
+      emissive = 0x6644ff;
+      break;
+    case "mechanical":
+      color = 0x666633;
+      emissive = 0x88ff44;
+      break;
+    case "scientific":
+      color = 0x336666;
+      emissive = 0x44ff88;
+      break;
+    case "toxic":
+      color = 0x336633;
+      emissive = 0x44ff44;
+      break;
+    case "ancient":
+      color = 0x664433;
+      emissive = 0xff8844;
+      break;
+    default:
+      color = 0x663333;
+      emissive = 0xff4422;
   }
 
   const mat = new THREE.MeshStandardMaterial({
-    color, emissive, emissiveIntensity: 0.3,
-    roughness: 0.5, metalness: 0.3, flatShading: true,
+    color,
+    emissive,
+    emissiveIntensity: 0.3,
+    roughness: 0.5,
+    metalness: 0.3,
+    flatShading: true,
   });
 
   if (type === "grunt") {
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.4, size * 0.5, height * 0.5, 7), mat);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(size * 0.4, size * 0.5, height * 0.5, 7),
+      mat,
+    );
     body.position.y = height * 0.35;
     group.add(body);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(size * 0.3, 6, 6), mat);
+    const head = new THREE.Mesh(
+      new THREE.SphereGeometry(size * 0.3, 6, 6),
+      mat,
+    );
     head.position.y = height * 0.85;
     head.scale.y = 0.8;
     group.add(head);
-    const armGeo = new THREE.CylinderGeometry(size * 0.06, size * 0.08, height * 0.35, 6);
-    const aL = new THREE.Mesh(armGeo, mat); aL.position.set(-size * 0.45, height * 0.35, 0); aL.rotation.z = 0.2; group.add(aL);
-    const aR = new THREE.Mesh(armGeo, mat); aR.position.set(size * 0.45, height * 0.35, 0); aR.rotation.z = -0.2; group.add(aR);
-    const legGeo = new THREE.CylinderGeometry(size * 0.06, size * 0.05, height * 0.3, 6);
-    const lL = new THREE.Mesh(legGeo, mat); lL.position.set(-size * 0.2, height * 0.15, 0); group.add(lL);
-    const lR = new THREE.Mesh(legGeo, mat); lR.position.set(size * 0.2, height * 0.15, 0); group.add(lR);
+    const armGeo = new THREE.CylinderGeometry(
+      size * 0.06,
+      size * 0.08,
+      height * 0.35,
+      6,
+    );
+    const aL = new THREE.Mesh(armGeo, mat);
+    aL.position.set(-size * 0.45, height * 0.35, 0);
+    aL.rotation.z = 0.2;
+    group.add(aL);
+    const aR = new THREE.Mesh(armGeo, mat);
+    aR.position.set(size * 0.45, height * 0.35, 0);
+    aR.rotation.z = -0.2;
+    group.add(aR);
+    const legGeo = new THREE.CylinderGeometry(
+      size * 0.06,
+      size * 0.05,
+      height * 0.3,
+      6,
+    );
+    const lL = new THREE.Mesh(legGeo, mat);
+    lL.position.set(-size * 0.2, height * 0.15, 0);
+    group.add(lL);
+    const lR = new THREE.Mesh(legGeo, mat);
+    lR.position.set(size * 0.2, height * 0.15, 0);
+    group.add(lR);
   } else if (type === "fast") {
-    const sm = mat.clone(); sm.color.setHex(0x224488); sm.emissive.setHex(0x4488ff);
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.25, size * 0.35, height * 0.5, 6), sm);
+    const sm = mat.clone();
+    sm.color.setHex(0x224488);
+    sm.emissive.setHex(0x4488ff);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(size * 0.25, size * 0.35, height * 0.5, 6),
+      sm,
+    );
     body.position.y = height * 0.4;
     group.add(body);
-    const head = new THREE.Mesh(new THREE.ConeGeometry(size * 0.25, height * 0.3, 6), sm);
+    const head = new THREE.Mesh(
+      new THREE.ConeGeometry(size * 0.25, height * 0.3, 6),
+      sm,
+    );
     head.position.y = height * 0.85;
     group.add(head);
-    const armGeo = new THREE.CylinderGeometry(size * 0.04, size * 0.05, height * 0.45, 6);
-    const aL = new THREE.Mesh(armGeo, sm); aL.position.set(-size * 0.35, height * 0.4, 0); aL.rotation.z = 0.3; group.add(aL);
-    const aR = new THREE.Mesh(armGeo, sm); aR.position.set(size * 0.35, height * 0.4, 0); aR.rotation.z = -0.3; group.add(aR);
+    const armGeo = new THREE.CylinderGeometry(
+      size * 0.04,
+      size * 0.05,
+      height * 0.45,
+      6,
+    );
+    const aL = new THREE.Mesh(armGeo, sm);
+    aL.position.set(-size * 0.35, height * 0.4, 0);
+    aL.rotation.z = 0.3;
+    group.add(aL);
+    const aR = new THREE.Mesh(armGeo, sm);
+    aR.position.set(size * 0.35, height * 0.4, 0);
+    aR.rotation.z = -0.3;
+    group.add(aR);
   } else if (type === "tank") {
-    const tm = mat.clone(); tm.color.setHex(0x333311); tm.emissive.setHex(0x88aa44);
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.5, size * 0.6, height * 0.5, 8), tm);
+    const tm = mat.clone();
+    tm.color.setHex(0x333311);
+    tm.emissive.setHex(0x88aa44);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(size * 0.5, size * 0.6, height * 0.5, 8),
+      tm,
+    );
     body.position.y = height * 0.4;
     group.add(body);
-    const head = new THREE.Mesh(new THREE.BoxGeometry(size * 0.45, height * 0.25, size * 0.45), tm);
+    const head = new THREE.Mesh(
+      new THREE.BoxGeometry(size * 0.45, height * 0.25, size * 0.45),
+      tm,
+    );
     head.position.y = height * 0.8;
     group.add(head);
-    const armGeo = new THREE.CylinderGeometry(size * 0.1, size * 0.13, height * 0.3, 6);
-    const aL = new THREE.Mesh(armGeo, tm); aL.position.set(-size * 0.55, height * 0.35, 0); group.add(aL);
-    const aR = new THREE.Mesh(armGeo, tm); aR.position.set(size * 0.55, height * 0.35, 0); group.add(aR);
+    const armGeo = new THREE.CylinderGeometry(
+      size * 0.1,
+      size * 0.13,
+      height * 0.3,
+      6,
+    );
+    const aL = new THREE.Mesh(armGeo, tm);
+    aL.position.set(-size * 0.55, height * 0.35, 0);
+    group.add(aL);
+    const aR = new THREE.Mesh(armGeo, tm);
+    aR.position.set(size * 0.55, height * 0.35, 0);
+    group.add(aR);
   } else if (type === "brute") {
-    const bm = mat.clone(); bm.color.setHex(0x441111); bm.emissive.setHex(0xcc4444);
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.45, size * 0.55, height * 0.5, 7), bm);
+    const bm = mat.clone();
+    bm.color.setHex(0x441111);
+    bm.emissive.setHex(0xcc4444);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(size * 0.45, size * 0.55, height * 0.5, 7),
+      bm,
+    );
     body.position.y = height * 0.4;
     group.add(body);
-    const head = new THREE.Mesh(new THREE.ConeGeometry(size * 0.35, height * 0.35, 5), bm);
+    const head = new THREE.Mesh(
+      new THREE.ConeGeometry(size * 0.35, height * 0.35, 5),
+      bm,
+    );
     head.position.y = height * 0.85;
     group.add(head);
-    const armGeo = new THREE.CylinderGeometry(size * 0.08, size * 0.12, height * 0.4, 6);
-    const aL = new THREE.Mesh(armGeo, bm); aL.position.set(-size * 0.5, height * 0.35, 0); aL.rotation.z = 0.15; group.add(aL);
-    const aR = new THREE.Mesh(armGeo, bm); aR.position.set(size * 0.5, height * 0.35, 0); aR.rotation.z = -0.15; group.add(aR);
+    const armGeo = new THREE.CylinderGeometry(
+      size * 0.08,
+      size * 0.12,
+      height * 0.4,
+      6,
+    );
+    const aL = new THREE.Mesh(armGeo, bm);
+    aL.position.set(-size * 0.5, height * 0.35, 0);
+    aL.rotation.z = 0.15;
+    group.add(aL);
+    const aR = new THREE.Mesh(armGeo, bm);
+    aR.position.set(size * 0.5, height * 0.35, 0);
+    aR.rotation.z = -0.15;
+    group.add(aR);
   } else if (type === "spitter") {
-    const sm = mat.clone(); sm.color.setHex(0x113311); sm.emissive.setHex(0x44ff44);
-    const body = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.35, size * 0.5, height * 0.4, 6), sm);
+    const sm = mat.clone();
+    sm.color.setHex(0x113311);
+    sm.emissive.setHex(0x44ff44);
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(size * 0.35, size * 0.5, height * 0.4, 6),
+      sm,
+    );
     body.position.y = height * 0.3;
     group.add(body);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(size * 0.35, 6, 6), sm);
+    const head = new THREE.Mesh(
+      new THREE.SphereGeometry(size * 0.35, 6, 6),
+      sm,
+    );
     head.position.y = height * 0.7;
     head.scale.set(1, 0.8, 1.2);
     group.add(head);
-    const tGeo = new THREE.CylinderGeometry(size * 0.03, size * 0.05, height * 0.4, 5);
+    const tGeo = new THREE.CylinderGeometry(
+      size * 0.03,
+      size * 0.05,
+      height * 0.4,
+      5,
+    );
     for (let i = 0; i < 4; i++) {
       const angle = (i / 4) * Math.PI * 2;
       const t = new THREE.Mesh(tGeo, sm);
-      t.position.set(Math.cos(angle) * size * 0.3, height * 0.3, Math.sin(angle) * size * 0.3);
+      t.position.set(
+        Math.cos(angle) * size * 0.3,
+        height * 0.3,
+        Math.sin(angle) * size * 0.3,
+      );
       t.rotation.z = Math.cos(angle) * 0.3;
       t.rotation.x = Math.sin(angle) * 0.3;
       group.add(t);
     }
   }
 
-  const eyeMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 0.8 });
+  const eyeMat = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+    emissive: 0xff0000,
+    emissiveIntensity: 0.8,
+  });
   const eyeGeo = new THREE.SphereGeometry(size * 0.06, 6, 6);
-  const eL = new THREE.Mesh(eyeGeo, eyeMat); eL.position.set(-size * 0.12, height * 0.8, size * 0.2); group.add(eL);
-  const eR = new THREE.Mesh(eyeGeo, eyeMat); eR.position.set(size * 0.12, height * 0.8, size * 0.2); group.add(eR);
+  const eL = new THREE.Mesh(eyeGeo, eyeMat);
+  eL.position.set(-size * 0.12, height * 0.8, size * 0.2);
+  group.add(eL);
+  const eR = new THREE.Mesh(eyeGeo, eyeMat);
+  eR.position.set(size * 0.12, height * 0.8, size * 0.2);
+  group.add(eR);
 
   return group;
 }
 
 function createMapBoss(mapTheme) {
   const group = new THREE.Group();
-  const size = 1.5, height = 3.0;
+  const size = 1.5,
+    height = 3.0;
   let color, emissive, accent;
   switch (mapTheme) {
-    case "industrial": color = 0x663322; emissive = 0xff4422; accent = 0x884433; break;
-    case "dark":       color = 0x334466; emissive = 0x6644ff; accent = 0x445588; break;
-    case "mechanical": color = 0x666633; emissive = 0x88ff44; accent = 0x888844; break;
-    case "scientific": color = 0x336666; emissive = 0x44ff88; accent = 0x448888; break;
-    case "toxic":      color = 0x336633; emissive = 0x44ff44; accent = 0x448844; break;
-    case "ancient":    color = 0x664433; emissive = 0xff8844; accent = 0x886644; break;
-    default:           color = 0x663322; emissive = 0xff4422; accent = 0x884433;
+    case "industrial":
+      color = 0x663322;
+      emissive = 0xff4422;
+      accent = 0x884433;
+      break;
+    case "dark":
+      color = 0x334466;
+      emissive = 0x6644ff;
+      accent = 0x445588;
+      break;
+    case "mechanical":
+      color = 0x666633;
+      emissive = 0x88ff44;
+      accent = 0x888844;
+      break;
+    case "scientific":
+      color = 0x336666;
+      emissive = 0x44ff88;
+      accent = 0x448888;
+      break;
+    case "toxic":
+      color = 0x336633;
+      emissive = 0x44ff44;
+      accent = 0x448844;
+      break;
+    case "ancient":
+      color = 0x664433;
+      emissive = 0xff8844;
+      accent = 0x886644;
+      break;
+    default:
+      color = 0x663322;
+      emissive = 0xff4422;
+      accent = 0x884433;
   }
-  const bodyMat = new THREE.MeshStandardMaterial({ color, emissive, emissiveIntensity: 0.3, roughness: 0.3, metalness: 0.6, flatShading: true });
-  const accentMat = new THREE.MeshStandardMaterial({ color: accent, emissive, emissiveIntensity: 0.2, roughness: 0.4, metalness: 0.5, flatShading: true });
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color,
+    emissive,
+    emissiveIntensity: 0.3,
+    roughness: 0.3,
+    metalness: 0.6,
+    flatShading: true,
+  });
+  const accentMat = new THREE.MeshStandardMaterial({
+    color: accent,
+    emissive,
+    emissiveIntensity: 0.2,
+    roughness: 0.4,
+    metalness: 0.5,
+    flatShading: true,
+  });
 
-  const torso = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.5, size * 0.6, height * 0.4, 8), bodyMat);
+  const torso = new THREE.Mesh(
+    new THREE.CylinderGeometry(size * 0.5, size * 0.6, height * 0.4, 8),
+    bodyMat,
+  );
   torso.position.y = height * 0.4;
   group.add(torso);
 
-  const chest = new THREE.Mesh(new THREE.BoxGeometry(size * 0.5, height * 0.15, size * 0.3), accentMat);
+  const chest = new THREE.Mesh(
+    new THREE.BoxGeometry(size * 0.5, height * 0.15, size * 0.3),
+    accentMat,
+  );
   chest.position.y = height * 0.55;
   group.add(chest);
 
-  const head = new THREE.Mesh(new THREE.ConeGeometry(size * 0.3, height * 0.3, 6), bodyMat);
+  const head = new THREE.Mesh(
+    new THREE.ConeGeometry(size * 0.3, height * 0.3, 6),
+    bodyMat,
+  );
   head.position.y = height * 0.85;
   group.add(head);
 
   for (let i = 0; i < 6; i++) {
     const angle = (i / 6) * Math.PI * 2;
-    const horn = new THREE.Mesh(new THREE.ConeGeometry(size * 0.04, height * 0.15, 4), accentMat);
-    horn.position.set(Math.cos(angle) * size * 0.25, height * 0.95, Math.sin(angle) * size * 0.25);
+    const horn = new THREE.Mesh(
+      new THREE.ConeGeometry(size * 0.04, height * 0.15, 4),
+      accentMat,
+    );
+    horn.position.set(
+      Math.cos(angle) * size * 0.25,
+      height * 0.95,
+      Math.sin(angle) * size * 0.25,
+    );
     horn.rotation.x = Math.cos(angle) * 0.5;
     horn.rotation.z = Math.sin(angle) * 0.5;
     group.add(horn);
   }
 
-  const armGeo = new THREE.CylinderGeometry(size * 0.1, size * 0.15, height * 0.5, 6);
-  const aL = new THREE.Mesh(armGeo, bodyMat); aL.position.set(-size * 0.6, height * 0.4, 0); aL.rotation.z = 0.3; group.add(aL);
-  const aR = new THREE.Mesh(armGeo, bodyMat); aR.position.set(size * 0.6, height * 0.4, 0); aR.rotation.z = -0.3; group.add(aR);
+  const armGeo = new THREE.CylinderGeometry(
+    size * 0.1,
+    size * 0.15,
+    height * 0.5,
+    6,
+  );
+  const aL = new THREE.Mesh(armGeo, bodyMat);
+  aL.position.set(-size * 0.6, height * 0.4, 0);
+  aL.rotation.z = 0.3;
+  group.add(aL);
+  const aR = new THREE.Mesh(armGeo, bodyMat);
+  aR.position.set(size * 0.6, height * 0.4, 0);
+  aR.rotation.z = -0.3;
+  group.add(aR);
 
   const clawGeo = new THREE.ConeGeometry(size * 0.08, height * 0.1, 4);
-  const cL = new THREE.Mesh(clawGeo, accentMat); cL.position.set(-size * 0.7, height * 0.2, 0); group.add(cL);
-  const cR = new THREE.Mesh(clawGeo, accentMat); cR.position.set(size * 0.7, height * 0.2, 0); group.add(cR);
+  const cL = new THREE.Mesh(clawGeo, accentMat);
+  cL.position.set(-size * 0.7, height * 0.2, 0);
+  group.add(cL);
+  const cR = new THREE.Mesh(clawGeo, accentMat);
+  cR.position.set(size * 0.7, height * 0.2, 0);
+  group.add(cR);
 
-  const legGeo = new THREE.CylinderGeometry(size * 0.12, size * 0.1, height * 0.3, 6);
-  const lL = new THREE.Mesh(legGeo, bodyMat); lL.position.set(-size * 0.3, height * 0.15, 0); group.add(lL);
-  const lR = new THREE.Mesh(legGeo, bodyMat); lR.position.set(size * 0.3, height * 0.15, 0); group.add(lR);
+  const legGeo = new THREE.CylinderGeometry(
+    size * 0.12,
+    size * 0.1,
+    height * 0.3,
+    6,
+  );
+  const lL = new THREE.Mesh(legGeo, bodyMat);
+  lL.position.set(-size * 0.3, height * 0.15, 0);
+  group.add(lL);
+  const lR = new THREE.Mesh(legGeo, bodyMat);
+  lR.position.set(size * 0.3, height * 0.15, 0);
+  group.add(lR);
 
-  const core = new THREE.Mesh(new THREE.SphereGeometry(size * 0.12, 6, 6), new THREE.MeshStandardMaterial({ color: emissive, emissive, emissiveIntensity: 0.8, transparent: true, opacity: 0.6 }));
+  const core = new THREE.Mesh(
+    new THREE.SphereGeometry(size * 0.12, 6, 6),
+    new THREE.MeshStandardMaterial({
+      color: emissive,
+      emissive,
+      emissiveIntensity: 0.8,
+      transparent: true,
+      opacity: 0.6,
+    }),
+  );
   core.position.set(0, height * 0.4, size * 0.2);
   group.add(core);
 
-  const eyeMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0xff0000, emissiveIntensity: 1.0 });
+  const eyeMat = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+    emissive: 0xff0000,
+    emissiveIntensity: 1.0,
+  });
   const eyeGeo = new THREE.SphereGeometry(size * 0.06, 6, 6);
-  const eL = new THREE.Mesh(eyeGeo, eyeMat); eL.position.set(-size * 0.12, height * 0.85, size * 0.2); group.add(eL);
-  const eR = new THREE.Mesh(eyeGeo, eyeMat); eR.position.set(size * 0.12, height * 0.85, size * 0.2); group.add(eR);
+  const eL = new THREE.Mesh(eyeGeo, eyeMat);
+  eL.position.set(-size * 0.12, height * 0.85, size * 0.2);
+  group.add(eL);
+  const eR = new THREE.Mesh(eyeGeo, eyeMat);
+  eR.position.set(size * 0.12, height * 0.85, size * 0.2);
+  group.add(eR);
 
   return group;
 }
@@ -1136,29 +2182,47 @@ function generateMaze(cols, rows) {
   for (let i = 0; i < cols; i++) {
     grid.push([]);
     for (let j = 0; j < rows; j++) {
-      grid[i].push({ top: true, right: true, bottom: true, left: true, visited: false });
+      grid[i].push({
+        top: true,
+        right: true,
+        bottom: true,
+        left: true,
+        visited: false,
+      });
     }
   }
   const stack = [];
   let current = { i: 0, j: 0 };
   grid[0][0].visited = true;
   stack.push(current);
-  const opposite = { top: "bottom", bottom: "top", left: "right", right: "left" };
+  const opposite = {
+    top: "bottom",
+    bottom: "top",
+    left: "right",
+    right: "left",
+  };
 
   function neighbors(cell) {
     const { i, j } = cell;
     const list = [];
-    if (j > 0 && !grid[i][j - 1].visited) list.push({ i, j: j - 1, dir: "top" });
-    if (i < cols - 1 && !grid[i + 1][j].visited) list.push({ i: i + 1, j, dir: "right" });
-    if (j < rows - 1 && !grid[i][j + 1].visited) list.push({ i, j: j + 1, dir: "bottom" });
-    if (i > 0 && !grid[i - 1][j].visited) list.push({ i: i - 1, j, dir: "left" });
+    if (j > 0 && !grid[i][j - 1].visited)
+      list.push({ i, j: j - 1, dir: "top" });
+    if (i < cols - 1 && !grid[i + 1][j].visited)
+      list.push({ i: i + 1, j, dir: "right" });
+    if (j < rows - 1 && !grid[i][j + 1].visited)
+      list.push({ i, j: j + 1, dir: "bottom" });
+    if (i > 0 && !grid[i - 1][j].visited)
+      list.push({ i: i - 1, j, dir: "left" });
     return list;
   }
 
   while (stack.length) {
     current = stack[stack.length - 1];
     const options = neighbors(current);
-    if (options.length === 0) { stack.pop(); continue; }
+    if (options.length === 0) {
+      stack.pop();
+      continue;
+    }
     const pick = options[Math.floor(Math.random() * options.length)];
     grid[current.i][current.j][pick.dir] = false;
     grid[pick.i][pick.j][opposite[pick.dir]] = false;
@@ -1173,7 +2237,10 @@ function buildWallSegments(grid, cols, rows, cellSize) {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       const cell = grid[i][j];
-      const x0 = i * cellSize, z0 = j * cellSize, x1 = x0 + cellSize, z1 = z0 + cellSize;
+      const x0 = i * cellSize,
+        z0 = j * cellSize,
+        x1 = x0 + cellSize,
+        z1 = z0 + cellSize;
       if (j === 0 && cell.top) segs.push({ x1: x0, z1: z0, x2: x1, z2: z0 });
       if (cell.bottom) segs.push({ x1: x0, z1: z1, x2: x1, z2: z1 });
       if (i === 0 && cell.left) segs.push({ x1: x0, z1: z0, x2: x0, z2: z1 });
@@ -1191,7 +2258,10 @@ function bfsPath(grid, cols, rows, start, goal) {
   let found = false;
   while (queue.length) {
     const cur = queue.shift();
-    if (cur.i === goal.i && cur.j === goal.j) { found = true; break; }
+    if (cur.i === goal.i && cur.j === goal.j) {
+      found = true;
+      break;
+    }
     const cell = grid[cur.i][cur.j];
     const nbrs = [];
     if (!cell.top && cur.j > 0) nbrs.push({ i: cur.i, j: cur.j - 1 });
@@ -1200,7 +2270,11 @@ function bfsPath(grid, cols, rows, start, goal) {
     if (!cell.left && cur.i > 0) nbrs.push({ i: cur.i - 1, j: cur.j });
     for (const n of nbrs) {
       const k = key(n.i, n.j);
-      if (!visited.has(k)) { visited.add(k); prev[k] = cur; queue.push(n); }
+      if (!visited.has(k)) {
+        visited.add(k);
+        prev[k] = cur;
+        queue.push(n);
+      }
     }
   }
   if (!found) return null;
@@ -1222,12 +2296,15 @@ function resolveCollision(pos, radius, segments, obstaclesList) {
   for (let iter = 0; iter < maxIterations; iter++) {
     let moved = false;
     for (const s of segments) {
-      const dx = s.x2 - s.x1, dz = s.z2 - s.z1;
+      const dx = s.x2 - s.x1,
+        dz = s.z2 - s.z1;
       const len2 = dx * dx + dz * dz || 1;
       let t = ((pos.x - s.x1) * dx + (pos.z - s.z1) * dz) / len2;
       t = Math.max(0, Math.min(1, t));
-      const cx = s.x1 + t * dx, cz = s.z1 + t * dz;
-      const distX = pos.x - cx, distZ = pos.z - cz;
+      const cx = s.x1 + t * dx,
+        cz = s.z1 + t * dz;
+      const distX = pos.x - cx,
+        distZ = pos.z - cz;
       const dist = Math.sqrt(distX * distX + distZ * distZ);
       if (dist < radius && dist > 0.0001) {
         const push = (radius - dist) / dist;
@@ -1258,11 +2335,61 @@ function resolveCollision(pos, radius, segments, obstaclesList) {
    ENEMY TYPES
    ============================================================ */
 const enemyTypes = [
-  { id: "grunt",   name: "Grunt",   size: 0.7, height: 1.8, speedMult: 1.0, hpMult: 1.0, damageMult: 1.0, attackRange: 1.3, attackCooldown: 1.0 },
-  { id: "fast",    name: "Runner",  size: 0.6, height: 1.6, speedMult: 1.6, hpMult: 0.7, damageMult: 0.8, attackRange: 1.5, attackCooldown: 0.7 },
-  { id: "tank",    name: "Tank",    size: 0.9, height: 2.0, speedMult: 0.7, hpMult: 2.5, damageMult: 1.3, attackRange: 1.5, attackCooldown: 1.5 },
-  { id: "brute",   name: "Brute",   size: 1.0, height: 2.2, speedMult: 0.8, hpMult: 3.0, damageMult: 1.5, attackRange: 1.8, attackCooldown: 1.8 },
-  { id: "spitter", name: "Spitter", size: 0.6, height: 1.5, speedMult: 1.2, hpMult: 0.8, damageMult: 1.2, attackRange: 3.0, attackCooldown: 0.9 },
+  {
+    id: "grunt",
+    name: "Grunt",
+    size: 0.7,
+    height: 1.8,
+    speedMult: 1.0,
+    hpMult: 1.0,
+    damageMult: 1.0,
+    attackRange: 1.3,
+    attackCooldown: 1.0,
+  },
+  {
+    id: "fast",
+    name: "Runner",
+    size: 0.6,
+    height: 1.6,
+    speedMult: 1.6,
+    hpMult: 0.7,
+    damageMult: 0.8,
+    attackRange: 1.5,
+    attackCooldown: 0.7,
+  },
+  {
+    id: "tank",
+    name: "Tank",
+    size: 0.9,
+    height: 2.0,
+    speedMult: 0.7,
+    hpMult: 2.5,
+    damageMult: 1.3,
+    attackRange: 1.5,
+    attackCooldown: 1.5,
+  },
+  {
+    id: "brute",
+    name: "Brute",
+    size: 1.0,
+    height: 2.2,
+    speedMult: 0.8,
+    hpMult: 3.0,
+    damageMult: 1.5,
+    attackRange: 1.8,
+    attackCooldown: 1.8,
+  },
+  {
+    id: "spitter",
+    name: "Spitter",
+    size: 0.6,
+    height: 1.5,
+    speedMult: 1.2,
+    hpMult: 0.8,
+    damageMult: 1.2,
+    attackRange: 3.0,
+    attackCooldown: 0.9,
+  },
 ];
 
 function getEnemyHealthScaling(sector) {
@@ -1270,8 +2397,12 @@ function getEnemyHealthScaling(sector) {
   return Math.round(baseHealth * (0.5 + Math.random() * 1.5));
 }
 
-function getBossHealth(sector) { return Math.round((50 + sector * 8) * diffConfig.bossHealthMult); }
-function getBossDamage() { return diffConfig.damagePerSec * 0.6 * diffConfig.bossDamageMult; }
+function getBossHealth(sector) {
+  return Math.round((50 + sector * 8) * diffConfig.bossHealthMult);
+}
+function getBossDamage() {
+  return diffConfig.damagePerSec * 0.6 * diffConfig.bossDamageMult;
+}
 
 /* ============================================================
    PROCEDURAL TEXTURES
@@ -1291,24 +2422,38 @@ function createProceduralTexture(width, height, generator) {
 function generateBrickTexture(ctx, w, h) {
   ctx.fillStyle = "#4a4540";
   ctx.fillRect(0, 0, w, h);
-  const brickH = 40, brickW = 80;
+  const brickH = 40,
+    brickW = 80;
   for (let row = 0; row < h / brickH + 1; row++) {
     const offset = row % 2 === 0 ? 0 : brickW / 2;
     for (let col = -1; col < w / brickW + 2; col++) {
       const x = col * brickW + offset;
       const y = row * brickH;
       const variation = 20 + Math.random() * 30;
-      ctx.fillStyle = "rgb(" + (60 + variation) + "," + (55 + variation) + "," + (50 + variation) + ")";
+      ctx.fillStyle =
+        "rgb(" +
+        (60 + variation) +
+        "," +
+        (55 + variation) +
+        "," +
+        (50 + variation) +
+        ")";
       ctx.fillRect(x, y, brickW - 2, brickH - 2);
     }
   }
   ctx.strokeStyle = "#3a3530";
   ctx.lineWidth = 1;
   for (let row = 0; row < h / brickH + 1; row++) {
-    ctx.beginPath(); ctx.moveTo(0, row * brickH); ctx.lineTo(w, row * brickH); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, row * brickH);
+    ctx.lineTo(w, row * brickH);
+    ctx.stroke();
   }
   for (let col = 0; col < w / brickW + 2; col++) {
-    ctx.beginPath(); ctx.moveTo(col * brickW, 0); ctx.lineTo(col * brickW, h); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(col * brickW, 0);
+    ctx.lineTo(col * brickW, h);
+    ctx.stroke();
   }
 }
 
@@ -1322,7 +2467,8 @@ function generateStoneTexture(ctx, w, h) {
       const y = row * ss;
       const variation = 10 + Math.random() * 20;
       const base = 50 + variation;
-      ctx.fillStyle = "rgb(" + base + "," + (base - 5) + "," + (base - 10) + ")";
+      ctx.fillStyle =
+        "rgb(" + base + "," + (base - 5) + "," + (base - 10) + ")";
       ctx.beginPath();
       const points = 6 + Math.floor(Math.random() * 4);
       for (let i = 0; i < points; i++) {
@@ -1330,7 +2476,8 @@ function generateStoneTexture(ctx, w, h) {
         const radius = ss * 0.4 + Math.random() * 8;
         const px = x + ss / 2 + Math.cos(angle) * radius;
         const py = y + ss / 2 + Math.sin(angle) * radius;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
       }
       ctx.closePath();
       ctx.fill();
@@ -1373,7 +2520,8 @@ function generateFloorTexture(ctx, w, h) {
   const ts = 64;
   for (let row = 0; row < h / ts + 1; row++) {
     for (let col = 0; col < w / ts + 1; col++) {
-      const x = col * ts, y = row * ts;
+      const x = col * ts,
+        y = row * ts;
       ctx.fillStyle = colors[(row + col) % colors.length];
       ctx.fillRect(x, y, ts - 1, ts - 1);
     }
@@ -1386,7 +2534,8 @@ function generateCryptFloor(ctx, w, h) {
   const ts = 48;
   for (let row = 0; row < h / ts + 1; row++) {
     for (let col = 0; col < w / ts + 1; col++) {
-      const x = col * ts, y = row * ts;
+      const x = col * ts,
+        y = row * ts;
       const variation = 10 + Math.random() * 15;
       const base = 20 + variation;
       ctx.fillStyle = "rgb(" + base + "," + (base - 2) + "," + (base - 4) + ")";
@@ -1396,10 +2545,14 @@ function generateCryptFloor(ctx, w, h) {
 }
 
 function createWallTexture(mapType) {
-  const gen = mapType === "CRYPT" ? generateStoneTexture
-    : mapType === "FACTORY" ? generateMetalTexture
-    : mapType === "TEMPLE" ? generateStoneTexture
-    : generateBrickTexture;
+  const gen =
+    mapType === "CRYPT"
+      ? generateStoneTexture
+      : mapType === "FACTORY"
+        ? generateMetalTexture
+        : mapType === "TEMPLE"
+          ? generateStoneTexture
+          : generateBrickTexture;
   return createProceduralTexture(512, 512, gen);
 }
 
@@ -1412,14 +2565,21 @@ function createFloorTexture(mapType) {
    PARTICLE SYSTEM
    ============================================================ */
 class ParticleSystem {
-  constructor() { this.particles = []; this.pool = []; }
+  constructor() {
+    this.particles = [];
+    this.pool = [];
+  }
 
   emit(position, color, count, speed, life, size, spread) {
     for (let i = 0; i < count; i++) {
       let p = this.pool.pop();
       if (!p) {
         const geo = new THREE.SphereGeometry(0.05, 4, 4);
-        const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1 });
+        const mat = new THREE.MeshBasicMaterial({
+          color,
+          transparent: true,
+          opacity: 1,
+        });
         p = new THREE.Mesh(geo, mat);
         scene.add(p);
       }
@@ -1430,7 +2590,7 @@ class ParticleSystem {
         velocity: new THREE.Vector3(
           Math.cos(angle) * speedMult * (spread || 1),
           (Math.random() - 0.5) * speedMult * 0.5,
-          Math.sin(angle) * speedMult * (spread || 1)
+          Math.sin(angle) * speedMult * (spread || 1),
         ),
         life: life * (0.3 + Math.random() * 0.7),
         maxLife: life,
@@ -1476,7 +2636,9 @@ function buildLevel(sector) {
   if (mapTypeEl) mapTypeEl.textContent = mapType.name;
 
   isHellMode = diffConfig.hellMode || false;
-  isBossLevel = isHellMode ? true : (sector % diffConfig.bossInterval === 0 && sector > 0);
+  isBossLevel = isHellMode
+    ? true
+    : sector % diffConfig.bossInterval === 0 && sector > 0;
 
   levelClearedForStat = false;
   grid = generateMaze(cols, rows);
@@ -1488,7 +2650,8 @@ function buildLevel(sector) {
       const obj = scene.children[0];
       if (obj.geometry) obj.geometry.dispose();
       if (obj.material) {
-        if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose());
+        if (Array.isArray(obj.material))
+          obj.material.forEach((m) => m.dispose());
         else obj.material.dispose();
       }
       scene.remove(obj);
@@ -1499,7 +2662,12 @@ function buildLevel(sector) {
   scene.background = new THREE.Color(mapType.fogColor);
   scene.fog = new THREE.FogExp2(mapType.fogColor, mapType.fogDensity);
 
-  camera = new THREE.PerspectiveCamera(currentFov, window.innerWidth / window.innerHeight, 0.1, 180);
+  camera = new THREE.PerspectiveCamera(
+    currentFov,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    180,
+  );
   camera.position.set(CELL * 0.5, playerHeight, CELL * 0.5);
 
   const ambientLight = new THREE.AmbientLight(mapType.ambientColor, 0.3);
@@ -1539,32 +2707,68 @@ function buildLevel(sector) {
   const wallTexture = createWallTexture(mapType.name);
   const floorTexture = createFloorTexture(mapType.name);
 
-  const wallMat = new THREE.MeshStandardMaterial({ map: wallTexture, roughness: 0.9, metalness: mapType.name === "FACTORY" ? 0.3 : 0.0, color: mapType.wallColor });
-  const floorMat = new THREE.MeshStandardMaterial({ map: floorTexture, roughness: 1.0, metalness: 0.0, color: mapType.floorColor });
-  const ceilMat = new THREE.MeshStandardMaterial({ color: mapType.ceilingColor, roughness: 1.0, metalness: 0.0 });
-  const exitMat = new THREE.MeshStandardMaterial({ color: 0x0d3a1a, emissive: 0x2fbf4a, emissiveIntensity: 0.8, roughness: 0.3, metalness: 0.5 });
+  const wallMat = new THREE.MeshStandardMaterial({
+    map: wallTexture,
+    roughness: 0.9,
+    metalness: mapType.name === "FACTORY" ? 0.3 : 0.0,
+    color: mapType.wallColor,
+  });
+  const floorMat = new THREE.MeshStandardMaterial({
+    map: floorTexture,
+    roughness: 1.0,
+    metalness: 0.0,
+    color: mapType.floorColor,
+  });
+  const ceilMat = new THREE.MeshStandardMaterial({
+    color: mapType.ceilingColor,
+    roughness: 1.0,
+    metalness: 0.0,
+  });
+  const exitMat = new THREE.MeshStandardMaterial({
+    color: 0x0d3a1a,
+    emissive: 0x2fbf4a,
+    emissiveIntensity: 0.8,
+    roughness: 0.3,
+    metalness: 0.5,
+  });
 
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(cols * CELL, rows * CELL), floorMat);
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(cols * CELL, rows * CELL),
+    floorMat,
+  );
   floor.rotation.x = -Math.PI / 2;
   floor.position.set((cols * CELL) / 2, 0, (rows * CELL) / 2);
   floor.receiveShadow = true;
   scene.add(floor);
 
-  const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(cols * CELL, rows * CELL), ceilMat);
+  const ceiling = new THREE.Mesh(
+    new THREE.PlaneGeometry(cols * CELL, rows * CELL),
+    ceilMat,
+  );
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.set((cols * CELL) / 2, 3.4, (rows * CELL) / 2);
   scene.add(ceiling);
 
   if (mapType.hasPipes) {
-    const pipeMat = new THREE.MeshStandardMaterial({ color: 0x333030, roughness: 0.7, metalness: 0.3 });
+    const pipeMat = new THREE.MeshStandardMaterial({
+      color: 0x333030,
+      roughness: 0.7,
+      metalness: 0.3,
+    });
     for (let i = 0; i < Math.min(cols, rows); i++) {
       const x = i * CELL + CELL / 2;
       const z = i * CELL + CELL / 2;
-      const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 3.2, 6), pipeMat);
+      const pipe = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.04, 3.2, 6),
+        pipeMat,
+      );
       pipe.position.set(x, 1.7, z);
       scene.add(pipe);
       if (i % 2 === 0) {
-        const cross = new THREE.Mesh(new THREE.BoxGeometry(3, 0.04, 0.04), pipeMat);
+        const cross = new THREE.Mesh(
+          new THREE.BoxGeometry(3, 0.04, 0.04),
+          pipeMat,
+        );
         cross.position.set(x, 1.7, z + 1);
         scene.add(cross);
       }
@@ -1572,12 +2776,14 @@ function buildLevel(sector) {
   }
 
   wallMeshes = [];
-  const wallHeight = 3.4, wallThick = 0.3;
+  const wallHeight = 3.4,
+    wallThick = 0.3;
   wallSegs.forEach((s) => {
     const len = Math.hypot(s.x2 - s.x1, s.z2 - s.z1);
     const geo = new THREE.BoxGeometry(len + wallThick, wallHeight, wallThick);
     const mesh = new THREE.Mesh(geo, wallMat);
-    const midX = (s.x1 + s.x2) / 2, midZ = (s.z1 + s.z2) / 2;
+    const midX = (s.x1 + s.x2) / 2,
+      midZ = (s.z1 + s.z2) / 2;
     mesh.position.set(midX, wallHeight / 2, midZ);
     if (Math.abs(s.x2 - s.x1) < 0.01) mesh.rotation.y = Math.PI / 2;
     mesh.userData.isWall = true;
@@ -1587,8 +2793,15 @@ function buildLevel(sector) {
     wallMeshes.push(mesh);
   });
 
-  const pad = new THREE.Mesh(new THREE.BoxGeometry(CELL * 0.7, 0.1, CELL * 0.7), exitMat);
-  pad.position.set(exitCell.i * CELL + CELL / 2, 0.06, exitCell.j * CELL + CELL / 2);
+  const pad = new THREE.Mesh(
+    new THREE.BoxGeometry(CELL * 0.7, 0.1, CELL * 0.7),
+    exitMat,
+  );
+  pad.position.set(
+    exitCell.i * CELL + CELL / 2,
+    0.06,
+    exitCell.j * CELL + CELL / 2,
+  );
   pad.receiveShadow = true;
   scene.add(pad);
   const padLight = new THREE.PointLight(0x39ff6a, 3, 12, 2);
@@ -1607,10 +2820,16 @@ function buildLevel(sector) {
   }
 
   obstacles = [];
-  const metalMat = new THREE.MeshStandardMaterial({ map: createProceduralTexture(256, 256, generateMetalTexture), roughness: 0.4, metalness: 0.8, color: mapType.accentColor });
+  const metalMat = new THREE.MeshStandardMaterial({
+    map: createProceduralTexture(256, 256, generateMetalTexture),
+    roughness: 0.4,
+    metalness: 0.8,
+    color: mapType.accentColor,
+  });
   const obstacleCount = Math.min(6 + sector * 2, 20);
   for (let n = 0; n < obstacleCount; n++) {
-    let placed = false, attempts = 0;
+    let placed = false,
+      attempts = 0;
     while (!placed && attempts < 80) {
       attempts++;
       const i = Math.floor(Math.random() * (cols - 2)) + 1;
@@ -1625,9 +2844,21 @@ function buildLevel(sector) {
         const crateGroup = new THREE.Group();
         for (let s = 0; s < 2 + Math.floor(Math.random() * 2); s++) {
           const size = 0.4 + Math.random() * 0.3;
-          const crateMat = new THREE.MeshStandardMaterial({ map: createProceduralTexture(128, 128, generateWoodTexture), roughness: 0.9, metalness: 0.0, color: mapType.accentColor });
-          const crate = new THREE.Mesh(new THREE.BoxGeometry(size, size * 0.7, size), crateMat);
-          crate.position.set((Math.random() - 0.5) * 0.2, s * size * 0.65, (Math.random() - 0.5) * 0.2);
+          const crateMat = new THREE.MeshStandardMaterial({
+            map: createProceduralTexture(128, 128, generateWoodTexture),
+            roughness: 0.9,
+            metalness: 0.0,
+            color: mapType.accentColor,
+          });
+          const crate = new THREE.Mesh(
+            new THREE.BoxGeometry(size, size * 0.7, size),
+            crateMat,
+          );
+          crate.position.set(
+            (Math.random() - 0.5) * 0.2,
+            s * size * 0.65,
+            (Math.random() - 0.5) * 0.2,
+          );
           crate.castShadow = true;
           crate.receiveShadow = true;
           crateGroup.add(crate);
@@ -1637,9 +2868,26 @@ function buildLevel(sector) {
         const barrelGroup = new THREE.Group();
         for (let b = 0; b < 2 + Math.floor(Math.random() * 2); b++) {
           const rad = 0.2 + Math.random() * 0.12;
-          const barrelMat = new THREE.MeshStandardMaterial({ map: createProceduralTexture(128, 128, generateMetalTexture), roughness: 0.5, metalness: 0.6, color: mapType.accentColor });
-          const barrel = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad * 0.9, 0.3 + Math.random() * 0.25, 8), barrelMat);
-          barrel.position.set((Math.random() - 0.5) * 0.3, 0.15, (Math.random() - 0.5) * 0.3);
+          const barrelMat = new THREE.MeshStandardMaterial({
+            map: createProceduralTexture(128, 128, generateMetalTexture),
+            roughness: 0.5,
+            metalness: 0.6,
+            color: mapType.accentColor,
+          });
+          const barrel = new THREE.Mesh(
+            new THREE.CylinderGeometry(
+              rad,
+              rad * 0.9,
+              0.3 + Math.random() * 0.25,
+              8,
+            ),
+            barrelMat,
+          );
+          barrel.position.set(
+            (Math.random() - 0.5) * 0.3,
+            0.15,
+            (Math.random() - 0.5) * 0.3,
+          );
           barrel.rotation.z = (Math.random() - 0.5) * 0.1;
           barrel.castShadow = true;
           barrel.receiveShadow = true;
@@ -1647,7 +2895,12 @@ function buildLevel(sector) {
         }
         mesh = barrelGroup;
       } else {
-        const barrierMat = new THREE.MeshStandardMaterial({ map: createProceduralTexture(128, 128, generateMetalTexture), roughness: 0.4, metalness: 0.7, color: mapType.accentColor });
+        const barrierMat = new THREE.MeshStandardMaterial({
+          map: createProceduralTexture(128, 128, generateMetalTexture),
+          roughness: 0.4,
+          metalness: 0.7,
+          color: mapType.accentColor,
+        });
         mesh = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.5, 0.8), barrierMat);
         mesh.castShadow = true;
         mesh.receiveShadow = true;
@@ -1673,13 +2926,17 @@ function buildLevel(sector) {
       const bj = margin + Math.floor(Math.random() * (rows - margin * 2));
       boss.position.set(bi * CELL + CELL / 2, 0, bj * CELL + CELL / 2);
       boss.userData = {
-        isEnemy: true, isBoss: true, type: "boss",
-        cell: { i: bi, j: bj }, path: null,
+        isEnemy: true,
+        isBoss: true,
+        type: "boss",
+        cell: { i: bi, j: bj },
+        path: null,
         repathTimer: 0.2 + Math.random() * 0.3,
         speed: diffConfig.enemySpeed * (0.5 + Math.random() * 0.2),
         maxHp: getBossHealth(level) * (1 + i * 0.2),
         hp: getBossHealth(level) * (1 + i * 0.2),
-        scareTimer: 0, height: 3.0,
+        scareTimer: 0,
+        height: 3.0,
         attackRange: 2.0 + i * 0.1,
         attackCooldown: 1.2 - i * 0.05,
         attackTimer: Math.random() * 0.5,
@@ -1705,14 +2962,19 @@ function buildLevel(sector) {
     const bj = margin + Math.floor(Math.random() * (rows - margin * 2));
     boss.position.set(bi * CELL + CELL / 2, 0, bj * CELL + CELL / 2);
     boss.userData = {
-      isEnemy: true, isBoss: true, type: "boss",
-      cell: { i: bi, j: bj }, path: null,
+      isEnemy: true,
+      isBoss: true,
+      type: "boss",
+      cell: { i: bi, j: bj },
+      path: null,
       repathTimer: 0.2 + Math.random() * 0.3,
       speed: diffConfig.enemySpeed * 0.5,
       maxHp: getBossHealth(level),
       hp: getBossHealth(level),
-      scareTimer: 0, height: 3.0,
-      attackRange: 2.0, attackCooldown: 1.2,
+      scareTimer: 0,
+      height: 3.0,
+      attackRange: 2.0,
+      attackCooldown: 1.2,
       attackTimer: Math.random() * 0.5,
       damageMult: diffConfig.bossDamageMult,
       bossDamage: getBossDamage(),
@@ -1731,7 +2993,10 @@ function buildLevel(sector) {
     const regularCount = Math.min(diffConfig.enemyCount - 1, 4);
     spawnMapEnemies(regularCount, sector, mapType);
   } else {
-    const enemyCount = Math.min(diffConfig.enemyCount + Math.floor(sector * 0.5), 22);
+    const enemyCount = Math.min(
+      diffConfig.enemyCount + Math.floor(sector * 0.5),
+      22,
+    );
     spawnMapEnemies(enemyCount, sector, mapType);
   }
 
@@ -1755,7 +3020,9 @@ function buildLevel(sector) {
   isCrouching = false;
 
   const clearTitleEl = document.getElementById("clearTitle");
-  if (clearTitleEl) clearTitleEl.textContent = isBossLevel || isHellMode ? "BOSS DEFEATED" : "SECTOR PURGED";
+  if (clearTitleEl)
+    clearTitleEl.textContent =
+      isBossLevel || isHellMode ? "BOSS DEFEATED" : "SECTOR PURGED";
 
   const shieldValEl = document.getElementById("shieldVal");
   const shieldDispEl = document.getElementById("shieldDisplay");
@@ -1777,7 +3044,9 @@ function buildLevel(sector) {
     const bossInd = document.getElementById("bossIndicator");
     if (bossInd) {
       bossInd.style.opacity = 1;
-      setTimeout(() => { bossInd.style.opacity = 0; }, 2000);
+      setTimeout(() => {
+        bossInd.style.opacity = 0;
+      }, 2000);
     }
     AudioSys.boss();
     const obj = document.getElementById("objective");
@@ -1793,28 +3062,47 @@ function buildLevel(sector) {
 function spawnMapEnemies(count, sector, mapType) {
   const availableTypes = mapType.enemyTypes;
   for (let n = 0; n < count; n++) {
-    let placed = false, attempts = 0;
+    let placed = false,
+      attempts = 0;
     while (!placed && attempts < 80) {
       attempts++;
       const i = Math.floor(Math.random() * cols);
       const j = Math.floor(Math.random() * rows);
       if (Math.abs(i) + Math.abs(j) < 4) continue;
       if (i === exitCell.i && j === exitCell.j) continue;
-      if (bossEnemy && Math.abs(i - Math.floor(cols / 2)) < 3 && Math.abs(j - Math.floor(rows / 2)) < 3) continue;
+      if (
+        bossEnemy &&
+        Math.abs(i - Math.floor(cols / 2)) < 3 &&
+        Math.abs(j - Math.floor(rows / 2)) < 3
+      )
+        continue;
 
-      const typeId = availableTypes[Math.floor(Math.random() * availableTypes.length)];
+      const typeId =
+        availableTypes[Math.floor(Math.random() * availableTypes.length)];
       const typeDef = enemyTypes.find((t) => t.id === typeId) || enemyTypes[0];
       const maxHp = Math.round(getEnemyHealthScaling(sector) * typeDef.hpMult);
 
-      const enemy = createMapMonster(typeId, typeDef.size, typeDef.height, mapType.theme);
+      const enemy = createMapMonster(
+        typeId,
+        typeDef.size,
+        typeDef.height,
+        mapType.theme,
+      );
       enemy.position.set(i * CELL + CELL / 2, 0, j * CELL + CELL / 2);
 
       enemy.userData = {
-        isEnemy: true, isBoss: false, type: typeDef.id,
-        cell: { i, j }, path: null,
+        isEnemy: true,
+        isBoss: false,
+        type: typeDef.id,
+        cell: { i, j },
+        path: null,
         repathTimer: 0.2 + Math.random() * 0.3,
-        speed: diffConfig.enemySpeed * typeDef.speedMult + (Math.random() * 0.2 - 0.1),
-        maxHp, hp: maxHp, scareTimer: 0,
+        speed:
+          diffConfig.enemySpeed * typeDef.speedMult +
+          (Math.random() * 0.2 - 0.1),
+        maxHp,
+        hp: maxHp,
+        scareTimer: 0,
         height: typeDef.height,
         attackRange: typeDef.attackRange,
         attackCooldown: typeDef.attackCooldown,
@@ -1836,9 +3124,13 @@ function spawnMapEnemies(count, sector, mapType) {
    ============================================================ */
 const BOSS_ABILITIES = {
   PULL: {
-    name: "PULL", duration: 0.5, cooldown: 5,
+    name: "PULL",
+    duration: 0.5,
+    cooldown: 5,
     execute: (boss, player) => {
-      const dir = new THREE.Vector3().subVectors(boss.position, player.position).normalize();
+      const dir = new THREE.Vector3()
+        .subVectors(boss.position, player.position)
+        .normalize();
       player.position.add(dir.multiplyScalar(3));
       AudioSys.bossAbility();
       showBossAbility("PULL!");
@@ -1847,24 +3139,42 @@ const BOSS_ABILITIES = {
     },
   },
   SUMMON: {
-    name: "SUMMON", duration: 1.0, cooldown: 8,
+    name: "SUMMON",
+    duration: 1.0,
+    cooldown: 8,
     execute: (boss, player, scene, enemies) => {
       const count = 2 + Math.floor(Math.random() * 2);
       for (let i = 0; i < count; i++) {
         const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
         const dist = 3 + Math.random() * 2;
-        const pos = boss.position.clone().add(new THREE.Vector3(Math.cos(angle) * dist, 0.9, Math.sin(angle) * dist));
+        const pos = boss.position
+          .clone()
+          .add(
+            new THREE.Vector3(
+              Math.cos(angle) * dist,
+              0.9,
+              Math.sin(angle) * dist,
+            ),
+          );
         const s = createMapMonster("spitter", 0.5, 0.8, "dark");
         s.position.copy(pos);
         s.userData = {
-          isEnemy: true, isBoss: false, type: "summoned",
+          isEnemy: true,
+          isBoss: false,
+          type: "summoned",
           cell: { i: Math.floor(pos.x / CELL), j: Math.floor(pos.z / CELL) },
-          path: null, repathTimer: 0.2,
+          path: null,
+          repathTimer: 0.2,
           speed: diffConfig.enemySpeed * 1.5,
-          maxHp: 20 + level * 2, hp: 20 + level * 2,
-          scareTimer: 0, height: 0.8,
-          attackRange: 1.2, attackCooldown: 0.8, attackTimer: 0,
-          damageMult: 0.6, collisionRadius: 0.4,
+          maxHp: 20 + level * 2,
+          hp: 20 + level * 2,
+          scareTimer: 0,
+          height: 0.8,
+          attackRange: 1.2,
+          attackCooldown: 0.8,
+          attackTimer: 0,
+          damageMult: 0.6,
+          collisionRadius: 0.4,
         };
         s.castShadow = true;
         s.receiveShadow = true;
@@ -1877,11 +3187,21 @@ const BOSS_ABILITIES = {
     },
   },
   TELEPORT: {
-    name: "TELEPORT", duration: 0.3, cooldown: 6,
+    name: "TELEPORT",
+    duration: 0.3,
+    cooldown: 6,
     execute: (boss, player) => {
       const angle = Math.random() * Math.PI * 2;
       const dist = 4 + Math.random() * 3;
-      const newPos = player.position.clone().add(new THREE.Vector3(Math.cos(angle) * dist, boss.position.y, Math.sin(angle) * dist));
+      const newPos = player.position
+        .clone()
+        .add(
+          new THREE.Vector3(
+            Math.cos(angle) * dist,
+            boss.position.y,
+            Math.sin(angle) * dist,
+          ),
+        );
       boss.position.copy(newPos);
       AudioSys.bossAbility();
       showBossAbility("TELEPORT!");
@@ -1890,7 +3210,9 @@ const BOSS_ABILITIES = {
     },
   },
   SHOCKWAVE: {
-    name: "SHOCKWAVE", duration: 0.8, cooldown: 7,
+    name: "SHOCKWAVE",
+    duration: 0.8,
+    cooldown: 7,
     execute: (boss, player) => {
       const dist = boss.position.distanceTo(player.position);
       if (dist < 5) {
@@ -1909,11 +3231,16 @@ const BOSS_ABILITIES = {
         }
         health -= dmg;
         hitFlashTimer = 0.3;
-        if (damageOverlay) damageOverlay.style.opacity = Math.min(0.5, dmg / 50);
-        setTimeout(() => { if (damageOverlay) damageOverlay.style.opacity = 0; }, 300);
+        if (damageOverlay)
+          damageOverlay.style.opacity = Math.min(0.5, dmg / 50);
+        setTimeout(() => {
+          if (damageOverlay) damageOverlay.style.opacity = 0;
+        }, 300);
         AudioSys.hurt();
         applyScreenShake(0.8);
-        const dir = new THREE.Vector3().subVectors(player.position, boss.position).normalize();
+        const dir = new THREE.Vector3()
+          .subVectors(player.position, boss.position)
+          .normalize();
         player.position.add(dir.multiplyScalar(2));
         showBossAbility("SHOCKWAVE!");
         return true;
@@ -1947,7 +3274,8 @@ function initMinimap() {
 function drawMinimap() {
   if (!minimapCtx || !grid) return;
   const ctx = minimapCtx;
-  const W = 150, H = 150;
+  const W = 150,
+    H = 150;
   ctx.clearRect(0, 0, W, H);
   ctx.fillStyle = "rgba(5,3,2,0.9)";
   ctx.fillRect(0, 0, W, H);
@@ -1957,22 +3285,42 @@ function drawMinimap() {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       const cell = grid[i][j];
-      const x0 = i * cellPx, y0 = j * cellPx;
+      const x0 = i * cellPx,
+        y0 = j * cellPx;
       ctx.beginPath();
-      if (cell.top) { ctx.moveTo(x0, y0); ctx.lineTo(x0 + cellPx, y0); }
-      if (cell.left) { ctx.moveTo(x0, y0); ctx.lineTo(x0, y0 + cellPx); }
-      if (cell.right) { ctx.moveTo(x0 + cellPx, y0); ctx.lineTo(x0 + cellPx, y0 + cellPx); }
-      if (cell.bottom) { ctx.moveTo(x0, y0 + cellPx); ctx.lineTo(x0 + cellPx, y0 + cellPx); }
+      if (cell.top) {
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x0 + cellPx, y0);
+      }
+      if (cell.left) {
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x0, y0 + cellPx);
+      }
+      if (cell.right) {
+        ctx.moveTo(x0 + cellPx, y0);
+        ctx.lineTo(x0 + cellPx, y0 + cellPx);
+      }
+      if (cell.bottom) {
+        ctx.moveTo(x0, y0 + cellPx);
+        ctx.lineTo(x0 + cellPx, y0 + cellPx);
+      }
       ctx.stroke();
     }
   }
   ctx.fillStyle = "rgba(80,200,80,0.25)";
-  ctx.fillRect(exitCell.i * cellPx + cellPx * 0.35, exitCell.j * cellPx + cellPx * 0.35, cellPx * 0.3, cellPx * 0.3);
+  ctx.fillRect(
+    exitCell.i * cellPx + cellPx * 0.35,
+    exitCell.j * cellPx + cellPx * 0.35,
+    cellPx * 0.3,
+    cellPx * 0.3,
+  );
   enemies.forEach((e) => {
     const ex = (e.position.x / CELL) * cellPx;
     const ez = (e.position.z / CELL) * cellPx;
     const size = e.userData.isBoss ? 6 : 2;
-    ctx.fillStyle = e.userData.isBoss ? "rgba(255,80,80,0.8)" : "rgba(200,50,50,0.4)";
+    ctx.fillStyle = e.userData.isBoss
+      ? "rgba(255,80,80,0.8)"
+      : "rgba(200,50,50,0.4)";
     ctx.beginPath();
     ctx.arc(ex, ez, size, 0, Math.PI * 2);
     ctx.fill();
@@ -1996,7 +3344,10 @@ function drawMinimap() {
    ENEMY AI
    ============================================================ */
 function updateEnemies(dt) {
-  const playerCell = { i: Math.floor(camera.position.x / CELL), j: Math.floor(camera.position.z / CELL) };
+  const playerCell = {
+    i: Math.floor(camera.position.x / CELL),
+    j: Math.floor(camera.position.z / CELL),
+  };
   let anyClose = false;
   let closestDist = 999;
 
@@ -2008,16 +3359,21 @@ function updateEnemies(dt) {
       en.userData.scareTimer -= dt;
       const pulse = 0.8 + Math.sin(performance.now() * 0.02) * 0.3;
       en.children.forEach((child) => {
-        if (child.isMesh && child.material) child.material.emissiveIntensity = pulse;
+        if (child.isMesh && child.material)
+          child.material.emissiveIntensity = pulse;
       });
       return;
     } else {
       en.children.forEach((child) => {
-        if (child.isMesh && child.material) child.material.emissiveIntensity = en.userData.isBoss ? 0.6 : 0.3;
+        if (child.isMesh && child.material)
+          child.material.emissiveIntensity = en.userData.isBoss ? 0.6 : 0.3;
       });
     }
 
-    const curCell = { i: Math.floor(en.position.x / CELL), j: Math.floor(en.position.z / CELL) };
+    const curCell = {
+      i: Math.floor(en.position.x / CELL),
+      j: Math.floor(en.position.z / CELL),
+    };
     if (en.userData.repathTimer <= 0) {
       en.userData.repathTimer = 0.15 + Math.random() * 0.2;
       en.userData.path = bfsPath(grid, cols, rows, curCell, playerCell);
@@ -2031,7 +3387,9 @@ function updateEnemies(dt) {
     if (healthPercent < 0.3 && !en.userData.isBoss) {
       speedMod = 1.3;
       en.children.forEach((child) => {
-        if (child.isMesh && child.material) child.material.emissiveIntensity = 0.8 + Math.sin(performance.now() * 0.03) * 0.2;
+        if (child.isMesh && child.material)
+          child.material.emissiveIntensity =
+            0.8 + Math.sin(performance.now() * 0.03) * 0.2;
       });
     }
 
@@ -2040,7 +3398,10 @@ function updateEnemies(dt) {
       if (en.userData.abilityCooldowns) {
         const cdKeys = Object.keys(en.userData.abilityCooldowns);
         for (let i = 0; i < cdKeys.length; i++) {
-          en.userData.abilityCooldowns[cdKeys[i]] = Math.max(0, en.userData.abilityCooldowns[cdKeys[i]] - dt);
+          en.userData.abilityCooldowns[cdKeys[i]] = Math.max(
+            0,
+            en.userData.abilityCooldowns[cdKeys[i]] - dt,
+          );
         }
       }
 
@@ -2048,22 +3409,32 @@ function updateEnemies(dt) {
         const abilityKeys = ["PULL", "SUMMON", "TELEPORT", "SHOCKWAVE"];
         const available = [];
         for (const key of abilityKeys) {
-          if (!en.userData.abilityCooldowns || en.userData.abilityCooldowns[key] <= 0) available.push(key);
+          if (
+            !en.userData.abilityCooldowns ||
+            en.userData.abilityCooldowns[key] <= 0
+          )
+            available.push(key);
         }
         if (available.length > 0) {
-          const abilityKey = available[Math.floor(Math.random() * available.length)];
+          const abilityKey =
+            available[Math.floor(Math.random() * available.length)];
           const ability = BOSS_ABILITIES[abilityKey];
           if (ability) {
             const playerPos = camera.position.clone();
             let success = false;
             try {
-              if (abilityKey === "SUMMON") success = ability.execute(en, playerPos, scene, enemies);
+              if (abilityKey === "SUMMON")
+                success = ability.execute(en, playerPos, scene, enemies);
               else success = ability.execute(en, playerPos);
-            } catch (e) { success = false; }
+            } catch (e) {
+              success = false;
+            }
 
             if (success) {
-              if (!en.userData.abilityCooldowns) en.userData.abilityCooldowns = {};
-              en.userData.abilityCooldowns[abilityKey] = ability.cooldown + Math.random() * 2;
+              if (!en.userData.abilityCooldowns)
+                en.userData.abilityCooldowns = {};
+              en.userData.abilityCooldowns[abilityKey] =
+                ability.cooldown + Math.random() * 2;
               en.userData.attackTimer = ability.duration;
 
               if (abilityKey === "SHOCKWAVE" || abilityKey === "PULL") {
@@ -2086,7 +3457,8 @@ function updateEnemies(dt) {
 
     if (distToPlayer < attackRange && en.userData.attackTimer <= 0) {
       let damage = en.userData.isBoss
-        ? (en.userData.bossDamage || diffConfig.damagePerSec * 0.6 * diffConfig.bossDamageMult)
+        ? en.userData.bossDamage ||
+          diffConfig.damagePerSec * 0.6 * diffConfig.bossDamageMult
         : diffConfig.damagePerSec * 0.5 * (en.userData.damageMult || 1);
 
       if (en.userData.type === "spitter" && distToPlayer > 1.5) {
@@ -2104,8 +3476,11 @@ function updateEnemies(dt) {
         }
         health -= dmg;
         hitFlashTimer = 0.15;
-        if (damageOverlay) damageOverlay.style.opacity = Math.min(0.3, dmg / 50);
-        setTimeout(() => { if (damageOverlay) damageOverlay.style.opacity = 0; }, 300);
+        if (damageOverlay)
+          damageOverlay.style.opacity = Math.min(0.3, dmg / 50);
+        setTimeout(() => {
+          if (damageOverlay) damageOverlay.style.opacity = 0;
+        }, 300);
         AudioSys.hurt();
         applyScreenShake(0.2);
         en.userData.attackTimer = en.userData.attackCooldown * 1.2;
@@ -2125,13 +3500,18 @@ function updateEnemies(dt) {
         }
         health -= dmg;
         hitFlashTimer = 0.2;
-        if (damageOverlay) damageOverlay.style.opacity = Math.min(0.4, dmg / 50);
-        setTimeout(() => { if (damageOverlay) damageOverlay.style.opacity = 0; }, 300);
+        if (damageOverlay)
+          damageOverlay.style.opacity = Math.min(0.4, dmg / 50);
+        setTimeout(() => {
+          if (damageOverlay) damageOverlay.style.opacity = 0;
+        }, 300);
         AudioSys.hurt();
         applyScreenShake(0.3);
         en.userData.attackTimer = en.userData.attackCooldown || 1.0;
         renderHealthBar();
-        const dir = new THREE.Vector3().subVectors(en.position, camera.position).normalize();
+        const dir = new THREE.Vector3()
+          .subVectors(en.position, camera.position)
+          .normalize();
         en.position.add(dir.multiplyScalar(0.3));
       }
     }
@@ -2147,7 +3527,8 @@ function updateEnemies(dt) {
         const d = Math.hypot(dx, dz);
         if (d < 0.2) path.shift();
         else {
-          const baseSpeed = en.userData.speed * (keys["Shift"] ? 0.8 : 1.0) * getSpeedBonus();
+          const baseSpeed =
+            en.userData.speed * (keys["Shift"] ? 0.8 : 1.0) * getSpeedBonus();
           const speed = baseSpeed * speedMod;
           en.position.x += (dx / d) * speed * dt;
           en.position.z += (dz / d) * speed * dt;
@@ -2160,7 +3541,9 @@ function updateEnemies(dt) {
       const dx = en.position.x - other.position.x;
       const dz = en.position.z - other.position.z;
       const dist = Math.sqrt(dx * dx + dz * dz);
-      const minDist = (en.userData.collisionRadius || 0.5) + (other.userData.collisionRadius || 0.5);
+      const minDist =
+        (en.userData.collisionRadius || 0.5) +
+        (other.userData.collisionRadius || 0.5);
       if (dist < minDist && dist > 0.01) {
         const push = ((minDist - dist) / dist) * 0.5;
         en.position.x += dx * push;
@@ -2170,8 +3553,10 @@ function updateEnemies(dt) {
 
     const bobAmount = en.userData.isBoss ? 0.1 : 0.06;
     const swayAmount = en.userData.isBoss ? 0.03 : 0.02;
-    en.position.y = Math.sin(performance.now() * 0.004 + (en.id || 0)) * bobAmount;
-    en.rotation.z = Math.sin(performance.now() * 0.003 + (en.id || 0) * 1.5) * swayAmount;
+    en.position.y =
+      Math.sin(performance.now() * 0.004 + (en.id || 0)) * bobAmount;
+    en.rotation.z =
+      Math.sin(performance.now() * 0.003 + (en.id || 0) * 1.5) * swayAmount;
 
     if (distToPlayer < 7) anyClose = true;
     if (distToPlayer < closestDist) closestDist = distToPlayer;
@@ -2180,7 +3565,10 @@ function updateEnemies(dt) {
   if (anyClose && closestDist < 7) {
     const drainRate = diffConfig.sanityDrain * (1 - closestDist / 7) * 0.5;
     sanity -= drainRate * dt;
-    if (sanity < 0) { sanity = 0; triggerJumpscare(); }
+    if (sanity < 0) {
+      sanity = 0;
+      triggerJumpscare();
+    }
     const sv = document.getElementById("sanityVal");
     const sb = document.getElementById("sanityBar");
     if (sv) sv.textContent = Math.round(sanity) + "%";
@@ -2198,7 +3586,10 @@ function updateEnemies(dt) {
   if (banner && heartbeat) {
     if (anyClose) {
       alertTimer += dt;
-      banner.style.opacity = (Math.sin(performance.now() * 0.012) * 0.5 + 0.5).toFixed(2);
+      banner.style.opacity = (
+        Math.sin(performance.now() * 0.012) * 0.5 +
+        0.5
+      ).toFixed(2);
       if (closestDist < 3.5) {
         heartbeat.style.opacity = "0.9";
         heartbeatTimer += dt;
@@ -2222,21 +3613,48 @@ function triggerJumpscare() {
   if (!js || js.style.display === "flex") return;
   js.style.display = "flex";
   const c = document.createElement("canvas");
-  c.width = 400; c.height = 400;
+  c.width = 400;
+  c.height = 400;
   const ctx = c.getContext("2d");
-  ctx.fillStyle = "#1a0a0a"; ctx.fillRect(0, 0, 400, 400);
-  ctx.fillStyle = "#3a1a1a"; ctx.beginPath(); ctx.ellipse(200, 200, 160, 200, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = "#f0d0a0"; ctx.beginPath(); ctx.ellipse(200, 180, 100, 120, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(150, 150, 30, 40, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(250, 150, 30, 40, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = "#d00"; ctx.beginPath(); ctx.ellipse(150, 150, 10, 20, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(250, 150, 10, 20, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = "#000"; ctx.beginPath(); ctx.ellipse(200, 240, 70, 50, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = "#d44"; ctx.beginPath(); ctx.ellipse(200, 240, 50, 30, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#1a0a0a";
+  ctx.fillRect(0, 0, 400, 400);
+  ctx.fillStyle = "#3a1a1a";
+  ctx.beginPath();
+  ctx.ellipse(200, 200, 160, 200, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#f0d0a0";
+  ctx.beginPath();
+  ctx.ellipse(200, 180, 100, 120, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#fff";
+  ctx.beginPath();
+  ctx.ellipse(150, 150, 30, 40, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(250, 150, 30, 40, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#d00";
+  ctx.beginPath();
+  ctx.ellipse(150, 150, 10, 20, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(250, 150, 10, 20, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#000";
+  ctx.beginPath();
+  ctx.ellipse(200, 240, 70, 50, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#d44";
+  ctx.beginPath();
+  ctx.ellipse(200, 240, 50, 30, 0, 0, Math.PI * 2);
+  ctx.fill();
   js.innerHTML = "";
   js.appendChild(c);
   AudioSys.scare();
-  setTimeout(() => { js.style.display = "none"; js.innerHTML = ""; }, 400);
+  setTimeout(() => {
+    js.style.display = "none";
+    js.innerHTML = "";
+  }, 400);
 }
 
 /* ============================================================
@@ -2255,24 +3673,40 @@ function updatePlayer(dt) {
   if (jumpCooldownTimer > 0) jumpCooldownTimer -= dt;
   if (meleeCooldown > 0) meleeCooldown -= dt;
 
-  if (speedBoostTimer > 0) { speedBoostTimer -= dt; speedBoostMultiplier = 1.5; }
-  else speedBoostMultiplier = 1;
+  if (speedBoostTimer > 0) {
+    speedBoostTimer -= dt;
+    speedBoostMultiplier = 1.5;
+  } else speedBoostMultiplier = 1;
 
-  const baseSpeed = (keys["Shift"] ? 8.5 : 4.8) * speedBoostMultiplier * getSpeedBonus();
+  const baseSpeed =
+    (keys["Shift"] ? 8.5 : 4.8) * speedBoostMultiplier * getSpeedBonus();
   const forward = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw));
   const strafe = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));
 
-  let mx = 0, mz = 0;
+  let mx = 0,
+    mz = 0;
   if (gameActive && !gamePaused) {
     if (isMobile && touchController) {
       const move = touchController.getMovement();
       mx = move.x;
       mz = move.z;
     } else {
-      if (keys["w"] || keys["W"]) { mx -= forward.x; mz -= forward.z; }
-      if (keys["s"] || keys["S"]) { mx += forward.x; mz += forward.z; }
-      if (keys["a"] || keys["A"]) { mx -= strafe.x; mz -= strafe.z; }
-      if (keys["d"] || keys["D"]) { mx += strafe.x; mz += strafe.z; }
+      if (keys["w"] || keys["W"]) {
+        mx -= forward.x;
+        mz -= forward.z;
+      }
+      if (keys["s"] || keys["S"]) {
+        mx += forward.x;
+        mz += forward.z;
+      }
+      if (keys["a"] || keys["A"]) {
+        mx -= strafe.x;
+        mz -= strafe.z;
+      }
+      if (keys["d"] || keys["D"]) {
+        mx += strafe.x;
+        mz += strafe.z;
+      }
     }
   }
 
@@ -2303,14 +3737,27 @@ function updatePlayer(dt) {
 
   camera.position.x = pos.x;
   camera.position.z = pos.z;
-  camera.position.x = Math.max(0.4, Math.min(cols * CELL - 0.4, camera.position.x));
-  camera.position.z = Math.max(0.4, Math.min(rows * CELL - 0.4, camera.position.z));
+  camera.position.x = Math.max(
+    0.4,
+    Math.min(cols * CELL - 0.4, camera.position.x),
+  );
+  camera.position.z = Math.max(
+    0.4,
+    Math.min(rows * CELL - 0.4, camera.position.z),
+  );
 
   const jumpDisplay = document.getElementById("jumpCooldown");
   if (jumpDisplay) {
-    if (jumpCooldownTimer > 0) { jumpDisplay.textContent = "JUMP COOLDOWN"; jumpDisplay.style.color = "#d44"; }
-    else if (!isGrounded) { jumpDisplay.textContent = "IN AIR"; jumpDisplay.style.color = "#88aaff"; }
-    else { jumpDisplay.textContent = "JUMP READY"; jumpDisplay.style.color = "#6f6"; }
+    if (jumpCooldownTimer > 0) {
+      jumpDisplay.textContent = "JUMP COOLDOWN";
+      jumpDisplay.style.color = "#d44";
+    } else if (!isGrounded) {
+      jumpDisplay.textContent = "IN AIR";
+      jumpDisplay.style.color = "#88aaff";
+    } else {
+      jumpDisplay.textContent = "JUMP READY";
+      jumpDisplay.style.color = "#6f6";
+    }
   }
 
   if (moving) {
@@ -2328,7 +3775,8 @@ function updatePlayer(dt) {
   const cj = Math.floor(camera.position.z / CELL);
   if (ci === exitCell.i && cj === exitCell.j) {
     if (isBossLevel && bossEnemy) return;
-    if (isHellMode && enemies.filter((e) => e.userData.isBoss).length > 0) return;
+    if (isHellMode && enemies.filter((e) => e.userData.isBoss).length > 0)
+      return;
     if (enemies.length === 0) onLevelClear();
     else {
       const objValEl = document.getElementById("objectiveVal");
@@ -2336,7 +3784,10 @@ function updatePlayer(dt) {
         objValEl.textContent = "DEFEAT ALL ENEMIES";
         objValEl.style.color = "#ff4444";
         setTimeout(() => {
-          objValEl.textContent = isBossLevel || isHellMode ? "DEFEAT THE BOSS(ES)" : "LOCATE EXIT PAD";
+          objValEl.textContent =
+            isBossLevel || isHellMode
+              ? "DEFEAT THE BOSS(ES)"
+              : "LOCATE EXIT PAD";
           objValEl.style.color = "#6f6";
         }, 1500);
       }
@@ -2357,11 +3808,15 @@ function tryAttack() {
     meleeCooldown = currentWeapon.fireRate;
     AudioSys.knife();
     if (gunGroup) gunGroup.position.z = 0.08;
-    setTimeout(() => { if (gunGroup) gunGroup.position.z = 0; }, 150);
+    setTimeout(() => {
+      if (gunGroup) gunGroup.position.z = 0;
+    }, 150);
 
     const attackRadius = currentWeapon.range || 2.0;
     const attackAngle = Math.PI / 3;
-    const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+    const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(
+      camera.quaternion,
+    );
     const origin = camera.position.clone();
 
     for (const enemy of enemies) {
@@ -2374,7 +3829,9 @@ function tryAttack() {
       let totalDamage = currentWeapon.damage + damageBonus;
 
       if (activePerks.includes("assassin")) {
-        const enemyForward = new THREE.Vector3(0, 0, 1).applyQuaternion(enemy.quaternion);
+        const enemyForward = new THREE.Vector3(0, 0, 1).applyQuaternion(
+          enemy.quaternion,
+        );
         const toEnemyDir = toEnemy.clone().normalize();
         if (enemyForward.dot(toEnemyDir) > 0.5) totalDamage *= 3;
       }
@@ -2382,14 +3839,22 @@ function tryAttack() {
       const isHeadshot = Math.random() < 0.3;
       const finalDamage = isHeadshot ? totalDamage * 2 : totalDamage;
       enemy.userData.hp -= finalDamage;
-      addDamageNumber(enemy.position, finalDamage, isHeadshot, enemy.userData.isBoss);
+      addDamageNumber(
+        enemy.position,
+        finalDamage,
+        isHeadshot,
+        enemy.userData.isBoss,
+      );
       if (enemy.userData.hp <= 0) killEnemy(enemy, isHeadshot);
       flashCrosshair(isHeadshot);
       AudioSys.hit();
     }
   } else {
     if (isReloading) return;
-    if (currentAmmo <= 0) { startReload(); return; }
+    if (currentAmmo <= 0) {
+      startReload();
+      return;
+    }
     if (!ammoReady) return;
 
     ammoReady = false;
@@ -2397,7 +3862,9 @@ function tryAttack() {
     AudioSys.shoot();
     if (gunGroup) gunGroup.position.z = 0.12;
     applyScreenShake(0.3);
-    setTimeout(() => { if (gunGroup) gunGroup.position.z = 0; }, 100);
+    setTimeout(() => {
+      if (gunGroup) gunGroup.position.z = 0;
+    }, 100);
 
     currentAmmo--;
     updateAmmoDisplay();
@@ -2405,8 +3872,10 @@ function tryAttack() {
     const damageBonus = getDamageBonus();
     let totalDamage = currentWeapon.damage + damageBonus;
 
-    if (activePerks.includes("berserker") && health < getMaxHealth() * 0.3) totalDamage *= 1.3;
-    if (activePerks.includes("demo") && currentWeapon.weaponType === "heavy") totalDamage *= 1.5;
+    if (activePerks.includes("berserker") && health < getMaxHealth() * 0.3)
+      totalDamage *= 1.3;
+    if (activePerks.includes("demo") && currentWeapon.weaponType === "heavy")
+      totalDamage *= 1.5;
 
     const spread = currentWeapon.spread || 0.02;
     const randX = (Math.random() - 0.5) * spread;
@@ -2422,7 +3891,10 @@ function tryAttack() {
       for (const hit of hits) {
         let obj = hit.object;
         while (obj && !obj.userData.isEnemy && obj.parent) obj = obj.parent;
-        if (obj && obj.userData.isEnemy) { hitEnemyRoot = obj; break; }
+        if (obj && obj.userData.isEnemy) {
+          hitEnemyRoot = obj;
+          break;
+        }
         if (obj && obj.userData.isWall) break;
       }
       if (hitEnemyRoot) {
@@ -2437,11 +3909,17 @@ function tryAttack() {
         }
         if (enemy.userData.isBoss) damage *= 0.7;
         enemy.userData.hp -= damage;
-        addDamageNumber(enemy.position, damage, isHeadshot, enemy.userData.isBoss);
+        addDamageNumber(
+          enemy.position,
+          damage,
+          isHeadshot,
+          enemy.userData.isBoss,
+        );
         if (enemy.userData.hp <= 0) {
           killEnemy(enemy, isHeadshot);
           flashCrosshair(isHeadshot);
-          if (isHeadshot) AudioSys.headshot(); else AudioSys.hit();
+          if (isHeadshot) AudioSys.headshot();
+          else AudioSys.hit();
         } else {
           flashCrosshair(isHeadshot);
           AudioSys.hit();
@@ -2460,15 +3938,25 @@ function tryHeavyAttack() {
 
   meleeCooldown = currentWeapon.fireRate * 1.5;
   AudioSys.heavyKnife();
-  if (gunGroup) { gunGroup.position.z = 0.15; gunGroup.rotation.x = -0.3; }
+  if (gunGroup) {
+    gunGroup.position.z = 0.15;
+    gunGroup.rotation.x = -0.3;
+  }
   applyScreenShake(0.4);
-  setTimeout(() => { if (gunGroup) { gunGroup.position.z = 0; gunGroup.rotation.x = 0; } }, 300);
+  setTimeout(() => {
+    if (gunGroup) {
+      gunGroup.position.z = 0;
+      gunGroup.rotation.x = 0;
+    }
+  }, 300);
 
   const damageBonus = getDamageBonus();
   let totalDamage = (currentWeapon.damage + damageBonus) * 1.5;
   const attackRadius = (currentWeapon.range || 2.0) * 1.2;
   const attackAngle = Math.PI / 2;
-  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(
+    camera.quaternion,
+  );
   const origin = camera.position.clone();
 
   for (const enemy of enemies) {
@@ -2480,7 +3968,11 @@ function tryHeavyAttack() {
     const dmg = isHeadshot ? totalDamage * 2 : totalDamage;
     enemy.userData.hp -= dmg;
     addDamageNumber(enemy.position, dmg, isHeadshot, enemy.userData.isBoss);
-    if (enemy.userData.hp <= 0) { killEnemy(enemy, isHeadshot); flashCrosshair(isHeadshot); AudioSys.hit(); }
+    if (enemy.userData.hp <= 0) {
+      killEnemy(enemy, isHeadshot);
+      flashCrosshair(isHeadshot);
+      AudioSys.hit();
+    }
   }
 }
 
@@ -2500,25 +3992,41 @@ function killEnemy(mesh, isHeadshot) {
   totalKillsThisRun++;
   stats.totalKills++;
   if (isBoss) stats.bossesDefeated++;
-  if (isHeadshot) { headshots++; stats.headshots++; }
+  if (isHeadshot) {
+    headshots++;
+    stats.headshots++;
+  }
 
   if (!currentWeapon.isMelee) addWeaponXP(isBoss ? 50 : 10);
 
   if (loot.items && loot.items.length > 0) {
     loot.items.forEach((itemId) => {
       const tool = tools.find((t) => t.id === itemId);
-      if (tool) { tool.owned = true; showMessage("Found " + tool.name); useTool(itemId); }
+      if (tool) {
+        tool.owned = true;
+        showMessage("Found " + tool.name);
+        useTool(itemId);
+      }
     });
   }
 
-  const monsterName = mesh.userData.isBoss ? "BOSS" : (mesh.userData.type ? mesh.userData.type.toUpperCase() : "MONSTER");
+  const monsterName = mesh.userData.isBoss
+    ? "BOSS"
+    : mesh.userData.type
+      ? mesh.userData.type.toUpperCase()
+      : "MONSTER";
   addKillFeed(monsterName, isHeadshot, isBoss);
   addMoneyPopup(earned, mesh.position);
   AudioSys.money();
 
   let gainedStatPoint = false;
-  if (isBoss) { statPoints += 2; gainedStatPoint = true; }
-  else if (Math.random() < 0.02 + getLuckBonus()) { statPoints++; gainedStatPoint = true; }
+  if (isBoss) {
+    statPoints += 2;
+    gainedStatPoint = true;
+  } else if (Math.random() < 0.02 + getLuckBonus()) {
+    statPoints++;
+    gainedStatPoint = true;
+  }
 
   const scoreValEl = document.getElementById("scoreVal");
   const moneyValEl = document.getElementById("moneyVal");
@@ -2576,7 +4084,8 @@ function renderShop(tab) {
     });
     Object.keys(groups).forEach((group) => {
       const groupDiv = document.createElement("div");
-      groupDiv.style.cssText = "width:100%;text-align:center;color:#7a5a3a;font-size:10px;letter-spacing:3px;margin:4px 0;";
+      groupDiv.style.cssText =
+        "width:100%;text-align:center;color:#7a5a3a;font-size:10px;letter-spacing:3px;margin:4px 0;";
       groupDiv.textContent = "--- " + group.toUpperCase() + " ---";
       container.appendChild(groupDiv);
       groups[group].forEach((w) => {
@@ -2584,15 +4093,30 @@ function renderShop(tab) {
         div.className = "shop-item";
         const owned = w.owned ? (w.equipped ? " EQUIPPED" : " OWNED") : "";
         div.innerHTML =
-          '<div class="name">' + w.name + (w.mastered ? " MASTERED" : "") + '</div>' +
-          '<div class="price">' + (w.price === 0 ? "FREE" : w.price) + '</div>' +
-          '<div class="owned">' + owned + '</div>' +
-          '<div class="stats">DMG:' + w.damage + ' | AMMO:' + (w.isMelee ? "\u2014" : w.maxAmmo) + '</div>' +
-          '<div class="desc">' + w.desc + '</div>';
+          '<div class="name">' +
+          w.name +
+          (w.mastered ? " MASTERED" : "") +
+          "</div>" +
+          '<div class="price">' +
+          (w.price === 0 ? "FREE" : w.price) +
+          "</div>" +
+          '<div class="owned">' +
+          owned +
+          "</div>" +
+          '<div class="stats">DMG:' +
+          w.damage +
+          " | AMMO:" +
+          (w.isMelee ? "\u2014" : w.maxAmmo) +
+          "</div>" +
+          '<div class="desc">' +
+          w.desc +
+          "</div>";
         div.style.cursor = "pointer";
         div.addEventListener("click", () => {
           if (w.owned) {
-            WEAPONS.forEach((we) => { we.equipped = false; });
+            WEAPONS.forEach((we) => {
+              we.equipped = false;
+            });
             w.equipped = true;
             currentWeapon = w;
             currentAmmo = w.isMelee ? 0 : getMaxAmmoForWeapon(w);
@@ -2613,7 +4137,9 @@ function renderShop(tab) {
           } else if (money >= w.price) {
             money -= w.price;
             w.owned = true;
-            WEAPONS.forEach((we) => { we.equipped = false; });
+            WEAPONS.forEach((we) => {
+              we.equipped = false;
+            });
             w.equipped = true;
             currentWeapon = w;
             currentAmmo = w.isMelee ? 0 : getMaxAmmoForWeapon(w);
@@ -2643,10 +4169,18 @@ function renderShop(tab) {
       const div = document.createElement("div");
       div.className = "shop-item";
       div.innerHTML =
-        '<div class="name">' + t.name + '</div>' +
-        '<div class="price">' + t.price + '</div>' +
-        '<div class="desc">' + t.desc + '</div>' +
-        '<div style="font-size:10px;color:#7a8a9a;">' + (t.owned ? "OWNED" : "") + '</div>';
+        '<div class="name">' +
+        t.name +
+        "</div>" +
+        '<div class="price">' +
+        t.price +
+        "</div>" +
+        '<div class="desc">' +
+        t.desc +
+        "</div>" +
+        '<div style="font-size:10px;color:#7a8a9a;">' +
+        (t.owned ? "OWNED" : "") +
+        "</div>";
       div.style.cursor = "pointer";
       div.addEventListener("click", () => {
         if (t.owned) useTool(t.id);
@@ -2668,11 +4202,23 @@ function renderShop(tab) {
       const div = document.createElement("div");
       div.className = "shop-item";
       div.innerHTML =
-        '<div class="name">' + stat.label + '</div>' +
-        '<div class="level">Level ' + lvl + '/' + stat.max + '</div>' +
-        '<div class="price">' + stat.cost + ' SP</div>' +
-        '<div class="stats">Bonus: +' + (stat.bonus * lvl).toFixed(2) + '</div>' +
-        '<div style="font-size:8px;color:#7a8a9a;">' + (maxed ? "MAXED" : "Click to upgrade") + '</div>';
+        '<div class="name">' +
+        stat.label +
+        "</div>" +
+        '<div class="level">Level ' +
+        lvl +
+        "/" +
+        stat.max +
+        "</div>" +
+        '<div class="price">' +
+        stat.cost +
+        " SP</div>" +
+        '<div class="stats">Bonus: +' +
+        (stat.bonus * lvl).toFixed(2) +
+        "</div>" +
+        '<div style="font-size:8px;color:#7a8a9a;">' +
+        (maxed ? "MAXED" : "Click to upgrade") +
+        "</div>";
       div.style.cursor = maxed ? "default" : "pointer";
       div.style.opacity = maxed ? 0.5 : 1;
       if (!maxed) {
@@ -2682,7 +4228,10 @@ function renderShop(tab) {
             playerStatLevels[statKey]++;
             const spv = document.getElementById("statPointsVal");
             if (spv) spv.textContent = statPoints;
-            if (statKey === "health") { health = getMaxHealth(); renderHealthBar(); }
+            if (statKey === "health") {
+              health = getMaxHealth();
+              renderHealthBar();
+            }
             if (statKey === "ammo" && !currentWeapon.isMelee) {
               currentAmmo = getMaxAmmoForWeapon(currentWeapon);
               updateAmmoDisplay();
@@ -2702,16 +4251,28 @@ function renderShop(tab) {
       const div = document.createElement("div");
       div.className = "shop-item";
       div.innerHTML =
-        '<div class="name">' + perk.name + '</div>' +
-        '<div class="price">' + perk.cost + ' SP</div>' +
-        '<div class="perk-desc">' + perk.desc + '</div>' +
+        '<div class="name">' +
+        perk.name +
+        "</div>" +
+        '<div class="price">' +
+        perk.cost +
+        " SP</div>" +
+        '<div class="perk-desc">' +
+        perk.desc +
+        "</div>" +
         '<div style="font-size:8px;color:#7a8a9a;margin-top:4px;">' +
-        (owned ? "EQUIPPED" : canAfford ? "Click to unlock" : "Not enough points") +
-        '</div>';
+        (owned
+          ? "EQUIPPED"
+          : canAfford
+            ? "Click to unlock"
+            : "Not enough points") +
+        "</div>";
       div.style.cursor = owned ? "default" : "pointer";
       div.style.opacity = owned ? 0.6 : 1;
       if (!owned) {
-        div.addEventListener("click", () => { if (applyPerk(perkId)) renderShop(tab); });
+        div.addEventListener("click", () => {
+          if (applyPerk(perkId)) renderShop(tab);
+        });
       }
       container.appendChild(div);
     });
@@ -2766,29 +4327,50 @@ function saveGame() {
   try {
     const saveData = {
       version: SAVE_VERSION,
-      score, level, money, health, sanity,
+      score,
+      level,
+      money,
+      health,
+      sanity,
       difficulty: currentDifficulty,
-      weapons: WEAPONS.map((w) => ({ id: w.id, owned: w.owned, equipped: w.equipped, xp: w.xp, level: w.level, mastered: w.mastered })),
+      weapons: WEAPONS.map((w) => ({
+        id: w.id,
+        owned: w.owned,
+        equipped: w.equipped,
+        xp: w.xp,
+        level: w.level,
+        mastered: w.mastered,
+      })),
       weaponIndex: WEAPONS.indexOf(currentWeapon),
       tools: tools.map((t) => ({ id: t.id, owned: t.owned })),
       shield: shieldAmount,
-      stats, statPoints,
+      stats,
+      statPoints,
       playerStats: playerStatLevels,
       ammo: currentAmmo,
-      headshots, dodges,
-      unlockedDifficulties, highestLevelCleared, weaponMastered,
+      headshots,
+      dodges,
+      unlockedDifficulties,
+      highestLevelCleared,
+      weaponMastered,
       activePerks,
-      playtime, grenadesThrown, hordesSummoned,
+      playtime,
+      grenadesThrown,
+      hordesSummoned,
       timestamp: Date.now(),
     };
     localStorage.setItem("bunker9_save", JSON.stringify(saveData));
     const sn = document.getElementById("saveNotify");
     if (sn) {
       sn.style.display = "block";
-      setTimeout(() => { sn.style.display = "none"; }, 1500);
+      setTimeout(() => {
+        sn.style.display = "none";
+      }, 1500);
     }
     return true;
-  } catch (e) { return false; }
+  } catch (e) {
+    return false;
+  }
 }
 
 function loadSave() {
@@ -2801,9 +4383,12 @@ function loadSave() {
       localStorage.removeItem("bunker9_save");
       return null;
     }
-    if (typeof data.score !== "number" || typeof data.level !== "number") return null;
+    if (typeof data.score !== "number" || typeof data.level !== "number")
+      return null;
     return data;
-  } catch (e) { return null; }
+  } catch (e) {
+    return null;
+  }
 }
 
 function applySave(data) {
@@ -2822,7 +4407,8 @@ function applySave(data) {
   playtime = data.playtime || 0;
   grenadesThrown = data.grenadesThrown || 0;
   hordesSummoned = data.hordesSummoned || 0;
-  if (data.unlockedDifficulties) unlockedDifficulties = data.unlockedDifficulties;
+  if (data.unlockedDifficulties)
+    unlockedDifficulties = data.unlockedDifficulties;
   if (data.highestLevelCleared) highestLevelCleared = data.highestLevelCleared;
   if (data.playerStats) playerStatLevels = data.playerStats;
   if (data.stats) stats = data.stats;
@@ -2842,17 +4428,26 @@ function applySave(data) {
         w.mastered = saveW.mastered || false;
       }
     });
-    if (data.weaponIndex !== undefined && data.weaponIndex >= 0 && data.weaponIndex < WEAPONS.length) {
+    if (
+      data.weaponIndex !== undefined &&
+      data.weaponIndex >= 0 &&
+      data.weaponIndex < WEAPONS.length
+    ) {
       const w = WEAPONS[data.weaponIndex];
       if (w && w.owned) {
         currentWeapon = w;
-        WEAPONS.forEach((we) => { we.equipped = we === w; });
+        WEAPONS.forEach((we) => {
+          we.equipped = we === w;
+        });
       }
     }
     const equipped = WEAPONS.find((w) => w.equipped);
     if (!equipped) {
       const firstOwned = WEAPONS.find((w) => w.owned);
-      if (firstOwned) { firstOwned.equipped = true; currentWeapon = firstOwned; }
+      if (firstOwned) {
+        firstOwned.equipped = true;
+        currentWeapon = firstOwned;
+      }
     }
   }
   if (data.tools) {
@@ -2861,7 +4456,10 @@ function applySave(data) {
       if (t) t.owned = saveT.owned;
     });
   }
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const set = (id, v) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = v;
+  };
   set("scoreVal", score);
   set("moneyVal", money);
   set("levelVal", level);
@@ -2895,10 +4493,15 @@ function checkDifficultyUnlocks() {
     const diff = order[i];
     const info = DIFFICULTY_UNLOCKS[diff];
     if (info.require && info.requireLevel) {
-      if (unlockedDifficulties.includes(info.require) && highestLevelCleared >= info.requireLevel) {
+      if (
+        unlockedDifficulties.includes(info.require) &&
+        highestLevelCleared >= info.requireLevel
+      ) {
         if (!unlockedDifficulties.includes(diff)) {
           unlockedDifficulties.push(diff);
-          unlockedDifficulties.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+          unlockedDifficulties.sort(
+            (a, b) => order.indexOf(a) - order.indexOf(b),
+          );
         }
       }
     }
@@ -2912,7 +4515,9 @@ function updateDifficultyButtons() {
     const diff = btn.dataset.diff;
     const isUnlocked = unlockedDifficulties.includes(diff);
     btn.classList.toggle("locked", !isUnlocked);
-    btn.innerHTML = isUnlocked ? DIFFICULTY_UNLOCKS[diff].label : DIFFICULTY_UNLOCKS[diff].label + " [L]";
+    btn.innerHTML = isUnlocked
+      ? DIFFICULTY_UNLOCKS[diff].label
+      : DIFFICULTY_UNLOCKS[diff].label + " [L]";
     if (currentDifficulty === diff && !isUnlocked) {
       currentDifficulty = "easy";
       diffConfig = DIFFICULTIES.easy;
@@ -2929,11 +4534,20 @@ function updateUnlockInfo() {
   const order = ["easy", "medium", "hard", "extreme", "impossible", "hell"];
   let nextDiff = null;
   for (const diff of order) {
-    if (!unlockedDifficulties.includes(diff)) { nextDiff = diff; break; }
+    if (!unlockedDifficulties.includes(diff)) {
+      nextDiff = diff;
+      break;
+    }
   }
   if (nextDiff) {
     const ui = DIFFICULTY_UNLOCKS[nextDiff];
-    info.textContent = "Complete " + ui.requireLevel + " levels on " + ui.require.toUpperCase() + " to unlock " + ui.label;
+    info.textContent =
+      "Complete " +
+      ui.requireLevel +
+      " levels on " +
+      ui.require.toUpperCase() +
+      " to unlock " +
+      ui.label;
   } else {
     info.textContent = "All difficulties unlocked!";
   }
@@ -2955,14 +4569,22 @@ class TouchController {
     const touchLeft = document.getElementById("touchLeft");
     if (!touchLeft) return;
 
-    const startJoy = (e) => { e.preventDefault(); this.isTouching = true; this.handleJoystick(e); };
-    const moveJoy = (e) => { e.preventDefault(); if (this.isTouching) this.handleJoystick(e); };
+    const startJoy = (e) => {
+      e.preventDefault();
+      this.isTouching = true;
+      this.handleJoystick(e);
+    };
+    const moveJoy = (e) => {
+      e.preventDefault();
+      if (this.isTouching) this.handleJoystick(e);
+    };
     const endJoy = (e) => {
       e.preventDefault();
       this.isTouching = false;
       this.joystick.x = 0;
       this.joystick.y = 0;
-      if (this.joystickHandle) this.joystickHandle.style.transform = "translate(-50%, -50%)";
+      if (this.joystickHandle)
+        this.joystickHandle.style.transform = "translate(-50%, -50%)";
     };
 
     touchLeft.addEventListener("pointerdown", startJoy);
@@ -2974,7 +4596,11 @@ class TouchController {
     const bindButton = (id, fn) => {
       const el = document.getElementById(id);
       if (!el) return;
-      const handler = (e) => { e.preventDefault(); e.stopPropagation(); fn(); };
+      const handler = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        fn();
+      };
       el.addEventListener("pointerdown", handler);
     };
 
@@ -3002,7 +4628,11 @@ class TouchController {
     this.joystick.x = dx / maxDist;
     this.joystick.y = dy / maxDist;
     this.joystickHandle.style.transform =
-      "translate(" + (-50 + (dx / maxDist) * 50) + "%, " + (-50 + (dy / maxDist) * 50) + "%)";
+      "translate(" +
+      (-50 + (dx / maxDist) * 50) +
+      "%, " +
+      (-50 + (dy / maxDist) * 50) +
+      "%)";
   }
 
   getMovement() {
@@ -3012,7 +4642,10 @@ class TouchController {
 }
 
 function initMobile() {
-  isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  isMobile =
+    /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    ) || window.innerWidth <= 768;
   if (isMobile) {
     const mc = document.getElementById("mobileControls");
     if (mc) mc.style.display = "block";
@@ -3060,17 +4693,30 @@ function startGame(loadSaveData) {
   grenadesThrown = 0;
   hordesSummoned = 0;
   activePerks = [];
-  WEAPONS.forEach((w) => { w.owned = false; w.equipped = false; w.xp = 0; w.level = 1; w.mastered = false; });
+  WEAPONS.forEach((w) => {
+    w.owned = false;
+    w.equipped = false;
+    w.xp = 0;
+    w.level = 1;
+    w.mastered = false;
+  });
   WEAPONS[0].owned = true;
   WEAPONS[0].equipped = true;
   currentWeapon = WEAPONS[0];
   currentAmmo = 0;
-  tools.forEach((t) => { t.owned = false; });
-  Object.keys(PLAYER_STATS).forEach((key) => { playerStatLevels[key] = 0; });
+  tools.forEach((t) => {
+    t.owned = false;
+  });
+  Object.keys(PLAYER_STATS).forEach((key) => {
+    playerStatLevels[key] = 0;
+  });
   stats.grenadesThrown = 0;
   stats.hordesSummoned = 0;
 
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const set = (id, v) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = v;
+  };
   set("scoreVal", score);
   set("moneyVal", money);
   set("objectiveVal", "LOCATE EXIT PAD");
@@ -3111,7 +4757,8 @@ function onLevelClear() {
   const bonus = isBossLevel || isHellMode ? 500 : 100;
   money += bonus;
   stats.totalMoney += bonus;
-  const scoreBonus = Math.round(isBossLevel || isHellMode ? 1000 : 200) * diffConfig.scoreMult;
+  const scoreBonus =
+    Math.round(isBossLevel || isHellMode ? 1000 : 200) * diffConfig.scoreMult;
   score += scoreBonus;
   stats.totalScore += scoreBonus;
   if (level > stats.highestLevel) stats.highestLevel = level;
@@ -3122,7 +4769,9 @@ function onLevelClear() {
   const ct = document.getElementById("clearTitle");
   if (mv) mv.textContent = money;
   if (cs) cs.textContent = score;
-  if (ct) ct.textContent = isBossLevel || isHellMode ? "BOSS DEFEATED" : "SECTOR PURGED";
+  if (ct)
+    ct.textContent =
+      isBossLevel || isHellMode ? "BOSS DEFEATED" : "SECTOR PURGED";
   document.getElementById("clearScreen").style.display = "flex";
   updateStatsUI();
   saveGame();
@@ -3182,7 +4831,8 @@ function goToMenu() {
 function animate() {
   requestAnimationFrame(animate);
   if (!gameActive || gamePaused) {
-    if (gameActive && gamePaused && scene && camera) renderer.render(scene, camera);
+    if (gameActive && gamePaused && scene && camera)
+      renderer.render(scene, camera);
     return;
   }
   const dt = Math.min(clock.getDelta(), 0.06);
@@ -3204,15 +4854,20 @@ function animate() {
 
   if (shootCooldown > 0) {
     shootCooldown -= dt;
-    if (shootCooldown <= 0) { ammoReady = true; updateAmmoDisplay(); }
+    if (shootCooldown <= 0) {
+      ammoReady = true;
+      updateAmmoDisplay();
+    }
   }
   if (flareCooldown > 0) flareCooldown -= dt;
 
-  if (gunGroup && gunGroup.position.z > 0) gunGroup.position.z += (0 - gunGroup.position.z) * 0.1;
+  if (gunGroup && gunGroup.position.z > 0)
+    gunGroup.position.z += (0 - gunGroup.position.z) * 0.1;
 
   if (hitFlashTimer > 0) {
     hitFlashTimer -= dt;
-    document.body.style.boxShadow = "inset 0 0 120px rgba(255,0,0," + (hitFlashTimer * 2).toFixed(2) + ")";
+    document.body.style.boxShadow =
+      "inset 0 0 120px rgba(255,0,0," + (hitFlashTimer * 2).toFixed(2) + ")";
   } else {
     document.body.style.boxShadow = "none";
   }
@@ -3232,17 +4887,30 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "r" || e.key === "R") toggleFlashlight();
   if (e.key === "f" || e.key === "F") tryFlare();
   if (e.key === "g" || e.key === "G") throwGrenade();
-  if (e.key === " " && gameActive && !gamePaused) { e.preventDefault(); tryJump(); }
+  if (e.key === " " && gameActive && !gamePaused) {
+    e.preventDefault();
+    tryJump();
+  }
   if (e.key === "c" || e.key === "C") toggleCrouch();
   if (e.key === "q" || e.key === "Q") toggleWeaponInspect();
-  if ((e.key === "Escape" || e.key === "p" || e.key === "P") && gameActive && !gamePaused) togglePause();
+  if (
+    (e.key === "Escape" || e.key === "p" || e.key === "P") &&
+    gameActive &&
+    !gamePaused
+  )
+    togglePause();
 });
 
-document.addEventListener("keyup", (e) => { keys[e.key] = false; });
+document.addEventListener("keyup", (e) => {
+  keys[e.key] = false;
+});
 
 canvas.addEventListener("click", () => {
   if (!gameActive) return;
-  if (!pointerLocked && !isMobile) { canvas.requestPointerLock(); return; }
+  if (!pointerLocked && !isMobile) {
+    canvas.requestPointerLock();
+    return;
+  }
   if (!gamePaused && !isMobile) tryAttack();
 });
 
@@ -3278,7 +4946,9 @@ document.querySelectorAll("#difficultyRow .menu-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const diff = btn.dataset.diff;
     if (!unlockedDifficulties.includes(diff)) return;
-    document.querySelectorAll("#difficultyRow .menu-btn").forEach((b) => b.classList.remove("active-mode"));
+    document
+      .querySelectorAll("#difficultyRow .menu-btn")
+      .forEach((b) => b.classList.remove("active-mode"));
     btn.classList.add("active-mode");
     currentDifficulty = diff;
     diffConfig = DIFFICULTIES[diff];
@@ -3288,7 +4958,10 @@ document.querySelectorAll("#difficultyRow .menu-btn").forEach((btn) => {
 
 document.getElementById("startGameBtn").addEventListener("click", () => {
   const saveData = loadSave();
-  if (saveData && confirm("Continue from saved game?")) { startGame(saveData); return; }
+  if (saveData && confirm("Continue from saved game?")) {
+    startGame(saveData);
+    return;
+  }
   startGame();
 });
 
@@ -3300,8 +4973,12 @@ document.getElementById("continueBtn").addEventListener("click", () => {
 
 document.getElementById("retryBtn").addEventListener("click", restartGame);
 document.getElementById("nextBtn").addEventListener("click", nextLevel);
-document.getElementById("resumeBtn").addEventListener("click", () => { if (gamePaused) togglePause(); });
-document.getElementById("saveBtn").addEventListener("click", () => { if (gameActive) saveGame(); });
+document.getElementById("resumeBtn").addEventListener("click", () => {
+  if (gamePaused) togglePause();
+});
+document.getElementById("saveBtn").addEventListener("click", () => {
+  if (gameActive) saveGame();
+});
 document.getElementById("quitToMenuBtn").addEventListener("click", goToMenu);
 
 document.querySelectorAll(".shop-tab").forEach((tab) => {
@@ -3326,7 +5003,8 @@ document.getElementById("shopFromPauseBtn").addEventListener("click", () => {
 
 document.getElementById("shopClose").addEventListener("click", () => {
   document.getElementById("shopMenu").style.display = "none";
-  if (gameActive && gamePaused) document.getElementById("pauseMenu").style.display = "flex";
+  if (gameActive && gamePaused)
+    document.getElementById("pauseMenu").style.display = "flex";
   const mv = document.getElementById("moneyVal");
   if (mv) mv.textContent = money;
 });
@@ -3344,26 +5022,31 @@ document.getElementById("statsFromPauseBtn").addEventListener("click", () => {
 
 document.getElementById("statsClose").addEventListener("click", () => {
   document.getElementById("statsPanel").style.display = "none";
-  if (gameActive && gamePaused) document.getElementById("pauseMenu").style.display = "flex";
+  if (gameActive && gamePaused)
+    document.getElementById("pauseMenu").style.display = "flex";
 });
 
 document.getElementById("settingsMenuBtn").addEventListener("click", () => {
   document.getElementById("settingsMenu").style.display = "flex";
 });
 
-document.getElementById("settingsFromPauseBtn").addEventListener("click", () => {
-  document.getElementById("pauseMenu").style.display = "none";
-  document.getElementById("settingsMenu").style.display = "flex";
-});
+document
+  .getElementById("settingsFromPauseBtn")
+  .addEventListener("click", () => {
+    document.getElementById("pauseMenu").style.display = "none";
+    document.getElementById("settingsMenu").style.display = "flex";
+  });
 
 document.getElementById("settingsClose").addEventListener("click", () => {
   document.getElementById("settingsMenu").style.display = "none";
-  if (gameActive && gamePaused) document.getElementById("pauseMenu").style.display = "flex";
+  if (gameActive && gamePaused)
+    document.getElementById("pauseMenu").style.display = "flex";
 });
 
 document.getElementById("sensitivitySlider").addEventListener("input", (e) => {
   mouseSensitivity = parseFloat(e.target.value);
-  document.getElementById("sensitivityValue").textContent = mouseSensitivity.toFixed(1);
+  document.getElementById("sensitivityValue").textContent =
+    mouseSensitivity.toFixed(1);
 });
 
 document.getElementById("invertToggle").addEventListener("click", () => {
@@ -3374,8 +5057,12 @@ document.getElementById("invertToggle").addEventListener("click", () => {
 
 document.getElementById("shakeToggle").addEventListener("click", () => {
   screenShakeEnabled = !screenShakeEnabled;
-  document.getElementById("shakeToggle").textContent = screenShakeEnabled ? "ON" : "OFF";
-  document.getElementById("shakeToggle").classList.toggle("active", screenShakeEnabled);
+  document.getElementById("shakeToggle").textContent = screenShakeEnabled
+    ? "ON"
+    : "OFF";
+  document
+    .getElementById("shakeToggle")
+    .classList.toggle("active", screenShakeEnabled);
 });
 
 const fovSlider = document.getElementById("fovSlider");
@@ -3385,7 +5072,10 @@ if (fovSlider && fovValue) {
     const v = parseFloat(e.target.value);
     fovValue.textContent = v;
     currentFov = v;
-    if (camera) { camera.fov = v; camera.updateProjectionMatrix(); }
+    if (camera) {
+      camera.fov = v;
+      camera.updateProjectionMatrix();
+    }
   });
 }
 
@@ -3409,7 +5099,10 @@ animate();
 /* Single-line banner; set DEBUG to true to see full info */
 const DEBUG = false;
 if (DEBUG) {
-  console.log("%cBUNKER-9 :: DELIRIUM SWEEP", "color:#f0b060;font-weight:bold;font-size:14px");
+  console.log(
+    "%cBUNKER-9 :: DELIRIUM SWEEP",
+    "color:#f0b060;font-weight:bold;font-size:14px",
+  );
   console.log("Map types:", Object.keys(MAP_TYPES).join(", "));
   console.log("Weapons:", WEAPONS.length);
   console.log("Enemy types:", enemyTypes.map((e) => e.id).join(", "));
